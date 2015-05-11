@@ -15,9 +15,11 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('pad/list', 'PadFormController@index');
+Route::get('pad', 'PadFormController@index');
 
 Route::get('pad/create', 'PadFormController@create');
+
+Route::post('pad/create', 'PadFormController@store');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

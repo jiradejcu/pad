@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\PadRecord;
 
 class PadFormController extends Controller {
 
@@ -14,7 +15,8 @@ class PadFormController extends Controller {
 	 */
 	public function index()
 	{
-		return 'pad list';
+		$padRecordList = PadRecord::all();
+		return view('pad.index', compact('padRecordList'));
 	}
 
 	/**
@@ -24,7 +26,7 @@ class PadFormController extends Controller {
 	 */
 	public function create()
 	{
-		return 'create form';
+		return view('pad.create');
 	}
 
 	/**
@@ -34,7 +36,9 @@ class PadFormController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		$input = Request::all();
+		
+		return $input;
 	}
 
 	/**
