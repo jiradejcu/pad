@@ -1,9 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\CreatePadRequest;
 use App\Http\Controllers\Controller;
-
-use Request;
 use App\PadRecord;
 
 class PadController extends Controller {
@@ -34,10 +32,9 @@ class PadController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreatePadRequest $request)
 	{
-		$input = Request::all();
-		PadRecord::create($input);
+		PadRecord::create($request);
 		return redirect('pad');
 	}
 
