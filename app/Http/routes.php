@@ -15,6 +15,12 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('patient', 'PatientController@index');
+
+Route::get('patient/create', 'PatientController@create');
+
+Route::post('patient/create', 'PatientController@store');
+
 Route::get('pad', 'PadFormController@index');
 
 Route::get('pad/create', 'PadFormController@create');

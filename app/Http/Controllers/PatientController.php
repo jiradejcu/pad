@@ -4,9 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Request;
-use App\PadRecord;
+use App\Patient;
 
-class PadFormController extends Controller {
+class PatientController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PadFormController extends Controller {
 	 */
 	public function index()
 	{
-		$padRecordList = PadRecord::oldest('admission_id')->get();
-		return view('pad.index', compact('padRecordList'));
+		$patientList = Patient::all();
+		return view('patient.index', compact('patientList'));
 	}
 
 	/**
@@ -26,7 +26,7 @@ class PadFormController extends Controller {
 	 */
 	public function create()
 	{
-		return view('pad.create');
+		return view('patient.create');
 	}
 
 	/**
@@ -37,8 +37,8 @@ class PadFormController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-		PadRecord::create($input);
-		return redirect('pad');
+		Patient::create($input);
+		return redirect('patient');
 	}
 
 	/**
