@@ -21,11 +21,11 @@ Route::get('patient/create', 'PatientController@create');
 
 Route::post('patient/create', 'PatientController@store');
 
-Route::get('pad', 'PadFormController@index');
+Route::get('pad', 'PadController@index');
 
-Route::get('pad/create', 'PadFormController@create');
+Route::get('pad/create', 'PadController@create');
 
-Route::post('pad/create', 'PadFormController@store');
+Route::post('pad/create', 'PadController@store');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

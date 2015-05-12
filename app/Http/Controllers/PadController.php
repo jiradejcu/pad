@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use App\PadRecord;
 
-class PadFormController extends Controller {
+class PadController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
