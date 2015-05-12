@@ -34,7 +34,7 @@ class PadController extends Controller {
 	 */
 	public function store(CreatePadRequest $request)
 	{
-		PadRecord::create($request);
+		PadRecord::create($request->all());
 		return redirect('pad');
 	}
 
