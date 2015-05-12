@@ -7,8 +7,15 @@
 	
 	{!! Form::open() !!}
 		<div class="form-group">
-			{!! Form::label('name', 'Name :') !!}
-			{!! Form::text('name', null, ['class' => 'form-control']) !!}
+			{!! Form::hidden('admission_id', 1)!!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('day', 'Day :') !!}
+			{!! Form::text('day', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('data1', 'Data1 :') !!}
+			{!! Form::text('data1', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::submit('Add Record', ['class' => 'btn btn-primary form-control']) !!}

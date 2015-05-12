@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use Request;
 use App\PadRecord;
 
 class PadFormController extends Controller {
@@ -37,8 +37,8 @@ class PadFormController extends Controller {
 	public function store()
 	{
 		$input = Request::all();
-		
-		return $input;
+		PadRecord::create($input);
+		return redirect('pad');
 	}
 
 	/**
