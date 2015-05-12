@@ -15,17 +15,9 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('patient', 'PatientController@index');
+Route::resource('patient', 'PatientController');
 
-Route::get('patient/create', 'PatientController@create');
-
-Route::post('patient/create', 'PatientController@store');
-
-Route::get('pad', 'PadController@index');
-
-Route::get('pad/create', 'PadController@create');
-
-Route::post('pad/create', 'PadController@store');
+Route::resource('pad', 'PadController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

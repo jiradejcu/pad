@@ -5,7 +5,7 @@
 	
 	<hr/>
 	
-	{!! Form::open() !!}
+	{!! Form::open(['url'=>'patient']) !!}
 		<div class="form-group">
 			{!! Form::label('HN', 'HN :') !!}
 			{!! Form::text('HN', null, ['class' => 'form-control']) !!}
