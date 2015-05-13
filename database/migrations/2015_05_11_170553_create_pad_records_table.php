@@ -12,10 +12,13 @@ class CreatePadRecordsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('pad_records', function(Blueprint $table)
+		Schema::create('patient_pad_record', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->integer('admission_id');
+			$table->integer('day');
+			$table->string('data1');
 			$table->timestamps();
+			$table->primary(['admission_id','day']);
 		});
 	}
 
@@ -26,7 +29,7 @@ class CreatePadRecordsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('pad_records');
+		Schema::drop('patient_pad_record');
 	}
 
 }

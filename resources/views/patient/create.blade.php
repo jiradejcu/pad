@@ -21,5 +21,7 @@
 		<div class="form-group">
 			{!! Form::submit('Add Patient', ['class' => 'btn btn-primary form-control']) !!}
 		</div>
-	{!! Form::close() !!} 
+	{!! Form::close() !!}
+	
+	@include('error')
 @stop

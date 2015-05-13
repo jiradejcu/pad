@@ -12,10 +12,12 @@ class CreatePatientsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('patients', function(Blueprint $table)
+		Schema::create('patient', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
+			$table->integer('HN')->unsigned();
+			$table->string('firstname');
+			$table->string('lastname');
+			$table->primary('HN');
 		});
 	}
 
@@ -26,7 +28,7 @@ class CreatePatientsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('patients');
+		Schema::drop('patient');
 	}
 
 }

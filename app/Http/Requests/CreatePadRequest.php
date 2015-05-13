@@ -22,7 +22,7 @@ class CreatePadRequest extends Request {
 	public function rules()
 	{
 		return [
-			'day' => 'required|numeric',
+			'day' => 'required|numeric|unique:patient_pad_record',
 		];
 	}
 

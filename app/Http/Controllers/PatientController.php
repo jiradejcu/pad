@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Request;
+use Illuminate\Http\Request;
 use App\Patient;
 
 class PatientController extends Controller {
@@ -34,10 +34,11 @@ class PatientController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		$input = Request::all();
-		Patient::create($input);
+		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
+		$this->validate($request, $rules);
+		Patient::create($request->all());
 		return redirect('patient');
 	}
 

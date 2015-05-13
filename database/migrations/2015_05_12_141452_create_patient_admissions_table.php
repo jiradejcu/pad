@@ -12,10 +12,11 @@ class CreatePatientAdmissionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('patient_admissions', function(Blueprint $table)
+		Schema::create('patient_admission', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
+			$table->increments('admission_id');
+			$table->integer('HN')->unsigned();
+			$table->date('date');
 		});
 	}
 
@@ -26,7 +27,7 @@ class CreatePatientAdmissionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('patient_admissions');
+		Schema::drop('patient_admission');
 	}
 
 }
