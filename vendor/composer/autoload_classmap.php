@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreatePadRecordsTable' => $baseDir . '/database/migrations/2015_05_11_170553_create_pad_records_table.php',
+    'CreatePadRecordsTable' => $baseDir . '/database/migrations/2015_05_13_170553_create_pad_records_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePatientAdmissionsTable' => $baseDir . '/database/migrations/2015_05_12_141452_create_patient_admissions_table.php',
     'CreatePatientsTable' => $baseDir . '/database/migrations/2015_05_12_141306_create_patients_table.php',

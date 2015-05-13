@@ -17,6 +17,11 @@ class CreatePatientAdmissionsTable extends Migration {
 			$table->increments('admission_id');
 			$table->integer('HN')->unsigned();
 			$table->date('date');
+				
+			$table->foreign('HN')
+			->references('HN')
+			->on('patient')
+			->onDelete('cascade');
 		});
 	}
 

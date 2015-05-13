@@ -14,11 +14,16 @@ class CreatePadRecordsTable extends Migration {
 	{
 		Schema::create('patient_pad_record', function(Blueprint $table)
 		{
-			$table->integer('admission_id');
-			$table->integer('day');
+			$table->integer('admission_id')->unsigned();
+			$table->integer('day')->unsigned();
 			$table->string('data1');
 			$table->timestamps();
+			
 			$table->primary(['admission_id','day']);
+			$table->foreign('admission_id')
+			->references('admission_id')
+			->on('patient_admission')
+			->onDelete('cascade');
 		});
 	}
 
