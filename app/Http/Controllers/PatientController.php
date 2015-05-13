@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Patient;
+use App\PatientAdmission;
+use Carbon\Carbon;
 
 class PatientController extends Controller {
 
@@ -39,6 +41,8 @@ class PatientController extends Controller {
 		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
 		$this->validate($request, $rules);
 		Patient::create($request->all());
+		$patient = Patient::find($request->input('HN'));
+		$patientAdmission = PatientAdmission::create(['HN' => $patient->HN, 'date' => Carbon::now()]);
 		return redirect('patient');
 	}
 
