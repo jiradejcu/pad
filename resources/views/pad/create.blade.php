@@ -7,7 +7,7 @@
 	
 	{!! Form::open(['url'=>'pad']) !!}
 		<div class="form-group">
-			{!! Form::hidden('admission_id', 1)!!}
+			{!! Form::hidden('admission_id', $id)!!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('day', 'Day :') !!}

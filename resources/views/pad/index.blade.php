@@ -7,7 +7,7 @@
 		<? if($padRecord->admission_id > $previous_id) { 
 				$previous_id = $padRecord->admission_id;
 		?>
-		<h2>Admission No. {{ $padRecord->admission_id }}</h2>
+		<h2>HN : {{ $padRecord->patientAdmission->patient->HN }}</h2>
 		<? } ?>
 		Day {{ $padRecord->day }} : Data1 -> {{ $padRecord->data1 }} <br>
 	@empty

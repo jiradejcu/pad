@@ -13,6 +13,6 @@ class PadRecord extends Model {
 	];
 
 	public function patientAdmission(){
-		return $this->belongsTo('App\PatientAdmission');
+		return $this->belongsTo('App\PatientAdmission', 'admission_id');
 	}
 }

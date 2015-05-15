@@ -17,6 +17,6 @@ class Patient extends Model {
 	public $timestamps = false;
 
 	public function admissions() {
-		return $this->hasMany('App\PatientAdmission');
+		return $this->hasMany('App\PatientAdmission', 'HN');
 	}
 }

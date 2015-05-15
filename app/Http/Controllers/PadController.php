@@ -3,6 +3,7 @@
 use App\Http\Requests\CreatePadRequest;
 use App\Http\Controllers\Controller;
 use App\PadRecord;
+use App\PatientAdmission;
 
 class PadController extends Controller {
 
@@ -22,9 +23,9 @@ class PadController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
 	{
-		return view('pad.create');
+		return view('pad.create', compact('id'));
 	}
 
 	/**
@@ -46,7 +47,9 @@ class PadController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$patientAdmission = PatientAdmission::findOrFail($id);
+		$padRecordList = $patientAdmission->padRecords()->get();
+		return view('pad.index', compact('padRecordList'));
 	}
 
 	/**

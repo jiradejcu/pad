@@ -6,6 +6,8 @@ class PatientAdmission extends Model {
 
 	protected $table = 'patient_admission';
 
+	protected $primaryKey = 'admission_id';
+	
 	protected $fillable = [
 	'admission_id',
 	'HN',
@@ -15,10 +17,10 @@ class PatientAdmission extends Model {
 	public $timestamps = false;
 
 	public function patient(){
-		return $this->belongsTo('App\Patient');
+		return $this->belongsTo('App\Patient', 'HN');
 	}
 	
 	public function padRecords(){
-		return $this->hasMany('App\PadRecord');
+		return $this->hasMany('App\PadRecord', 'admission_id');
 	}
 }

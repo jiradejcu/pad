@@ -54,7 +54,8 @@ class PatientController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$patient = Patient::findOrFail($id);
+		return redirect('pad/'.$patient->admissions()->first()->admission_id);
 	}
 
 	/**

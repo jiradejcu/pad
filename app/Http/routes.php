@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'PatientController@index');
 
 Route::get('home', 'HomeController@index');
 
 Route::resource('patient', 'PatientController');
 
 Route::resource('pad', 'PadController');
+
+Route::get('pad/{id}/create', 'PadController@create');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
