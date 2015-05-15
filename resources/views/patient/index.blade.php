@@ -9,5 +9,6 @@
 	@empty
 	    <p>No patient</p>
 	@endforelse
-
+	<hr>
+	<p><a href="{{ url('/patient/create') }}">Add</a></p>
 @stop
