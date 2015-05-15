@@ -10,7 +10,7 @@
 	@empty
     <p>No record</p>
 	@endforelse
-	
+	<hr>
 	<a href="{{ url('/pad/'.$admission_id.'/create') }}">Add</a>
 	@empty
 	    <p>No record</p>
