@@ -7,6 +7,22 @@ use App\PatientAdmission;
 
 class PadController extends Controller {
 
+	private function getPadRecord($admission_id = null)
+	{
+		$result = [];
+		if(!empty($admission_id)) {
+			$patientAdmission = PatientAdmission::findOrFail($admission_id);
+			$patientAdmissions = [$patientAdmission];
+		} else {
+			$patientAdmissions = PatientAdmission::oldest('admission_id')->get();
+		}
+		foreach($patientAdmissions as $patientAdmission){
+			$result[$patientAdmission->admission_id]['admission'] = $patientAdmission;
+			$result[$patientAdmission->admission_id]['padRecord'] = $patientAdmission->padRecords()->get();
+		}
+		return $result;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +30,7 @@ class PadController extends Controller {
 	 */
 	public function index()
 	{
-		$padRecordList = PadRecord::oldest('admission_id')->get();
+		$padRecordList = $this->getPadRecord();
 		return view('pad.index', compact('padRecordList'));
 	}
 
@@ -36,7 +52,7 @@ class PadController extends Controller {
 	public function store(CreatePadRequest $request)
 	{
 		PadRecord::create($request->all());
-		return redirect('pad');
+		return redirect('pad/'.$request->admission_id);
 	}
 
 	/**
@@ -47,8 +63,7 @@ class PadController extends Controller {
 	 */
 	public function show($id)
 	{
-		$patientAdmission = PatientAdmission::findOrFail($id);
-		$padRecordList = $patientAdmission->padRecords()->get();
+		$padRecordList = $this->getPadRecord($id);
 		return view('pad.index', compact('padRecordList'));
 	}
 
