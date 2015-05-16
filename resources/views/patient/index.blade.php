@@ -10,5 +10,5 @@
 	    <p>No patient</p>
 	@endforelse
 	<hr>
-	<a href="{{ url('/patient/create') }}">Add</a>
+	<a href="{{ url('/patient/create') }}" tabindex="1">Add</a>
 @stop
