@@ -27,7 +27,11 @@ class PadRecord extends Model {
 	}
 	
 	private static function convertEmptyToNull($value){
-		return (is_null($value) || $value == "") ? null : $value;
+		return (is_null($value) || trim($value) == "" || trim($value) == "-") ? null : $value;
+	}
+	
+	public static function displayNullNumber($value){
+		return is_null($value) ? "-" : $value;
 	}
 	
 	public static function displayDate($value){

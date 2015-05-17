@@ -19,9 +19,9 @@
 	@forelse ($padRecords['padRecord'] as $padRecord)
 	  <tr>
 	     <td width="100px">{{ App\PadRecord::displayDate($padRecord->date_assessed) }}</td>
-	     <td>{{ $padRecord->nr }}</td>
-	     <td>{{ $padRecord->bps }}</td>
-	     <td>{{ $padRecord->rass }}</td>
+	     <td>{{ App\PadRecord::displayNullNumber($padRecord->nr) }}</td>
+	     <td>{{ App\PadRecord::displayNullNumber($padRecord->bps) }}</td>
+	     <td>{{ App\PadRecord::displayNullNumber($padRecord->rass) }}</td>
 	     <td>{{ App\PadRecord::convertTriState($padRecord->anxiety) }}</td>
 	     <td>{{ App\PadRecord::convertTriState($padRecord->delirium) }}</td>
 	     <td>{{ App\PadRecord::convertTriState($padRecord->drug_interact) }}</td>
