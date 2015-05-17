@@ -6,10 +6,8 @@ class PadRecord extends Model {
 
 	protected $table = 'patient_pad_record';
 
-	protected $fillable = [
-	'admission_id',
-	'day',
-	'data1',
+	protected $guarded = [
+	'record_id',
 	];
 
 	public function patientAdmission(){

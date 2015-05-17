@@ -6,7 +6,7 @@
 	<h2>HN : {{ $padRecords['admission']->patient->HN }}</h2>
 	
 	@forelse ($padRecords['padRecord'] as $padRecord)
-	Day {{ $padRecord->day }} : Data1 -> {{ $padRecord->data1 }} <br>
+	Day {{ $padRecord->day }} : Numeric Rating -> {{ $padRecord->nr }} <br>
 	@empty
     <p>No record</p>
 	@endforelse
