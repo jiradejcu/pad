@@ -16,7 +16,7 @@ class CreatePadRecordsTable extends Migration {
 		{
 			$table->increments('record_id');
 			$table->integer('admission_id')->unsigned();
-			$table->integer('day')->unsigned();
+			$table->dateTime('date_assessed');
 			$table->integer('nr')->nullable();
 			$table->integer('bps')->nullable();
 			$table->integer('rass')->nullable();

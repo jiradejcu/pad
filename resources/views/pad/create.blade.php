@@ -10,8 +10,8 @@
 			{!! Form::hidden('admission_id', $id)!!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('day', 'Day :') !!}
-			{!! Form::text('day', null, ['class' => 'form-control']) !!}
+			{!! Form::label('day', 'Date :') !!}
+			{!! Form::input('date', 'date_assessed', date('Y-m-d'), ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('nr', 'Numeric Rating :') !!}

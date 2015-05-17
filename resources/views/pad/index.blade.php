@@ -8,7 +8,7 @@
 	<table id="padTable">
 	  <tbody>
 	  <tr>
-	     <td width="200px">Day</td>
+	     <td width="200px">Date</td>
 	     <td>Numeric Rating</td>
 	     <td>Behavioral Pain Scale</td>
 	     <td>Sedation Assessment</td>
@@ -18,13 +18,13 @@
 	  </tr>	
 	@forelse ($padRecords['padRecord'] as $padRecord)
 	  <tr>
-	     <td width="100px">{{ $padRecord->day }}</td>
+	     <td width="100px">{{ App\PadRecord::displayDate($padRecord->date_assessed) }}</td>
 	     <td>{{ $padRecord->nr }}</td>
 	     <td>{{ $padRecord->bps }}</td>
 	     <td>{{ $padRecord->rass }}</td>
-	     <td>{{ $padRecord->anxiety }}</td>
-	     <td>{{ $padRecord->delirium }}</td>
-	     <td>{{ $padRecord->drug_interact }}</td>
+	     <td>{{ App\PadRecord::convertTriState($padRecord->anxiety) }}</td>
+	     <td>{{ App\PadRecord::convertTriState($padRecord->delirium) }}</td>
+	     <td>{{ App\PadRecord::convertTriState($padRecord->drug_interact) }}</td>
 	  </tr>
 	@empty
     <p>No record</p>
