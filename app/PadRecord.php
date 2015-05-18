@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class PadRecord extends Model {
 
 	protected $table = 'patient_pad_record';
+	
+	protected $primaryKey = 'record_id';
 
 	protected $guarded = [
 	'record_id',

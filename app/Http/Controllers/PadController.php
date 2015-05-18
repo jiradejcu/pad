@@ -97,7 +97,8 @@ class PadController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		PadRecord::destroy($id);
+		return [];
 	}
 
 }
