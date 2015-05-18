@@ -32,6 +32,8 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('delirium', 'Delirium Assessment') !!}<br>
+			{!! Form::radio('delirium', '-', true) !!}
+			{!! Form::label('delirium', 'N/A') !!}
 			{!! Form::radio('delirium', 1) !!}
 			{!! Form::label('delirium', 'YES') !!}
 			{!! Form::radio('delirium', 0) !!}

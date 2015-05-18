@@ -26,6 +26,10 @@ class PadRecord extends Model {
 		$this->attributes['rass'] = self::convertEmptyToNull($value);
 	}
 	
+	public function setDeliriumAttribute($value){
+		$this->attributes['delirium'] = self::convertEmptyToNull($value);
+	}
+	
 	private static function convertEmptyToNull($value){
 		return (is_null($value) || trim($value) == "" || trim($value) == "-") ? null : $value;
 	}
