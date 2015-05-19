@@ -21,13 +21,13 @@
 		<tr>
 			<td width="100px" height="50px">{!! Form::input('button',
 				'delete_record', 'x', ['id' => $padRecord->record_id]) !!}</td>
-			<td>{{ App\PadRecord::displayDate($padRecord->date_assessed) }}</td>
-			<td>{{ App\PadRecord::displayNullNumber($padRecord->nr) }}</td>
-			<td>{{ App\PadRecord::displayNullNumber($padRecord->bps) }}</td>
-			<td>{{ App\PadRecord::displayNullNumber($padRecord->rass) }}</td>
-			<td>{{ App\PadRecord::convertTriState($padRecord->anxiety) }}</td>
-			<td>{{ App\PadRecord::convertTriState($padRecord->delirium) }}</td>
-			<td>{{ App\PadRecord::convertTriState($padRecord->drug_interact) }}</td>
+			<td>{{ displayDate($padRecord->date_assessed) }}</td>
+			<td>{{ displayNullNumber($padRecord->nr) }}</td>
+			<td>{{ displayNullNumber($padRecord->bps) }}</td>
+			<td>{{ displayNullNumber($padRecord->rass) }}</td>
+			<td>{{ convertTriState($padRecord->anxiety) }}</td>
+			<td>{{ convertTriState($padRecord->delirium) }}</td>
+			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
 		</tr>
 		@empty
 		<p>No record</p>
