@@ -11,7 +11,12 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('day', 'Date :') !!}
-			{!! Form::input('date', 'date_assessed', date('Y-m-d'), ['class' => 'form-control']) !!}
+			<div class='input-group date'>
+				{!! Form::input('text', 'date_assessed', null, ['class' => 'form-control']) !!}
+	            <span class="input-group-addon">
+	            	<span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
 		</div>
 		<div class="form-group">
 			{!! Form::label('nr', 'Numeric Rating :') !!}
@@ -50,4 +55,8 @@
 	{!! Form::close() !!}
 	
 	@include('error')
+@stop
+
+@section('footer')
+	@include('form')
 @stop

@@ -19,9 +19,45 @@
 			{!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
+			{!! Form::label('age', 'Age :') !!}
+			{!! Form::text('age', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::radio('type', 'prospective') !!}
+			{!! Form::label('type', 'Prospective') !!}
+			{!! Form::radio('type', 'retrospective') !!}
+			{!! Form::label('type', 'Retrospective') !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('hospital_admission_date', 'Hospital Admission Date') !!}<br>
+			{!! Form::label('from', 'From :') !!}
+			<div class='input-group date'>
+				{!! Form::input('text', 'hospital_admission_date_from', null, ['class' => 'form-control']) !!}
+	            <span class="input-group-addon">
+	            	<span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
+			{!! Form::label('to', 'To :') !!}
+			<div class='input-group date'>
+				{!! Form::input('text', 'hospital_admission_date_to', null, ['class' => 'form-control']) !!}
+	            <span class="input-group-addon">
+	            	<span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
+		</div>
+		<div class="form-group">
+			{!! Form::label('reason', 'Reason for ICU Admission :') !!}
+			{!! Form::text('reason', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
 			{!! Form::submit('Add Patient', ['class' => 'btn btn-primary form-control']) !!}
 		</div>
+		
 	{!! Form::close() !!}
 	
 	@include('error')
+@stop
+
+@section('footer')
+	@include('form')
 @stop
