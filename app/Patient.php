@@ -8,15 +8,15 @@ class Patient extends Model {
 	
 	protected $primaryKey = 'HN';
 
-	protected $fillable = [
-	'HN',
-	'firstname',
-	'lastname',
-	];
+	protected $guarded = [];
 
 	public $timestamps = false;
 
 	public function admissions() {
 		return $this->hasMany('App\PatientAdmission', 'HN');
+	}
+	
+	public function setAgeAttribute($value){
+		$this->attributes['age'] = convertEmptyToNull($value);
 	}
 }

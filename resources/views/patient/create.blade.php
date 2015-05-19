@@ -23,7 +23,7 @@
 			{!! Form::text('age', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::radio('type', 'prospective') !!}
+			{!! Form::radio('type', 'prospective', true) !!}
 			{!! Form::label('type', 'Prospective') !!}
 			{!! Form::radio('type', 'retrospective') !!}
 			{!! Form::label('type', 'Retrospective') !!}
@@ -44,6 +44,31 @@
 	            	<span class="glyphicon glyphicon-calendar"></span>
 	            </span>
             </div>
+		</div>
+		<div class="form-group">
+			{!! Form::label('hospital_admission_from', 'Hospital Admission From :') !!}
+			{!! Form::text('hospital_admission_from', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('icu_admission_date', 'ICU Admission Date') !!}<br>
+			{!! Form::label('from', 'From :') !!}
+			<div class='input-group date'>
+				{!! Form::input('text', 'icu_admission_date_from', null, ['class' => 'form-control']) !!}
+	            <span class="input-group-addon">
+	            	<span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
+			{!! Form::label('to', 'To :') !!}
+			<div class='input-group date'>
+				{!! Form::input('text', 'icu_admission_date_to', null, ['class' => 'form-control']) !!}
+	            <span class="input-group-addon">
+	            	<span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+            </div>
+		</div>
+		<div class="form-group">
+			{!! Form::label('icu_admission_from', 'ICU Admission From :') !!}
+			{!! Form::text('icu_admission_from', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('reason', 'Reason for ICU Admission :') !!}

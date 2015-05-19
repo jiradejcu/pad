@@ -14,11 +14,20 @@ class AddPatientColumn extends Migration {
 	{
 		Schema::table('patient', function(Blueprint $table)
 		{
-			$table->integer('age')->unsigned()->after('lastname');
+			$table->integer('age')->unsigned()->nullable()->after('lastname');
 		});
 		
 		Schema::table('patient_admission', function(Blueprint $table)
 		{
+			$table->dropColumn('date');
+			$table->string('type');
+			$table->dateTime('hospital_admission_date_from');
+			$table->dateTime('hospital_admission_date_to');
+			$table->string('hospital_admission_from');
+			$table->dateTime('icu_admission_date_from');
+			$table->dateTime('icu_admission_date_to');
+			$table->string('icu_admission_from');
+			$table->string('reason');
 		});
 	}
 
@@ -36,6 +45,15 @@ class AddPatientColumn extends Migration {
 		
 		Schema::table('patient_admission', function(Blueprint $table)
 		{
+			$table->dropColumn('type');
+			$table->dropColumn('hospital_admission_date_from');
+			$table->dropColumn('hospital_admission_date_to');
+			$table->dropColumn('hospital_admission_from');
+			$table->dropColumn('icu_admission_date_from');
+			$table->dropColumn('icu_admission_date_to');
+			$table->dropColumn('icu_admission_from');
+			$table->dropColumn('reason');
+			$table->date('date')->after('HN');
 		});
 	}
 

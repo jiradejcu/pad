@@ -7,12 +7,8 @@ class PatientAdmission extends Model {
 	protected $table = 'patient_admission';
 
 	protected $primaryKey = 'admission_id';
-	
-	protected $fillable = [
-	'admission_id',
-	'HN',
-	'date',
-	];
+
+	protected $guarded = [];
 
 	public $timestamps = false;
 
@@ -22,5 +18,21 @@ class PatientAdmission extends Model {
 	
 	public function padRecords(){
 		return $this->hasMany('App\PadRecord', 'admission_id');
+	}
+	
+	public function setHospitalAdmissionDateFromAttribute($value){
+		$this->attributes['hospital_admission_date_from'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function setHospitalAdmissionDateToAttribute($value){
+		$this->attributes['hospital_admission_date_to'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function setIcuAdmissionDateFromAttribute($value){
+		$this->attributes['icu_admission_date_from'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function setIcuAdmissionDateToAttribute($value){
+		$this->attributes['icu_admission_date_to'] = convertFormDateToDBFormat($value);
 	}
 }

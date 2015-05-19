@@ -40,9 +40,11 @@ class PatientController extends Controller {
 	{
 		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
 		$this->validate($request, $rules);
-		Patient::create($request->all());
-		$patient = Patient::find($request->input('HN'));
-		$patientAdmission = PatientAdmission::create(['HN' => $patient->HN, 'date' => Carbon::now()]);
+		Patient::create($request->only(['HN', 'firstname', 'lastname', 'age']));
+		$patientAdmissionField = ['HN', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
+		$patientAdmissionField = array_merge($patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from']);
+		$patientAdmissionField = array_merge($patientAdmissionField, ['reason']);
+		$patientAdmission = PatientAdmission::create($request->only($patientAdmissionField));
 		return redirect('patient');
 	}
 
