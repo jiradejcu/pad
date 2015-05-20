@@ -20,6 +20,10 @@ class PadRecord extends Model {
 		$this->attributes['date_assessed'] = convertFormDateToDBFormat($value);
 	}
 	
+	public function getDateAssessedAttribute($value){
+		return displayDateTime($value);
+	}
+	
 	public function setNrAttribute($value){
 		$this->attributes['nr'] = convertEmptyToNull($value);
 	}

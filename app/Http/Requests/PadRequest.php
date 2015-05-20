@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class CreatePadRequest extends Request {
+class PadRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.

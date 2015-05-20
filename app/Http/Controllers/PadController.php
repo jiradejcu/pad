@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePadRequest;
+use App\Http\Requests\PadRequest;
 use App\Http\Controllers\Controller;
 use App\PadRecord;
 use App\PatientAdmission;
@@ -49,7 +49,7 @@ class PadController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(CreatePadRequest $request)
+	public function store(PadRequest $request)
 	{
 		PadRecord::create($request->all());
 		return redirect('pad/'.$request->admission_id);
@@ -75,7 +75,8 @@ class PadController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$padRecord = PadRecord::findOrFail($id);
+		return view('pad.edit', compact('padRecord'));		
 	}
 
 	/**
@@ -84,9 +85,11 @@ class PadController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, PadRequest $request)
 	{
-		//
+		$padRecord = PadRecord::findOrFail($id);
+		$padRecord->update($request->all());
+		return redirect('pad/'.$padRecord->admission_id);
 	}
 
 	/**
