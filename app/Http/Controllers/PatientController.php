@@ -43,7 +43,7 @@ class PatientController extends Controller {
 		Patient::create($request->only(['HN', 'firstname', 'lastname', 'age']));
 		$patientAdmissionField = ['HN', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
 		$patientAdmissionField = array_merge($patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from']);
-		$patientAdmissionField = array_merge($patientAdmissionField, ['reason']);
+		$patientAdmissionField = array_merge($patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason']);
 		$patientAdmission = PatientAdmission::create($request->only($patientAdmissionField));
 		return redirect('patient');
 	}

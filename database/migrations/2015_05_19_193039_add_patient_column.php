@@ -27,6 +27,8 @@ class AddPatientColumn extends Migration {
 			$table->dateTime('icu_admission_date_from');
 			$table->dateTime('icu_admission_date_to');
 			$table->string('icu_admission_from');
+			$table->dateTime('ett_date_from');
+			$table->dateTime('ett_date_to');
 			$table->string('reason');
 		});
 	}
@@ -52,6 +54,8 @@ class AddPatientColumn extends Migration {
 			$table->dropColumn('icu_admission_date_from');
 			$table->dropColumn('icu_admission_date_to');
 			$table->dropColumn('icu_admission_from');
+			$table->dropColumn('ett_date_from');
+			$table->dropColumn('ett_date_to');
 			$table->dropColumn('reason');
 			$table->date('date')->after('HN');
 		});

@@ -35,4 +35,12 @@ class PatientAdmission extends Model {
 	public function setIcuAdmissionDateToAttribute($value){
 		$this->attributes['icu_admission_date_to'] = convertFormDateToDBFormat($value);
 	}
+	
+	public function setEttDateFromAttribute($value){
+		$this->attributes['ett_date_from'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function setEttDateToAttribute($value){
+		$this->attributes['ett_date_to'] = convertFormDateToDBFormat($value);
+	}
 }
