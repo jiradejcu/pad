@@ -90,7 +90,8 @@ class PatientController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		Patient::destroy($id);
+		return [];
 	}
 
 }

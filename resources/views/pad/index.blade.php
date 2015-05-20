@@ -41,45 +41,45 @@
 @endforelse
 
 <script type="text/javascript">
-	<!--
-	$(function() {
-	    var t = $('#padTable tbody').eq(0);
-	    var r = t.find('tr');
-	    var cols= r.length;
-	    var rows= r.eq(0).find('td').length;
-	    var cell, next, tem, i = 0;
-	    var tb= $('<tbody></tbody>');
-	 
-	    while(i<rows){
-	        cell= 0;
-	        tem= $('<tr></tr>');
-	        while(cell<cols){
-	            next= r.eq(cell++).find('td').eq(0);
-	            tem.append(next);
-	        }
-	        tb.append(tem);
-	        ++i;
-	    }
-	    $('#padTable').append(tb);
-	    $('#padTable').show();
+<!--
+$(function() {
+    var t = $('#padTable tbody').eq(0);
+    var r = t.find('tr');
+    var cols= r.length;
+    var rows= r.eq(0).find('td').length;
+    var cell, next, tem, i = 0;
+    var tb= $('<tbody></tbody>');
+ 
+    while(i<rows){
+        cell= 0;
+        tem= $('<tr></tr>');
+        while(cell<cols){
+            next= r.eq(cell++).find('td').eq(0);
+            tem.append(next);
+        }
+        tb.append(tem);
+        ++i;
+    }
+    $('#padTable').append(tb);
+    $('#padTable').show();
 
-		$("input:button[name='delete_record']").click(function() {
-			 $.ajax({
-		            url: '{{ url('/pad') }}/' + this.id,
-		            type: 'DELETE',
-		            dataType: 'json',
-		            data: {
-		                'id': this.id,
-		                '_token': '{{ csrf_token() }}'
-		            },
-		            success: function ()
-		            {
-		            	location.reload();
-		            }
-			});
+	$("input:button[name='delete_record']").click(function() {
+		 $.ajax({
+	            url: '{{ url('/pad') }}/' + this.id,
+	            type: 'DELETE',
+	            dataType: 'json',
+	            data: {
+	                'id': this.id,
+	                '_token': '{{ csrf_token() }}'
+	            },
+	            success: function ()
+	            {
+	            	location.reload();
+	            }
 		});
 	});
-	//-->
-	</script>
+});
+//-->
+</script>
 
 @stop
