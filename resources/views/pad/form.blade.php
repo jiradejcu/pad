@@ -20,23 +20,11 @@
 			{!! Form::text('rass', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('anxiety', 'Anxiety :') !!}
-			{!! Form::hidden('anxiety', '0') !!}
-			{!! Form::checkbox('anxiety') !!}
+			@include('form_control.checkbox', ['checkbox_name' => 'anxiety', 'label_text' => 'Anxiety'])
 		</div>
+		@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
-			{!! Form::label('delirium', 'Delirium Assessment') !!}<br>
-			{!! Form::radio('delirium', '-', true) !!}
-			{!! Form::label('delirium', 'N/A') !!}
-			{!! Form::radio('delirium', 1) !!}
-			{!! Form::label('delirium', 'YES') !!}
-			{!! Form::radio('delirium', 0) !!}
-			{!! Form::label('delirium', 'NO') !!}
-		</div>
-		<div class="form-group">
-			{!! Form::label('drug_interact', 'Drug Interactions :') !!}
-			{!! Form::hidden('drug_interact', '0') !!}
-			{!! Form::checkbox('drug_interact') !!}
+			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
 		</div>
 		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}

@@ -1,5 +1,5 @@
-<div class="form-group">
-	{!! Form::label($checkbox_name, $label_text) !!}
-	{!! Form::hidden($checkbox_name, '0') !!}
-	{!! Form::checkbox($checkbox_name) !!}
-</div>
+{!! Form::hidden($checkbox_name, '0') !!}
+<label class="checkbox-inline">{!! Form::checkbox($checkbox_name) !!}{{ $label_text }}</label>
+@if(!empty($detail_text))
+{!! Form::text($checkbox_name . 'detial', null, ['class' => 'form-control']) !!}
+@endif

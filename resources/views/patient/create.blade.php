@@ -23,10 +23,8 @@
 			{!! Form::text('age', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::radio('type', 'prospective', true) !!}
-			{!! Form::label('type', 'Prospective') !!}
-			{!! Form::radio('type', 'retrospective') !!}
-			{!! Form::label('type', 'Retrospective') !!}
+			<label class="radio-inline">{!! Form::radio('type', 'prospective', true) !!}Prospective</label>
+			<label class="radio-inline">{!! Form::radio('type', 'retrospective') !!}Retrospective</label>
 		</div>
 	<hr/>
 	<h2>Date</h2>
@@ -53,24 +51,21 @@
 			{!! Form::label('previous_meds', 'Previous Meds :') !!}
 			{!! Form::text('previous_meds', null, ['class' => 'form-control']) !!}
 		</div>
-		<div class="form-group">
-			{!! Form::label('allergy', 'Allergy :') !!}<br>
-			{!! Form::radio('allergy', '-', true) !!}
-			{!! Form::label('allergy', 'N/A') !!}
-			{!! Form::radio('allergy', 0) !!}
-			{!! Form::label('allergy', 'NO') !!}
-			{!! Form::radio('allergy', 1) !!}
-			{!! Form::label('allergy', 'YES') !!}
-			{!! Form::text('allergy_detail', null, ['class' => 'form-control']) !!}
-		</div>
+		@include('form_control.tri_state', ['radio_name' => 'allergy', 'label_text' => 'Allergy :', 'detail_text' => 1])
 	<hr/>
 	<h2>Underlying Diseases</h2>
 	<hr/>
-		@include('form_control.checkbox_detail', ['checkbox_name' => 'cancer_solid', 'label_text' => 'Cancer(solid) :'])
+		@include('form_control.checkbox', ['checkbox_name' => 'cancer_solid', 'label_text' => 'Cancer(solid)', 'detail_text' => 1])
+		@include('form_control.checkbox', ['checkbox_name' => 'cancer_hemato', 'label_text' => 'Cancer(hemato)', 'detail_text' => 1])
+	<div class="form-group">
+		@include('form_control.checkbox', ['checkbox_name' => 'dm', 'label_text' => 'DM'])
+		@include('form_control.checkbox', ['checkbox_name' => 'htm', 'label_text' => 'HTN'])
+		@include('form_control.checkbox', ['checkbox_name' => 'dlp', 'label_text' => 'DLP'])
+	</div>
 	<hr/>
 	<h2>Active Problems</h2>
 	<hr/>
-		@include('form_control.checkbox_detail', ['checkbox_name' => 'seizure_shock', 'label_text' => 'Seizure Shock :'])
+		@include('form_control.checkbox', ['checkbox_name' => 'seizure_shock', 'label_text' => 'Seizure Shock', 'detail_text' => 1])
 	<hr/>
 		<div class="form-group">
 			{!! Form::submit('Add Patient', ['class' => 'btn btn-primary form-control']) !!}
