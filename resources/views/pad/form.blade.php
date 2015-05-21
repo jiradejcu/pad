@@ -1,5 +1,5 @@
 		<div class="form-group">
-			{!! Form::label('day', 'Date :') !!}
+			{!! Form::label('date_assessed', 'Date :') !!}
 			<div class='input-group date'>
 				{!! Form::input('text', 'date_assessed', null, ['class' => 'form-control']) !!}
 	            <span class="input-group-addon">
