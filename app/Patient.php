@@ -16,7 +16,11 @@ class Patient extends Model {
 		return $this->hasMany('App\PatientAdmission', 'HN');
 	}
 	
-	public function setAgeAttribute($value){
-		$this->attributes['age'] = convertEmptyToNull($value);
+	public function setHeightAttribute($value){
+		$this->attributes['height'] = convertEmptyToNull($value);
+	}
+	
+	public function setApacheIiAttribute($value){
+		$this->attributes['apache_ii'] = convertEmptyToNull($value);
 	}
 }
