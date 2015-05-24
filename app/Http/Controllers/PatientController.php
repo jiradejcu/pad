@@ -40,8 +40,8 @@ class PatientController extends Controller {
 	{
 		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
 		$this->validate($request, $rules);
-		Patient::create($request->only(['HN', 'firstname', 'lastname', 'age']));
-		$patientAdmissionField = ['HN', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
+		Patient::create($request->only(['HN', 'firstname', 'lastname', 'allergy', 'allergy_detail']));
+		$patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
 		$patientAdmissionField = array_merge($patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from']);
 		$patientAdmissionField = array_merge($patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason']);
 		$patientAdmission = PatientAdmission::create($request->only($patientAdmissionField));
