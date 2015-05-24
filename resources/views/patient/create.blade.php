@@ -86,6 +86,21 @@
 		@include('form_control.checkbox', ['checkbox_name' => 'seizure', 'label_text' => 'Seizure'])
 	</div>
 		@include('form_control.checkbox', ['checkbox_name' => 'neuro', 'label_text' => 'Neuro Disease', 'detail_text' => 1])
+	<div class="form-group">
+		@include('form_control.checkbox', ['checkbox_name' => 'sle', 'label_text' => 'SLE'])
+		@include('form_control.checkbox', ['checkbox_name' => 'ra', 'label_text' => 'RA'])
+	</div>
+		@include('form_control.checkbox', ['checkbox_name' => 'immune', 'label_text' => 'Immune', 'detail_text' => 1])
+	<div class="form-group">
+		@include('form_control.checkbox', ['checkbox_name' => 'osteoporosis', 'label_text' => 'Osteoporosis'])
+		@include('form_control.checkbox', ['checkbox_name' => 'alzeimer', 'label_text' => 'Alzeimer'])
+		@include('form_control.checkbox', ['checkbox_name' => 'psychi', 'label_text' => 'Psychi'])
+		@include('form_control.checkbox', ['checkbox_name' => 'hypothyroid', 'label_text' => 'Hypothyroid'])
+		@include('form_control.checkbox', ['checkbox_name' => 'hyperthyroid', 'label_text' => 'Hyperthyroid'])
+		@include('form_control.checkbox', ['checkbox_name' => 'asthma', 'label_text' => 'Asthma'])
+		@include('form_control.checkbox', ['checkbox_name' => 'copd', 'label_text' => 'COPD'])
+	</div>
+		@include('form_control.checkbox', ['checkbox_name' => 'others', 'label_text' => 'Others', 'detail_text' => 1])
 		
 	<hr/>
 	<h2>Active Problems</h2>
@@ -103,7 +118,7 @@
 		@include('form_control.checkbox', ['checkbox_name' => 'liver_shock', 'label_text' => 'Liver Shock'])
 		@include('form_control.checkbox', ['checkbox_name' => 'seizure_shock', 'label_text' => 'Seizure Shock'])
 	</div>
-		@include('form_control.checkbox', ['checkbox_name' => 'others', 'label_text' => 'Others', 'detail_text' => 1])
+		@include('form_control.checkbox', ['checkbox_name' => 'others_active', 'label_text' => 'Others', 'detail_text' => 1])
 	<hr/>
 		<div class="form-group">
 			{!! Form::submit('Add Patient', ['class' => 'btn btn-primary form-control']) !!}

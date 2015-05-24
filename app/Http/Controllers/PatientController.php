@@ -40,10 +40,17 @@ class PatientController extends Controller {
 	{
 		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
 		$this->validate($request, $rules);
-		Patient::create($request->only(['HN', 'firstname', 'lastname', 'allergy', 'allergy_detail']));
+		$patientField = ['HN', 'firstname', 'lastname', 'height', 'apache_ii', 'privilege'];
+		$patientField = array_merge($patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
+		$patientField = array_merge($patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
+		$patientField = array_merge($patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
+		$patientField = array_merge($patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'others', 'others_detail']);
+		Patient::create($request->only($patientField));
 		$patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
 		$patientAdmissionField = array_merge($patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from']);
-		$patientAdmissionField = array_merge($patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason']);
+		$patientAdmissionField = array_merge($patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason', 'previous_meds']);
+		$patientAdmissionField = array_merge($patientAdmissionField, ['septic_shock', 'adrenal_shock', 'hypovolemic_shock', 'cardiogenic_shock', 'asthma_exacerbation']);
+		$patientAdmissionField = array_merge($patientAdmissionField, ['copd_exacerbation', 'aki', 'liver_shock', 'seizure_shock', 'others_active', 'others_active_detail']);
 		$patientAdmission = PatientAdmission::create($request->only($patientAdmissionField));
 		return redirect('patient');
 	}

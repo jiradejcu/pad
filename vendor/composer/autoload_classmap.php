@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',
+    'AddPatientColumn2' => $baseDir . '/database/migrations/2015_05_24_171249_add_patient_column_2.php',
     'CreatePadRecordsTable' => $baseDir . '/database/migrations/2015_05_13_170553_create_pad_records_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePatientAdmissionsTable' => $baseDir . '/database/migrations/2015_05_12_141452_create_patient_admissions_table.php',
