@@ -56,6 +56,7 @@ class AddPatientColumn2 extends Migration {
 		{
 			$table->integer('age')->unsigned()->nullable()->after('HN');
 			$table->string('previous_meds');
+			$table->boolean('death');
 			$table->boolean('septic_shock');
 			$table->boolean('adrenal_shock');
 			$table->boolean('hypovolemic_shock');
@@ -120,6 +121,7 @@ class AddPatientColumn2 extends Migration {
 		Schema::table('patient_admission', function(Blueprint $table)
 		{
 			$table->dropColumn('age');
+			$table->dropColumn('death');
 			$table->dropColumn('previous_meds');
 			$table->dropColumn('septic_shock');
 			$table->dropColumn('adrenal_shock');
