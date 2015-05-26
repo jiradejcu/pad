@@ -23,4 +23,8 @@ class Patient extends Model {
 	public function setApacheIiAttribute($value){
 		$this->attributes['apache_ii'] = convertEmptyToNull($value);
 	}
+	
+	public function setAllergyAttribute($value){
+		$this->attributes['allergy'] = convertEmptyToNull($value);
+	}
 }
