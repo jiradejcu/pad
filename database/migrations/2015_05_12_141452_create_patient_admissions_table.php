@@ -14,6 +14,7 @@ class CreatePatientAdmissionsTable extends Migration {
 	{
 		Schema::create('patient_admission', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->increments('admission_id');
 			$table->integer('HN')->unsigned();
 			$table->date('date');

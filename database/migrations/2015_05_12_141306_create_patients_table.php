@@ -14,6 +14,7 @@ class CreatePatientsTable extends Migration {
 	{
 		Schema::create('patient', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->integer('HN')->unsigned();
 			$table->string('firstname');
 			$table->string('lastname');

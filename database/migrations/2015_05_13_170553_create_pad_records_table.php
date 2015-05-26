@@ -14,6 +14,7 @@ class CreatePadRecordsTable extends Migration {
 	{
 		Schema::create('patient_pad_record', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->increments('record_id');
 			$table->integer('admission_id')->unsigned();
 			$table->dateTime('date_assessed');
