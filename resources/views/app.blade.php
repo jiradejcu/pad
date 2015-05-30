@@ -5,11 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Patient Record System</title>
-
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<script src="{{ asset('/js/app.js') }}"></script>
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -60,7 +58,6 @@
 	@yield('content')
 	</div>
 	
-	<script src="{{ asset('/js/app.js') }}"></script>
 	@yield('footer')
 </body>
 </html>
