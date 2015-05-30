@@ -24,23 +24,47 @@ class PatientAdmission extends Model {
 		$this->attributes['hospital_admission_date_from'] = convertFormDateToDBFormat($value);
 	}
 	
+	public function getHospitalAdmissionDateFromAttribute($value){
+		return displayDateTime($value);
+	}
+	
 	public function setHospitalAdmissionDateToAttribute($value){
 		$this->attributes['hospital_admission_date_to'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function getHospitalAdmissionDateToAttribute($value){
+		return displayDateTime($value);
 	}
 	
 	public function setIcuAdmissionDateFromAttribute($value){
 		$this->attributes['icu_admission_date_from'] = convertFormDateToDBFormat($value);
 	}
 	
+	public function getIcuAdmissionDateFromAttribute($value){
+		return displayDateTime($value);
+	}
+	
 	public function setIcuAdmissionDateToAttribute($value){
 		$this->attributes['icu_admission_date_to'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function getIcuAdmissionDateToAttribute($value){
+		return displayDateTime($value);
 	}
 	
 	public function setEttDateFromAttribute($value){
 		$this->attributes['ett_date_from'] = convertFormDateToDBFormat($value);
 	}
 	
+	public function getEttDateFromAttribute($value){
+		return displayDateTime($value);
+	}
+	
 	public function setEttDateToAttribute($value){
 		$this->attributes['ett_date_to'] = convertFormDateToDBFormat($value);
+	}
+	
+	public function getEttDateToAttribute($value){
+		return displayDateTime($value);
 	}
 }

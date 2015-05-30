@@ -76,7 +76,7 @@ class PadController extends Controller {
 	public function edit($id)
 	{
 		$padRecord = PadRecord::findOrFail($id);
-		return view('pad.edit', compact('padRecord'));		
+		return view('pad.edit', compact('padRecord'));
 	}
 
 	/**

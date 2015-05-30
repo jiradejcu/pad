@@ -10,6 +10,24 @@ use Carbon\Carbon;
 
 class PatientController extends Controller {
 
+	private $rules, $patientField, $patientAdmissionField;
+	
+	public function __construct() {
+		$this->rules = ['firstname' => 'required', 'lastname' => 'required'];
+		
+		$this->patientField = ['HN', 'firstname', 'lastname', 'height', 'apache_ii', 'privilege'];
+		$this->patientField = array_merge($this->patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
+		$this->patientField = array_merge($this->patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
+		$this->patientField = array_merge($this->patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
+		$this->patientField = array_merge($this->patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'others', 'others_detail']);
+
+		$this->patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from', 'death']);
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason', 'previous_meds']);
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['septic_shock', 'adrenal_shock', 'hypovolemic_shock', 'cardiogenic_shock', 'asthma_exacerbation']);
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['copd_exacerbation', 'aki', 'liver_shock', 'seizure_shock', 'others_active', 'others_active_detail']);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -38,20 +56,10 @@ class PatientController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$rules = ['HN' => 'required|numeric|unique:patient', 'firstname' => 'required', 'lastname' => 'required'];
-		$this->validate($request, $rules);
-		$patientField = ['HN', 'firstname', 'lastname', 'height', 'apache_ii', 'privilege'];
-		$patientField = array_merge($patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
-		$patientField = array_merge($patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
-		$patientField = array_merge($patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
-		$patientField = array_merge($patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'others', 'others_detail']);
-		Patient::create($request->only($patientField));
-		$patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
-		$patientAdmissionField = array_merge($patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from', 'death']);
-		$patientAdmissionField = array_merge($patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason', 'previous_meds']);
-		$patientAdmissionField = array_merge($patientAdmissionField, ['septic_shock', 'adrenal_shock', 'hypovolemic_shock', 'cardiogenic_shock', 'asthma_exacerbation']);
-		$patientAdmissionField = array_merge($patientAdmissionField, ['copd_exacerbation', 'aki', 'liver_shock', 'seizure_shock', 'others_active', 'others_active_detail']);
-		$patientAdmission = PatientAdmission::create($request->only($patientAdmissionField));
+		$this->rules = array_merge(['HN' => 'required|numeric|unique:patient'], $this->rules);
+		$this->validate($request, $this->rules);
+		Patient::create($request->only($this->patientField));
+		PatientAdmission::create($request->only($this->patientAdmissionField));
 		return redirect('patient');
 	}
 
@@ -75,7 +83,10 @@ class PatientController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$patient = Patient::findOrFail($id);
+		$patientAdmission = $patient->admissions()->first();
+		$patient->fill($patientAdmission->toArray());
+		return view('patient.edit', compact('patient'));
 	}
 
 	/**
@@ -84,9 +95,14 @@ class PatientController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
+		$this->validate($request, $this->rules);
+		$patient = Patient::findOrFail($id);
+		$patient->update($request->only($this->patientField));
+		$patientAdmission = $patient->admissions()->first();
+		$patientAdmission->update($request->only($this->patientAdmissionField));
+		return redirect('patient');
 	}
 
 	/**
