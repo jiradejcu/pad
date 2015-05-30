@@ -13,14 +13,18 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.less('app.less');
+    
     mix.scripts([
          './jquery/dist/jquery.min.js',
          './bootstrap/dist/js/bootstrap.min.js',
+         '../../../node_modules/bootbox/bootbox.min.js',
      ], 'public/js/app.js', 'resources/assets/bower');
+    
     mix.scripts([
          './moment/min/moment.min.js',
          './eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
      ], 'public/js/vendor.js', 'resources/assets/bower');
+    
     mix.styles([
         './eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
     ], 'public/css/vendor.css', 'resources/assets/bower');
