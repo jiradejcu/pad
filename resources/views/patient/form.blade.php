@@ -119,3 +119,15 @@
 		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
 		</div>
+		
+		<script type="text/javascript">
+		<!--
+		$(function() {
+			$(":checkbox[name='death']").change(function() {
+			    if(this.checked) {
+			    	$(":text[name*='_to']").val($(":text[name='icu_admission_date_to']").val());
+				}
+			});
+		});
+		//-->
+		</script>
