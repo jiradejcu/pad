@@ -5,7 +5,7 @@
 
 	@forelse ($patientList as $patient)
 		<h2>{!! Form::input('button', 'delete_record', 'x', ['id' => $patient->HN]) !!}
-		<a href="{{ url('/patient/'.$patient->HN) }}">{{ $patient->HN }}</a></h2>
+		HN : <a href="{{ url('/patient/'.$patient->HN.'/edit') }}">{{ $patient->HN }}</a> <a href="{{ url('/patient/'.$patient->HN) }}">PAD</a></h2>
 		{{ $patient->firstname }} {{ $patient->lastname }}
 	@empty
 	    <p>No patient</p>

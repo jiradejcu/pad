@@ -3,7 +3,8 @@
 @section('content')
 <h1>PAD Record List</h1>
 @forelse ($padRecordList as $admission_id => $padRecords)
-<h2>HN : {{ $padRecords['admission']->patient->HN }}</h2>
+<?php $patient = $padRecords['admission']->patient; ?> 
+<h2>HN : {{ $patient->HN }} {{ $patient->firstname }} {{ $patient->lastname }}</h2>
 
 <table id="padTable">
 	<tbody>
