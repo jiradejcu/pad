@@ -10,6 +10,7 @@
 	<tbody>
 		<tr>
 			<td width="200px"></td>
+			<td></td>
 			<td>Date</td>
 			<td>Numeric Rating</td>
 			<td>Behavioral Pain Scale</td>
@@ -20,8 +21,8 @@
 		</tr>
 		@forelse ($padRecords['padRecord'] as $padRecord)
 		<tr>
-			<td width="100px" height="50px">{!! Form::input('button',
-				'delete_record', 'x', ['id' => $padRecord->record_id]) !!}</td>
+			<td width="100px" height="50px"><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $padRecord->record_id }}">x</a></td>
+			<td><a href="{{ url('/pad/'.$padRecord->record_id.'/edit') }}">Edit</a></td>
 			<td>{{ displayDate($padRecord->date_assessed) }}</td>
 			<td>{{ displayNullNumber($padRecord->nr) }}</td>
 			<td>{{ displayNullNumber($padRecord->bps) }}</td>
@@ -40,6 +41,10 @@
 @empty
 <p>No record</p>
 @endforelse
+
+@stop
+
+@section('footer')
 
 <script type="text/javascript">
 <!--
@@ -63,20 +68,25 @@ $(function() {
     }
     $('#padTable').append(tb);
     $('#padTable').show();
-
-	$("input:button[name='delete_record']").click(function() {
-		 $.ajax({
-	            url: '{{ url('/pad') }}/' + this.id,
-	            type: 'DELETE',
-	            dataType: 'json',
-	            data: {
-	                'id': this.id,
-	                '_token': '{{ csrf_token() }}'
-	            },
-	            success: function ()
-	            {
-	            	location.reload();
-	            }
+    
+    $('[data-toggle="confirmation"]').click(function(){
+		var self = this;
+		bootbox.confirm("Are you sure?",
+			function(result){
+				if(result){
+					 $.ajax({
+				            url: '{{ url('/pad') }}/' + self.id,
+				            type: 'DELETE',
+				            dataType: 'json',
+				            data: {
+				                '_token': '{{ csrf_token() }}'
+				            },
+				            success: function ()
+				            {
+				            	location.reload();
+				            }
+					});
+				}
 		});
 	});
 });

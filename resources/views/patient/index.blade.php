@@ -27,7 +27,6 @@
 				            type: 'DELETE',
 				            dataType: 'json',
 				            data: {
-				                'id': this.id,
 				                '_token': '{{ csrf_token() }}'
 				            },
 				            success: function ()
