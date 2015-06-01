@@ -35,6 +35,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}" tabindex="-1">Home</a></li>
+					<li><a href="{{ url('/drp') }}" tabindex="-1">DRP</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

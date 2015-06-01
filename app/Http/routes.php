@@ -21,6 +21,8 @@ Route::resource('pad', 'PadController');
 
 Route::get('pad/{id}/create', 'PadController@create');
 
+Route::resource('drp', 'DrpController');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
