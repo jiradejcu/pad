@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',
     'AddPatientColumn2' => $baseDir . '/database/migrations/2015_05_24_171249_add_patient_column_2.php',
+    'CreateDrpMastersTable' => $baseDir . '/database/migrations/2015_06_01_160121_create_drp_masters_table.php',
     'CreateDrpRecordsTable' => $baseDir . '/database/migrations/2015_06_01_083217_create_drp_records_table.php',
     'CreatePadRecordsTable' => $baseDir . '/database/migrations/2015_05_13_170553_create_pad_records_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

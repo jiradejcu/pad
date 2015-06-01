@@ -6,6 +6,7 @@ use App\DrpRecord;
 use App\Patient;
 
 use Illuminate\Http\Request;
+use App\DrpMaster;
 
 class DrpController extends Controller {
 
@@ -27,7 +28,8 @@ class DrpController extends Controller {
 	 */
 	public function create()
 	{
-		return view('drp.create');
+		$problem_master = DrpMaster::problemMaster()->get();
+		return view('drp.create', compact('problem_master'));
 	}
 
 	/**

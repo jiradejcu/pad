@@ -20,4 +20,8 @@ class DrpRecord extends Model {
 		return displayDateTime($value);
 	}
 
+	public function patient(){
+		return $this->belongsTo('App\Patient', 'HN');
+	}
+
 }

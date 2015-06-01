@@ -13,7 +13,7 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('problem', 'Problem :') !!}
-			{!! Form::text('problem', null, ['class' => 'form-control']) !!}
+			{!! Form::select('problem', $problem_master->toArray(), null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('cause', 'Cause :') !!}
