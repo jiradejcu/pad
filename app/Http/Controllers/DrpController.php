@@ -27,7 +27,7 @@ class DrpController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('drp.create');
 	}
 
 	/**
@@ -35,9 +35,10 @@ class DrpController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		DrpRecord::create($request->all());
+		return redirect('drp');
 	}
 
 	/**

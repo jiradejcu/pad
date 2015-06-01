@@ -6,10 +6,11 @@
 <?php $patient = $padRecords['admission']->patient; ?> 
 <h2>HN : {{ $patient->HN }} {{ $patient->firstname }} {{ $patient->lastname }}</h2>
 
-<table id="padTable">
+@if(count($padRecords['padRecord']) > 0)
+<table id="padTable" class="table table-striped table-bordered">
 	<tbody>
 		<tr>
-			<td width="200px"></td>
+			<td></td>
 			<td></td>
 			<td>Date</td>
 			<td>Numeric Rating</td>
@@ -19,9 +20,9 @@
 			<td>Delirium Assessment</td>
 			<td>Drug Interaction</td>
 		</tr>
-		@forelse ($padRecords['padRecord'] as $padRecord)
+		@foreach ($padRecords['padRecord'] as $padRecord)
 		<tr>
-			<td width="100px" height="50px"><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $padRecord->record_id }}">x</a></td>
+			<td><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $padRecord->record_id }}">x</a></td>
 			<td><a href="{{ url('/pad/'.$padRecord->record_id.'/edit') }}">Edit</a></td>
 			<td>{{ displayDate($padRecord->date_assessed) }}</td>
 			<td>{{ displayNullNumber($padRecord->nr) }}</td>
@@ -31,12 +32,13 @@
 			<td>{{ convertTriState($padRecord->delirium) }}</td>
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
 		</tr>
-		@empty
-		<p>No record</p>
-		@endforelse
+		@endforeach
 	</tbody>
 </table>
-<hr>
+@else
+<p>No record</p>
+@endif
+
 <a href="{{ url('/pad/'.$admission_id.'/create') }}" tabindex="1">Add</a>
 @empty
 <p>No record</p>

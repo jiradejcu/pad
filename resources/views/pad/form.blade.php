@@ -22,7 +22,7 @@
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'anxiety', 'label_text' => 'Anxiety'])
 		</div>
-		@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
+			@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
 		</div>

@@ -16,13 +16,14 @@ class CreateDrpRecordsTable extends Migration {
 		{
 			$table->engine = 'InnoDB';
 			$table->increments('record_id');
+			$table->dateTime('date_recorded');
 			$table->integer('HN')->unsigned();
 			$table->string('problem');
 			$table->string('cause');
 			$table->string('intervention');
 			$table->string('outcome');
 			$table->boolean('med_recon');
-			$table->integer('collected_by')->unsigned()->nullable();
+			$table->integer('recorded_by')->unsigned()->nullable();
 			$table->integer('verified_by')->unsigned()->nullable();
 			$table->timestamps();
 				
@@ -31,7 +32,6 @@ class CreateDrpRecordsTable extends Migration {
 			->on('patient')
 			->onDelete('cascade');
 		});
-		
 
 		Schema::create('drp_master', function(Blueprint $table)
 		{
