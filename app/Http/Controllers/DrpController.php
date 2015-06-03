@@ -28,8 +28,11 @@ class DrpController extends Controller {
 	 */
 	public function create()
 	{
-		$problem_master = DrpMaster::problemMaster()->get();
-		return view('drp.create', compact('problem_master'));
+		$problem_master = $this->getDrpMaster('P');
+		$cause_master = $this->getDrpMaster('C');
+		$intervention_master = $this->getDrpMaster('I');
+		$outcome_master = $this->getDrpMaster('O');
+		return view('drp.create', compact('problem_master', 'cause_master', 'intervention_master', 'outcome_master'));
 	}
 
 	/**
@@ -39,7 +42,15 @@ class DrpController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		DrpRecord::create($request->all());
+		$fallbackFields = ['problem', 'cause', 'intervention', 'outcome'];
+		$data = $request->all();
+		foreach($fallbackFields as $field){
+			if(empty($data[$field]))
+				$data[$field] = $data[$field.'_main'];
+			unset($data[$field.'_main']);
+		}
+		
+		DrpRecord::create($data);
 		return redirect('drp');
 	}
 
@@ -84,7 +95,18 @@ class DrpController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		DrpRecord::destroy($id);
+		return [];
+	}
+	
+	public function getDrpMaster($code)
+	{
+		$masters = DrpMaster::master($code)->get();
+		$results = [];
+		foreach($masters as $master){
+			$results[$master->code] = $master->code . ' : ' . $master->description;
+		}
+		return $results;
 	}
 
 }

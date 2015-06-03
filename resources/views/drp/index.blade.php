@@ -8,7 +8,7 @@
 	<tbody>
 		<tr>
 			<td></td>
-			<td></td>
+<!-- 			<td></td> -->
 			<td>Date</td>
 			<td>HN</td>
 			<td>Problem</td>
@@ -22,7 +22,7 @@
 		@foreach ($drpRecordList as  $drpRecord)
 		<tr>
 			<td><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $drpRecord->record_id }}">x</a></td>
-			<td><a href="{{ url('/drp/'.$drpRecord->record_id.'/edit') }}">Edit</a></td>
+<!-- 			<td><a href="{{ url('/drp/'.$drpRecord->record_id.'/edit') }}">Edit</a></td> -->
 			<td>{{ displayDate($drpRecord->date_recorded) }}</td>
 			<td>{{ $drpRecord->HN }}</td>
 			<td>{{ $drpRecord->problem }}</td>
@@ -45,4 +45,30 @@
 @stop
 
 @section('footer')
+	<script type="text/javascript">
+	<!--
+	$(function() {
+		$('[data-toggle="confirmation"]').click(function(){
+			var self = this;
+			bootbox.confirm("Are you sure?",
+				function(result){
+					if(result){
+						$.ajax({
+				            url: '{{ url('/drp') }}/' + self.id,
+				            type: 'DELETE',
+				            dataType: 'json',
+				            data: {
+				                '_token': '{{ csrf_token() }}'
+				            },
+				            success: function ()
+				            {
+				            	location.reload();
+				            }
+						});
+					}
+			});
+		});
+	});
+	//-->
+	</script>
 @stop

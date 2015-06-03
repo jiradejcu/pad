@@ -8,8 +8,10 @@ class DrpMaster extends Model {
 	
 	protected $primaryKey = 'code';
 
-	public function scopeProblemMaster($query)
+	public function scopeMaster($query, $code)
 	{
-		return $query->where('code', 'like', 'P%');
+		$codeLength = " and length(code) ";
+		$codeLength .= strlen($code) == 1 ? "= 2" : "> 2";
+		return $query->whereRaw("code like '".$code."%'" . $codeLength);
 	}
 }
