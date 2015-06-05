@@ -12,10 +12,14 @@ class CreateDrpMastersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('drp_masters', function(Blueprint $table)
+		Schema::create('drp_master', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
+			$table->engine = 'InnoDB';
+			$table->string('code',5);
+			$table->string('description');
+			$table->string('detail');
+			$table->string('supplement');
+			$table->primary('code');
 		});
 	}
 
@@ -26,7 +30,7 @@ class CreateDrpMastersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('drp_masters');
+		Schema::drop('drp_master');
 	}
 
 }

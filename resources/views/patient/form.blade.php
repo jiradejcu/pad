@@ -14,6 +14,11 @@
 			{!! Form::label('lastname', 'Last Name :') !!}
 			{!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 		</div>
+		{!! Form::label('sex', 'Sex :') !!}
+		<div class="form-group">
+			<label class="radio-inline">{!! Form::radio('sex', 'm') !!}Male</label>
+			<label class="radio-inline">{!! Form::radio('sex', 'f') !!}Female</label>
+		</div>
 		<div class="form-group">
 			{!! Form::label('age', 'Age :') !!}
 			{!! Form::text('age', null, ['class' => 'form-control']) !!}
@@ -30,6 +35,7 @@
 			{!! Form::label('privilege', 'สิทธิ์ :') !!}
 			{!! Form::text('privilege', null, ['class' => 'form-control']) !!}
 		</div>
+		{!! Form::label('type', 'Type :') !!}
 		<div class="form-group">
 			<label class="radio-inline">{!! Form::radio('type', 'prospective', true) !!}Prospective</label>
 			<label class="radio-inline">{!! Form::radio('type', 'retrospective') !!}Retrospective</label>

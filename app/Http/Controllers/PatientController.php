@@ -15,7 +15,7 @@ class PatientController extends Controller {
 	public function __construct() {
 		$this->rules = ['firstname' => 'required', 'lastname' => 'required'];
 		
-		$this->patientField = ['HN', 'firstname', 'lastname', 'height', 'apache_ii', 'privilege'];
+		$this->patientField = ['HN', 'firstname', 'lastname', 'sex', 'height', 'apache_ii', 'privilege'];
 		$this->patientField = array_merge($this->patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
 		$this->patientField = array_merge($this->patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
 		$this->patientField = array_merge($this->patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
