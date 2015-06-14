@@ -24,4 +24,8 @@ class DrpRecord extends Model {
 		return $this->belongsTo('App\Patient', 'HN');
 	}
 
+	public function drpMedRecords() {
+		return $this->hasMany('App\DrpMedRecord', 'record_id');
+	}
+
 }

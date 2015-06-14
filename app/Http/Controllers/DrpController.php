@@ -43,7 +43,7 @@ class DrpController extends Controller {
 	public function store(Request $request)
 	{
 		$fallbackFields = ['problem', 'cause', 'intervention', 'outcome'];
-		$data = $request->all();
+		$data = $request->except(['drpMedRecords']);
 		foreach($fallbackFields as $field){
 			if(empty($data[$field]))
 				$data[$field] = $data[$field.'_main'];

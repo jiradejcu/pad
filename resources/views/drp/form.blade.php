@@ -32,6 +32,10 @@
 			{!! Form::select('outcome', [], null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
+			{!! Form::label('drpMedRecords', 'Medication Lists') !!}
+			@include('drp.med', ['id' => 0, 'isHidden' => 1])
+		</div>
+		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'med_recon', 'label_text' => 'Medication Reconciliation'])
 		</div>
 		<div class="form-group">
@@ -40,9 +44,12 @@
 		
 		<script type="text/javascript">
 		<!--
+	    var next = 0;
 		$(function() {
 			$('[data-toggle="main"]').each(retrieveDrpMaster);
 			$('[data-toggle="main"]').change(retrieveDrpMaster);
+			
+			addMedRecordForm();
 		});
 
 		function retrieveDrpMaster(){
@@ -53,6 +60,45 @@
 			        $("[name='"+name+"']").append('<option value="'+ key +'">'+ value +'</option>');
 			    });
 			});
+		}
+
+		function setMedRecordIndex(medForm, index){
+	        medForm.attr('id','medRecord' + index);
+	        medForm.removeAttr("style");
+	        medForm.addClass('medRecord');
+	        medForm.find('.remove-record').data('recordId', index);
+	        medForm.find("[name^='drpMedRecords']").each(function () {
+		        $(this).data('recordId', index);
+	            //$(this).attr("name", $(this).attr("name").replace("%id%", $(this).data('recordId')));
+	        });
+		}
+
+		function addMedRecordForm(){
+	        var addTo = "#medRecord" + next;
+	        if(next == 0)
+		        addTo = "#medRecordTemplate";
+	        next = next + 1;
+	        
+	        var medForm = $("#medRecordTemplate").clone();
+	        $(addTo).after(medForm);
+	        setMedRecordIndex(medForm, next);
+	        
+	        medForm.find(".add-record").click(function(e){
+		        e.preventDefault();
+		        addMedRecordForm();
+		    });
+		    
+	        medForm.find('.remove-record').click(function(e){
+                e.preventDefault();
+                var record_id = $(this).data('recordId');
+                $('#medRecord' + record_id).remove();
+
+                var index = 0;
+                $('.medRecord').each(function(i){
+	                setMedRecordIndex($(this), ++index);
+                });
+                next = index;
+            });
 		}
 		//-->
 		</script>
