@@ -33,7 +33,7 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('drpMedRecords', 'Medication Lists') !!}
-			@include('drp.med', ['id' => 0, 'isHidden' => 1])
+			@include('drp.med', ['id' => 0, 'isHidden' => 1, 'medicines' => $medicines])
 		</div>
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'med_recon', 'label_text' => 'Medication Reconciliation'])
