@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\DrpRecord;
 use App\Patient;
+use App\Medicine;
 
 use Illuminate\Http\Request;
 use App\DrpMaster;
@@ -32,7 +33,8 @@ class DrpController extends Controller {
 		$cause_master = $this->getDrpMaster('C');
 		$intervention_master = $this->getDrpMaster('I');
 		$outcome_master = $this->getDrpMaster('O');
-		return view('drp.create', compact('problem_master', 'cause_master', 'intervention_master', 'outcome_master'));
+		$medicines = Medicine::lists('name', 'name');
+		return view('drp.create', compact('problem_master', 'cause_master', 'intervention_master', 'outcome_master', 'medicines'));
 	}
 
 	/**
