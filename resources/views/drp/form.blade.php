@@ -48,7 +48,12 @@
 		$(function() {
 			$('[data-toggle="main"]').each(retrieveDrpMaster);
 			$('[data-toggle="main"]').change(retrieveDrpMaster);
-			
+			$('input[type=submit]').click(function() {
+		        $("[name^='drpMedRecords']").each(function () {
+	                $('#medRecordTemplate').remove();
+		            $(this).attr("name", $(this).attr("name").replace("%id%", $(this).data('recordId')));
+		        });
+		    });
 			addMedRecordForm();
 		});
 
@@ -69,7 +74,6 @@
 	        medForm.find('.remove-record').data('recordId', index);
 	        medForm.find("[name^='drpMedRecords']").each(function () {
 		        $(this).data('recordId', index);
-	            //$(this).attr("name", $(this).attr("name").replace("%id%", $(this).data('recordId')));
 	        });
 		}
 

@@ -13,7 +13,7 @@ class DrpMedRecord extends Model {
 	];
 
 	public function drpRecord(){
-		return $this->belongsTo('App\DrpRecord', 'drp_record_id');
+		return $this->belongsTo('App\DrpRecord');
 	}
 
 }
