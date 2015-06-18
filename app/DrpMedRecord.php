@@ -12,6 +12,8 @@ class DrpMedRecord extends Model {
 	'med_record_id',
 	];
 
+	public $timestamps = false;
+
 	public function drpRecord(){
 		return $this->belongsTo('App\DrpRecord');
 	}

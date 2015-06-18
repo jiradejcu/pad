@@ -8,6 +8,7 @@ use App\Medicine;
 
 use Illuminate\Http\Request;
 use App\DrpMaster;
+use App\DrpMedRecord;
 
 class DrpController extends Controller {
 
@@ -52,7 +53,14 @@ class DrpController extends Controller {
 			unset($data[$field.'_main']);
 		}
 		
-		DrpRecord::create($data);
+		$drpRecord = DrpRecord::create($data);
+
+		$drpMedRecords = $request->only(['drpMedRecords']);
+		foreach($drpMedRecords['drpMedRecords'] as $drpMedRecord){
+			$drpMedRecord['drp_record_id'] = $drpRecord->record_id;
+			DrpMedRecord::create($drpMedRecord);
+		}
+		
 		return redirect('drp');
 	}
 
