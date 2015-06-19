@@ -33,6 +33,18 @@
 			<td>{{ $drpRecord->recorded_by }}</td>
 			<td>{{ $drpRecord->verified_by }}</td>
 		</tr>
+		@foreach ($drpRecord->drpMedRecords->all() as $drpMedRecord)
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td>From</td>
+			<td>{{ $drpMedRecord->med_from }}</td>
+			<td>{{ $drpMedRecord->med_from_dose . ' mg' }}</td>
+			<td>To</td>
+			<td>{{ $drpMedRecord->med_to }}</td>
+			<td>{{ $drpMedRecord->med_to_dose . ' mg' }}</td>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		@endforeach
 		@endforeach
 	</tbody>
 </table>
