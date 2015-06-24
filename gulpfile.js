@@ -22,10 +22,12 @@ elixir(function(mix) {
     
     mix.scripts([
          './moment/min/moment.min.js',
+         './select2/dist/js/select2.min.js',
          './eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
      ], 'public/js/vendor.js', 'resources/assets/bower');
     
     mix.styles([
+        './select2/dist/css/select2.min.css',
         './eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
     ], 'public/css/vendor.css', 'resources/assets/bower');
 });

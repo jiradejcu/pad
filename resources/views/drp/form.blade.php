@@ -74,6 +74,7 @@
 	        medForm.find('.remove-record').data('recordId', index);
 	        medForm.find("[name^='drpMedRecords']").each(function () {
 		        $(this).data('recordId', index);
+		        $(this).select2();
 	        });
 		}
 
