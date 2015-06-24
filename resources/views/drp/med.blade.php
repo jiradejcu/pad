@@ -4,11 +4,11 @@
 		<div class="form-inline med-record" id="medRecord{{ $id }}">
 		@endif
 			{!! Form::label('med_from', 'From :') !!}
-			{!! Form::select('drpMedRecords[%id%][med_from]', $medicines, null, ['class' => 'form-control']) !!}
+			{!! Form::select('drpMedRecords[%id%][med_from]', $medicines, null, ['class' => 'form-control med-select', 'style' => 'width: 22%']) !!}
 			{!! Form::label('med_from_dose', 'Dose :') !!}
 			{!! Form::text('drpMedRecords[%id%][med_from_dose]', null, ['class' => 'form-control']) !!}
 			{!! Form::label('med_to', 'To :') !!}
-			{!! Form::select('drpMedRecords[%id%][med_to]', $medicines, null, ['class' => 'form-control']) !!}
+			{!! Form::select('drpMedRecords[%id%][med_to]', $medicines, null, ['class' => 'form-control med-select', 'style' => 'width: 22%']) !!}
 			{!! Form::label('med_to_dose', 'Dose :') !!}
 			{!! Form::text('drpMedRecords[%id%][med_to_dose]', null, ['class' => 'form-control']) !!}
 			

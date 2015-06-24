@@ -72,7 +72,7 @@
 	        medForm.removeAttr("style");
 	        medForm.addClass('medRecord');
 	        medForm.find('.remove-record').data('recordId', index);
-	        medForm.find("[name^='drpMedRecords']").each(function () {
+	        medForm.find('.med-select').each(function () {
 		        $(this).data('recordId', index);
 		        $(this).select2();
 	        });
