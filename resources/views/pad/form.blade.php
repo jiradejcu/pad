@@ -27,5 +27,9 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
 		</div>
 		<div class="form-group">
+			{!! Form::label('padMedRecords', 'Medication Lists') !!}
+			@include('pad.med', ['id' => 0, 'isHidden' => 1, 'medicines' => $medicines])
+		</div>
+		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
 		</div>

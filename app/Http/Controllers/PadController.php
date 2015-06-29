@@ -4,6 +4,7 @@ use App\Http\Requests\PadRequest;
 use App\Http\Controllers\Controller;
 use App\PadRecord;
 use App\PatientAdmission;
+use App\Medicine;
 
 class PadController extends Controller {
 
@@ -41,7 +42,8 @@ class PadController extends Controller {
 	 */
 	public function create($id)
 	{
-		return view('pad.create', compact('id'));
+		$medicines = Medicine::lists('name', 'name');
+		return view('pad.create', compact('id', 'medicines'));
 	}
 
 	/**
