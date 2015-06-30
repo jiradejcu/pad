@@ -58,9 +58,11 @@ class PadController extends Controller {
 		$padRecord = PadRecord::create($data);
 
 		$padMedRecords = $request->only(['padMedRecords']);
-		foreach($padMedRecords['padMedRecords'] as $padMedRecord){
-			$padMedRecord['pad_record_id'] = $padRecord->record_id;
-			PadMedRecord::create($padMedRecord);
+		if(is_array($padMedRecords['padMedRecords'])){
+			foreach($padMedRecords['padMedRecords'] as $padMedRecord){
+				$padMedRecord['pad_record_id'] = $padRecord->record_id;
+				PadMedRecord::create($padMedRecord);
+			}
 		}
 		return redirect('pad/'.$request->admission_id);
 	}
@@ -99,18 +101,20 @@ class PadController extends Controller {
 	public function update($id, PadRequest $request)
 	{
 		$padRecord = PadRecord::findOrFail($id);
-		
+
 		$padRecord->padMedRecords()->delete();
-		
+
 		$data = $request->except(['padMedRecords']);
 		$padRecord->update($data);
-		
+
 		$padMedRecords = $request->only(['padMedRecords']);
-		foreach($padMedRecords['padMedRecords'] as $padMedRecord){
-			$padMedRecord['pad_record_id'] = $padRecord->record_id;
-			PadMedRecord::create($padMedRecord);
+		if(is_array($padMedRecords['padMedRecords'])){
+			foreach($padMedRecords['padMedRecords'] as $padMedRecord){
+				$padMedRecord['pad_record_id'] = $padRecord->record_id;
+				PadMedRecord::create($padMedRecord);
+			}
 		}
-		
+
 		return redirect('pad/'.$padRecord->admission_id);
 	}
 

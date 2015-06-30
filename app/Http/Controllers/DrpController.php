@@ -52,15 +52,17 @@ class DrpController extends Controller {
 				$data[$field] = $data[$field.'_main'];
 			unset($data[$field.'_main']);
 		}
-		
+
 		$drpRecord = DrpRecord::create($data);
 
 		$drpMedRecords = $request->only(['drpMedRecords']);
-		foreach($drpMedRecords['drpMedRecords'] as $drpMedRecord){
-			$drpMedRecord['drp_record_id'] = $drpRecord->record_id;
-			DrpMedRecord::create($drpMedRecord);
+		if(is_array($drpMedRecords['drpMedRecords'])){
+			foreach($drpMedRecords['drpMedRecords'] as $drpMedRecord){
+				$drpMedRecord['drp_record_id'] = $drpRecord->record_id;
+				DrpMedRecord::create($drpMedRecord);
+			}
 		}
-		
+
 		return redirect('drp');
 	}
 
@@ -108,7 +110,7 @@ class DrpController extends Controller {
 		DrpRecord::destroy($id);
 		return [];
 	}
-	
+
 	public function getDrpMaster($code)
 	{
 		$masters = DrpMaster::master($code)->get();
