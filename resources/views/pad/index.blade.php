@@ -19,6 +19,7 @@
 			<td>Anxiety</td>
 			<td>Delirium Assessment</td>
 			<td>Drug Interaction</td>
+			<td>Medication List</td>
 		</tr>
 		@foreach ($padRecords['padRecord'] as $padRecord)
 		<tr>
@@ -31,6 +32,19 @@
 			<td>{{ convertTriState($padRecord->anxiety) }}</td>
 			<td>{{ convertTriState($padRecord->delirium) }}</td>
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
+			<td>
+				<table id="padMedTable" class="table table-striped table-bordered">
+					<tbody>
+					@foreach ($padRecord->padMedRecords->all() as $padMedRecord)
+					<tr>
+						<td>{{ $padMedRecord->med_name }}</td>
+						<td>{{ $padMedRecord->med_channel }}</td>
+						<td>{{ $padMedRecord->med_dose . ' mg' }}</td>
+					</tr>
+					@endforeach
+					</tbody>
+				</table>
+			</td>
 		</tr>
 		@endforeach
 	</tbody>
@@ -51,25 +65,8 @@
 <script type="text/javascript">
 <!--
 $(function() {
-    var t = $('#padTable tbody').eq(0);
-    var r = t.find('tr');
-    var cols= r.length;
-    var rows= r.eq(0).find('td').length;
-    var cell, next, tem, i = 0;
-    var tb= $('<tbody></tbody>');
- 
-    while(i<rows){
-        cell= 0;
-        tem= $('<tr></tr>');
-        while(cell<cols){
-            next= r.eq(cell++).find('td').eq(0);
-            tem.append(next);
-        }
-        tb.append(tem);
-        ++i;
-    }
-    $('#padTable').append(tb);
-    $('#padTable').show();
+
+	transposeTable();
     
     $('[data-toggle="confirmation"]').click(function(){
 		var self = this;
@@ -92,6 +89,28 @@ $(function() {
 		});
 	});
 });
+
+function transposeTable(){
+    var t = $('#padTable tbody').eq(0);
+    var r = t.children('tr');
+    var cols= r.length;
+    var rows= r.eq(0).children('td').length;
+    var cell, next, tem, i = 0;
+    var tb= $('<tbody></tbody>');
+ 
+    while(i<rows){
+        cell= 0;
+        tem= $('<tr></tr>');
+        while(cell<cols){
+            next= r.eq(cell++).children('td').eq(0);
+            tem.append(next);
+        }
+        tb.append(tem);
+        ++i;
+    }
+    $('#padTable').append(tb);
+    $('#padTable').show();
+}
 //-->
 </script>
 
