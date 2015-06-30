@@ -9,6 +9,7 @@ return array(
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',
     'AddPatientColumn2' => $baseDir . '/database/migrations/2015_05_24_171249_add_patient_column_2.php',
     'AddPatientColumn3' => $baseDir . '/database/migrations/2015_06_05_031724_add_patient_column_3.php',
+    'AddRemarkColumn' => $baseDir . '/database/migrations/2015_06_30_151528_add_remark_column.php',
     'CreateDrpMedRecordsTable' => $baseDir . '/database/migrations/2015_06_16_164241_create_drp_med_records_table.php',
     'CreateDrpRecordsTable' => $baseDir . '/database/migrations/2015_06_01_083217_create_drp_records_table.php',
     'CreateMedicinesTable' => $baseDir . '/database/migrations/2015_06_16_163843_create_medicines_table.php',

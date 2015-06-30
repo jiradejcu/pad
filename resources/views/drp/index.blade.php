@@ -42,7 +42,7 @@
 			<td>To</td>
 			<td>{{ $drpMedRecord->med_to }}</td>
 			<td>{{ $drpMedRecord->med_to_dose . ' mg' }}</td>
-			<td colspan="2">&nbsp;</td>
+			<td colspan="2">{{ $drpMedRecord->med_remark }}</td>
 		</tr>
 		@endforeach
 		@endforeach
