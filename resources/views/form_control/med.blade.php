@@ -4,11 +4,11 @@
 		var medRecordName = "{!! $medRecordName !!}";
 	    
 		$(function() {
-			$('input[type=submit]').click(function() {
+			$('input[type=submit]').click(function(e) {
 				$('#medRecordTemplate').remove();
-				$("[name^='" + medRecordName + "']").each(function () {
-					$(this).attr("name", $(this).attr("name").replace("%id%", $(this).data('recordId')));
-				});
+			});
+			$("#medRecordTemplate [name^='" + medRecordName + "']").each(function () {
+				$(this).data("defaultName", $(this).attr("name"));
 			});
 			addMedRecordForm();
 		});
@@ -21,6 +21,7 @@
 	        medForm.find('.remove-record').data('recordId', index);
 	        medForm.find("[name^='" + medRecordName + "']").each(function () {
 		        $(this).data('recordId', index);
+		        $(this).attr("name", $(this).data("defaultName").replace("%id%", $(this).data('recordId')));
 	        });
 	        medForm.find('.med-select').each(function () {
 		        $(this).select2();
@@ -33,7 +34,7 @@
 		        addTo = "#medRecordTemplate";
 	        next = next + 1;
 	        
-	        var medForm = $("#medRecordTemplate").clone();
+	        var medForm = $("#medRecordTemplate").clone(true);
 	        $(addTo).after(medForm);
 	        setMedRecordIndex(medForm, next);
 	        
