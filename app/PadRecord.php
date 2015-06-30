@@ -39,4 +39,8 @@ class PadRecord extends Model {
 	public function setDeliriumAttribute($value){
 		$this->attributes['delirium'] = convertEmptyToNull($value);
 	}
+
+	public function padMedRecords() {
+		return $this->hasMany('App\PadMedRecord');
+	}
 }

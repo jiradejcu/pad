@@ -12,6 +12,7 @@ return array(
     'CreateDrpMedRecordsTable' => $baseDir . '/database/migrations/2015_06_16_164241_create_drp_med_records_table.php',
     'CreateDrpRecordsTable' => $baseDir . '/database/migrations/2015_06_01_083217_create_drp_records_table.php',
     'CreateMedicinesTable' => $baseDir . '/database/migrations/2015_06_16_163843_create_medicines_table.php',
+    'CreatePadMedRecordsTable' => $baseDir . '/database/migrations/2015_06_30_015639_create_pad_med_records_table.php',
     'CreatePadRecordsTable' => $baseDir . '/database/migrations/2015_05_13_170553_create_pad_records_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePatientAdmissionsTable' => $baseDir . '/database/migrations/2015_05_12_141452_create_patient_admissions_table.php',

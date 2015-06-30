@@ -3,6 +3,7 @@
 use App\Http\Requests\PadRequest;
 use App\Http\Controllers\Controller;
 use App\PadRecord;
+use App\PadMedRecord;
 use App\PatientAdmission;
 use App\Medicine;
 
@@ -53,7 +54,14 @@ class PadController extends Controller {
 	 */
 	public function store(PadRequest $request)
 	{
-		PadRecord::create($request->all());
+		$data = $request->except(['padMedRecords']);
+		$padRecord = PadRecord::create($data);
+
+		$padMedRecords = $request->only(['padMedRecords']);
+		foreach($padMedRecords['padMedRecords'] as $padMedRecord){
+			$padMedRecord['pad_record_id'] = $padRecord->record_id;
+			PadMedRecord::create($padMedRecord);
+		}
 		return redirect('pad/'.$request->admission_id);
 	}
 
