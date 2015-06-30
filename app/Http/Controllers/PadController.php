@@ -86,7 +86,8 @@ class PadController extends Controller {
 	public function edit($id)
 	{
 		$padRecord = PadRecord::findOrFail($id);
-		return view('pad.edit', compact('padRecord'));
+		$medicines = Medicine::lists('name', 'name');
+		return view('pad.edit', compact('padRecord', 'medicines'));
 	}
 
 	/**
@@ -98,7 +99,18 @@ class PadController extends Controller {
 	public function update($id, PadRequest $request)
 	{
 		$padRecord = PadRecord::findOrFail($id);
-		$padRecord->update($request->all());
+		
+		$padRecord->padMedRecords()->delete();
+		
+		$data = $request->except(['padMedRecords']);
+		$padRecord->update($data);
+		
+		$padMedRecords = $request->only(['padMedRecords']);
+		foreach($padMedRecords['padMedRecords'] as $padMedRecord){
+			$padMedRecord['pad_record_id'] = $padRecord->record_id;
+			PadMedRecord::create($padMedRecord);
+		}
+		
 		return redirect('pad/'.$padRecord->admission_id);
 	}
 
