@@ -19,12 +19,30 @@
 			{!! Form::label('rass', 'Sedation Assessment :') !!}
 			{!! Form::text('rass', null, ['class' => 'form-control']) !!}
 		</div>
-		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'anxiety', 'label_text' => 'Anxiety'])
-		</div>
 			@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'hr', 'label_text' => 'HR (SE จากยา)'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'hepato', 'label_text' => 'Hepatocellular Disease'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'cholestasis', 'label_text' => 'Cholestasis Jaundice'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'liver_disease', 'label_text' => 'Mixed Pattern of Liver Disease'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'hd', 'label_text' => 'HD'])
+		</div>
+		<div class="form-group">
+			{!! Form::label('renal_impairment', 'Renal Impairment') !!}<br>
+			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mild') !!}Mild</label>
+			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mod') !!}Moderate</label>
+			<label class="radio-inline">{!! Form::radio('renal_impairment', 'severe') !!}Severe</label>
 		</div>
 		<div class="form-group">
 			{!! Form::label('padMedRecords', 'Medication Lists') !!}

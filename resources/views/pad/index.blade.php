@@ -16,9 +16,14 @@
 			<td>Numeric Rating</td>
 			<td>Behavioral Pain Scale</td>
 			<td>Sedation Assessment</td>
-			<td>Anxiety</td>
 			<td>Delirium Assessment</td>
 			<td>Drug Interaction</td>
+			<td>HR (SE จากยา)</td>
+			<td>Hepatocellular Disease</td>
+			<td>Cholestasis Jaundice</td>
+			<td>Mixed Pattern of Liver Disease</td>
+			<td>HD</td>
+			<td>Renal Impairment</td>
 			<td>Medication List</td>
 		</tr>
 		@foreach ($padRecords['padRecord'] as $padRecord)
@@ -29,9 +34,14 @@
 			<td>{{ displayNullNumber($padRecord->nr) }}</td>
 			<td>{{ displayNullNumber($padRecord->bps) }}</td>
 			<td>{{ displayNullNumber($padRecord->rass) }}</td>
-			<td>{{ convertTriState($padRecord->anxiety) }}</td>
 			<td>{{ convertTriState($padRecord->delirium) }}</td>
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
+			<td>{{ $padRecord->hr }}</td>
+			<td>{{ $padRecord->hepato }}</td>
+			<td>{{ $padRecord->cholestasis }}</td>
+			<td>{{ $padRecord->liver_disease }}</td>
+			<td>{{ $padRecord->hd }}</td>
+			<td>{{ $padRecord->renal_impairment }}</td>
 			<td>
 				<table id="padMedTable" class="table table-striped table-bordered">
 					<tbody>

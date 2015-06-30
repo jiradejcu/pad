@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddPadColumn' => $baseDir . '/database/migrations/2015_06_30_163613_add_pad_column.php',
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',
     'AddPatientColumn2' => $baseDir . '/database/migrations/2015_05_24_171249_add_patient_column_2.php',
     'AddPatientColumn3' => $baseDir . '/database/migrations/2015_06_05_031724_add_patient_column_3.php',
