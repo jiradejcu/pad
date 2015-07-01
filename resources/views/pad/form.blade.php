@@ -24,9 +24,6 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
 		</div>
 		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'hr', 'label_text' => 'HR (SE จากยา)'])
-		</div>
-		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'hepato', 'label_text' => 'Hepatocellular Disease'])
 		</div>
 		<div class="form-group">
@@ -40,6 +37,7 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('renal_impairment', 'Renal Impairment') !!}<br>
+			<label class="radio-inline">{!! Form::radio('renal_impairment', 'no', true) !!}No</label>
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mild') !!}Mild</label>
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mod') !!}Moderate</label>
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'severe') !!}Severe</label>

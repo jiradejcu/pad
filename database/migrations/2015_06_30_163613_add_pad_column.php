@@ -14,8 +14,8 @@ class AddPadColumn extends Migration {
 	{		
 		Schema::table('patient_pad_record', function(Blueprint $table)
 		{
+			$table->dropColumn('hr');
 			$table->boolean('anxiety')->nullable()->change();
-			$table->boolean('hr')->after('drug_interact')->change();
 			$table->boolean('hepato')->after('hr');
 			$table->boolean('cholestasis')->after('hepato');
 			$table->boolean('liver_disease')->after('cholestasis');
@@ -33,7 +33,7 @@ class AddPadColumn extends Migration {
 	{
 		Schema::table('patient_pad_record', function(Blueprint $table)
 		{
-			$table->integer('hr')->default(0)->after('bp_l')->change();
+			$table->integer('hr')->default(0)->after('bp_l');
 			$table->dropColumn('hepato');
 			$table->dropColumn('cholestasis');
 			$table->dropColumn('liver_disease');
