@@ -23,10 +23,11 @@
 			<td>DB</td>
 			<td>Albumin</td>
 			<td>BUN</td>
-			<td>Src</td>
+			<td>Scr</td>
 			<td>Intake</td>
 			<td>Urine</td>
 			<td>Drug Interaction</td>
+			<td>Drug Interaction Detail</td>
 			<td>Hepatocellular Disease</td>
 			<td>Cholestasis Jaundice</td>
 			<td>Mixed Pattern of Liver Disease</td>
@@ -53,6 +54,7 @@
 			<td>{{ displayNullNumber($padRecord->i) }}</td>
 			<td>{{ displayNullNumber($padRecord->urine) }}</td>
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
+			<td>{{ $padRecord->drug_interact_detail }}</td>
 			<td>{{ convertTriState($padRecord->hepato) }}</td>
 			<td>{{ convertTriState($padRecord->cholestasis) }}</td>
 			<td>{{ convertTriState($padRecord->liver_disease) }}</td>

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddDrugInteractionDetail' => $baseDir . '/database/migrations/2015_07_01_135458_add_drug_interaction_detail.php',
     'AddPadColumn' => $baseDir . '/database/migrations/2015_06_30_163613_add_pad_column.php',
     'AddPadMedColumn' => $baseDir . '/database/migrations/2015_07_01_124118_add_pad_med_column.php',
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',

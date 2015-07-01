@@ -45,7 +45,7 @@
 			{!! Form::text('bun', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('scr', 'Src :') !!}
+			{!! Form::label('scr', 'Scr :') !!}
 			{!! Form::text('scr', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
@@ -57,7 +57,7 @@
 			{!! Form::text('urine', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
+			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions', 'detail_text' => 1])
 		</div>
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'hepato', 'label_text' => 'Hepatocellular Disease'])
