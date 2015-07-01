@@ -9,7 +9,7 @@
 		<div class="form-group">
 			{!! Form::hidden('admission_id', $id)!!}
 		</div>
-		@include('pad.form', ['submitButtonText' => 'Add Record'])
+		@include('pad.form', ['submitButtonText' => 'Add Record', 'padMedRecords' => []])
 	{!! Form::close() !!}
 	
 	@include('error')

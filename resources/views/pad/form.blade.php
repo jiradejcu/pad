@@ -82,6 +82,12 @@
 		<div class="form-group">
 			{!! Form::label('padMedRecords', 'Medication Lists') !!}
 			@include('pad.med', ['id' => 0, 'isHidden' => 1, 'medicines' => $medicines])
+			
+			@foreach($padMedRecords as $padMedRecord)
+				@include('pad.med', ['id' => $padMedRecord->med_record_id, 'isHidden' => 0, 'medicines' => $medicines])
+			@endforeach
+			
+			@include('form_control.med', ['medRecordName' => 'padMedRecords'])
 		</div>
 		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}

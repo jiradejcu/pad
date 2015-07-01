@@ -32,4 +32,3 @@
   			{!! Form::button('+', ['class' => 'btn add-record']) !!}
   			{!! Form::button('--', ['class' => 'btn btn-danger remove-record']) !!}
 		</div>
-		@include('form_control.med', ['medRecordName' => 'padMedRecords'])

@@ -6,7 +6,7 @@
 	<hr/>
 	
 	{!! Form::model($padRecord, ['method' => 'PATCH', 'action'=>['PadController@update', $padRecord->record_id]]) !!}
-		@include('pad.form', ['submitButtonText' => 'Update Record'])
+		@include('pad.form', ['submitButtonText' => 'Update Record', 'padMedRecords' => $padRecord->padMedRecords])
 	{!! Form::close() !!}
 	
 	@include('error')
