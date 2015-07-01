@@ -21,6 +21,42 @@
 		</div>
 			@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
+			{!! Form::label('ast', 'AST :') !!}
+			{!! Form::text('ast', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('alt', 'ALT :') !!}
+			{!! Form::text('alt', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('tb', 'TB :') !!}
+			{!! Form::text('tb', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('db', 'DB :') !!}
+			{!! Form::text('db', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('albumin', 'Albumin :') !!}
+			{!! Form::text('albumin', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('bun', 'BUN :') !!}
+			{!! Form::text('bun', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('scr', 'Src :') !!}
+			{!! Form::text('scr', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('i', 'Intake :') !!}
+			{!! Form::text('i', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
+			{!! Form::label('urine', 'Urine :') !!}
+			{!! Form::text('urine', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions'])
 		</div>
 		<div class="form-group">
@@ -41,6 +77,7 @@
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mild') !!}Mild</label>
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'mod') !!}Moderate</label>
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'severe') !!}Severe</label>
+			<label class="radio-inline">{!! Form::radio('renal_impairment', 'esrd') !!}ESRD</label>
 		</div>
 		<div class="form-group">
 			{!! Form::label('padMedRecords', 'Medication Lists') !!}

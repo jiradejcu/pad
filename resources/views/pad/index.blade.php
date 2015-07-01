@@ -17,8 +17,16 @@
 			<td>Behavioral Pain Scale</td>
 			<td>Sedation Assessment</td>
 			<td>Delirium Assessment</td>
+			<td>AST</td>
+			<td>ALT</td>
+			<td>TB</td>
+			<td>DB</td>
+			<td>Albumin</td>
+			<td>BUN</td>
+			<td>Src</td>
+			<td>Intake</td>
+			<td>Urine</td>
 			<td>Drug Interaction</td>
-			<td>HR (SE จากยา)</td>
 			<td>Hepatocellular Disease</td>
 			<td>Cholestasis Jaundice</td>
 			<td>Mixed Pattern of Liver Disease</td>
@@ -35,21 +43,44 @@
 			<td>{{ displayNullNumber($padRecord->bps) }}</td>
 			<td>{{ displayNullNumber($padRecord->rass) }}</td>
 			<td>{{ convertTriState($padRecord->delirium) }}</td>
+			<td>{{ displayNullNumber($padRecord->ast) }}</td>
+			<td>{{ displayNullNumber($padRecord->alt) }}</td>
+			<td>{{ displayNullNumber($padRecord->tb) }}</td>
+			<td>{{ displayNullNumber($padRecord->db) }}</td>
+			<td>{{ displayNullNumber($padRecord->albumin) }}</td>
+			<td>{{ displayNullNumber($padRecord->bun) }}</td>
+			<td>{{ displayNullNumber($padRecord->scr) }}</td>
+			<td>{{ displayNullNumber($padRecord->i) }}</td>
+			<td>{{ displayNullNumber($padRecord->urine) }}</td>
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
-			<td>{{ $padRecord->hr }}</td>
-			<td>{{ $padRecord->hepato }}</td>
-			<td>{{ $padRecord->cholestasis }}</td>
-			<td>{{ $padRecord->liver_disease }}</td>
-			<td>{{ $padRecord->hd }}</td>
+			<td>{{ convertTriState($padRecord->hepato) }}</td>
+			<td>{{ convertTriState($padRecord->cholestasis) }}</td>
+			<td>{{ convertTriState($padRecord->liver_disease) }}</td>
+			<td>{{ convertTriState($padRecord->hd) }}</td>
 			<td>{{ $padRecord->renal_impairment }}</td>
 			<td>
 				<table id="padMedTable" class="table table-striped table-bordered">
 					<tbody>
+					<tr>
+						<td>Name</td>
+						<td>Channel</td>
+						<td>Dose</td>
+						<td>BP Drop</td>
+						<td>Slow HR</td>
+						<td>Constipation</td>
+						<td>Prolong Sedation</td>
+						<td>Remark</td>
+					</tr>
 					@foreach ($padRecord->padMedRecords->all() as $padMedRecord)
 					<tr>
 						<td>{{ $padMedRecord->med_name }}</td>
 						<td>{{ $padMedRecord->med_channel }}</td>
-						<td>{{ $padMedRecord->med_dose . ' mg' }}</td>
+						<td>{{ displayNullNumber($padMedRecord->med_dose) . ' mg' }}</td>
+						<td>{{ convertTriState($padMedRecord->bp_drop) }}</td>
+						<td>{{ convertTriState($padMedRecord->slow_hr) }}</td>
+						<td>{{ convertTriState($padMedRecord->constipation) }}</td>
+						<td>{{ convertTriState($padMedRecord->prolong_sedation) }}</td>
+						<td>{{ $padMedRecord->remark }}</td>
 					</tr>
 					@endforeach
 					</tbody>

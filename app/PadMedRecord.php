@@ -13,6 +13,10 @@ class PadMedRecord extends Model {
 	];
 
 	public $timestamps = false;
+	
+	public function setMedDoseAttribute($value){
+		$this->attributes['med_dose'] = convertEmptyToNull($value);
+	}
 
 	public function padRecord(){
 		return $this->belongsTo('App\PadRecord');
