@@ -32,11 +32,12 @@
 			{!! Form::select('outcome', [], null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('drpMedRecords', 'Medication Lists') !!}
-			@include('drp.med', ['id' => 0, 'isHidden' => 1, 'medicines' => $medicines])
+			@include('form_control.checkbox', ['checkbox_name' => 'med_recon', 'label_text' => 'Medication Reconciliation'])
 		</div>
 		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'med_recon', 'label_text' => 'Medication Reconciliation'])
+			{!! Form::label('drpMedRecords', 'Medication Lists') !!}
+			@include('drp.med', ['isHidden' => 1, 'medicines' => $medicines])
+			@include('form_control.med', ['medRecordName' => 'drpMedRecords'])
 		</div>
 		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
