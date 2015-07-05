@@ -81,11 +81,13 @@
 		</div>
 		<div class="form-group">
 			{!! Form::label('padMedRecords', 'Medication Lists') !!}
-			@include('pad.med', ['id' => 0, 'isHidden' => 1, 'medicines' => $medicines])
+			@include('pad.med', ['isHidden' => 1, 'medicines' => $medicines])
 			
-			@foreach($padMedRecords as $padMedRecord)
-				@include('pad.med', ['id' => $padMedRecord->med_record_id, 'isHidden' => 0, 'medicines' => $medicines])
-			@endforeach
+			@if(!empty($padRecord))
+				@foreach($padRecord->padMedRecords as $padMedRecord)
+					@include('pad.med', ['isHidden' => 0, 'medicines' => $medicines])
+				@endforeach
+			@endif
 			
 			@include('form_control.med', ['medRecordName' => 'padMedRecords'])
 		</div>

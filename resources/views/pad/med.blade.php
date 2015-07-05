@@ -1,33 +1,34 @@
 		@if($isHidden)
 		<div class="form-inline" id="medRecordTemplate" style="display: none">
 		@else
-		<div class="form-inline med-record" id="medRecord{{ $id }}">
+		<div class="form-inline med-record" id="medRecord{{ $padMedRecord->med_record_id }}">
+		{!! Form::setModel($padMedRecord) !!}
 		@endif
 			{!! Form::label('med_name', 'Name :') !!}
-			{!! Form::select('padMedRecords[%id%][med_name]', $medicines, null, ['class' => 'form-control med-select', 'style' => 'width: 15%']) !!}
+			{!! Form::select('med_name', $medicines, null, ['class' => 'form-control med-select med-record-field', 'style' => 'width: 15%']) !!}
 			<div class="form-group">
-				{!! Form::label('padMedRecords[%id%][med_channel]', 'Channel :') !!}
-				<label class="radio-inline">{!! Form::radio('padMedRecords[%id%][med_channel]', 'bolus', true) !!}Bolus</label>
-				<label class="radio-inline">{!! Form::radio('padMedRecords[%id%][med_channel]', 'drip') !!}Drip</label>
+				{!! Form::label('med_channel', 'Channel :') !!}
+				<label class="radio-inline">{!! Form::radio('med_channel', 'bolus', true, ['class' => 'med-record-field']) !!}Bolus</label>
+				<label class="radio-inline">{!! Form::radio('med_channel', 'drip', null, ['class' => 'med-record-field']) !!}Drip</label>
 			</div>
 			{!! Form::label('med_dose', 'Dose :') !!}
-			{!! Form::text('padMedRecords[%id%][med_dose]', null, ['class' => 'form-control', 'style' => 'width: 5%']) !!}
+			{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field', 'style' => 'width: 5%']) !!}
 			
 			<div class="form-group">
-				@include('form_control.checkbox', ['checkbox_name' => 'padMedRecords[%id%][bp_drop]', 'label_text' => 'BP Drop'])
+				@include('form_control.checkbox', ['checkbox_name' => 'bp_drop', 'label_text' => 'BP Drop', 'form_class' => 'med-record-field'])
 			</div>
 			<div class="form-group">
-				@include('form_control.checkbox', ['checkbox_name' => 'padMedRecords[%id%][slow_hr]', 'label_text' => 'Slow HR'])
+				@include('form_control.checkbox', ['checkbox_name' => 'slow_hr', 'label_text' => 'Slow HR', 'form_class' => 'med-record-field'])
 			</div>
 			<div class="form-group">
-				@include('form_control.checkbox', ['checkbox_name' => 'padMedRecords[%id%][constipation]', 'label_text' => 'Constipation'])
+				@include('form_control.checkbox', ['checkbox_name' => 'constipation', 'label_text' => 'Constipation', 'form_class' => 'med-record-field'])
 			</div>
 			<div class="form-group">
-				@include('form_control.checkbox', ['checkbox_name' => 'padMedRecords[%id%][prolong_sedation]', 'label_text' => 'Prolong Sedation'])
+				@include('form_control.checkbox', ['checkbox_name' => 'prolong_sedation', 'label_text' => 'Prolong Sedation', 'form_class' => 'med-record-field'])
 			</div>
 			
 			{!! Form::label('remark', 'Remark :') !!}
-			{!! Form::text('padMedRecords[%id%][remark]', null, ['class' => 'form-control', 'style' => 'width: 10%']) !!}
+			{!! Form::text('remark', null, ['class' => 'form-control med-record-field', 'style' => 'width: 10%']) !!}
 		
   			{!! Form::button('+', ['class' => 'btn add-record']) !!}
   			{!! Form::button('--', ['class' => 'btn btn-danger remove-record']) !!}

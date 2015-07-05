@@ -7,8 +7,8 @@
 			$('input[type=submit]').click(function(e) {
 				$('#medRecordTemplate').remove();
 			});
-			$("[name^='" + medRecordName + "']").each(function () {
-				$(this).data("defaultName", $(this).attr("name"));
+			$('.med-record-field').each(function () {
+				$(this).data("defaultName", medRecordName + '[%id%][' + $(this).attr("name") + ']');
 			});
 			if($('.med-record').length == 0)
 				addMedRecordForm();
@@ -20,7 +20,7 @@
                 });
                 next = index;
 
-                $("[type='radio'][name^='" + medRecordName + "']").each(function(i){
+                $(".med-record-field[type='radio']").each(function(i){
                     if($(this).attr("checked") == "checked")
 	                	$(this).prop("checked",true);
                 });
@@ -33,7 +33,7 @@
 	        medForm.addClass('med-record');
 	        
 	        medForm.find('.remove-record').data('recordId', index);
-	        medForm.find("[name^='" + medRecordName + "']").each(function () {
+	        medForm.find('.med-record-field').each(function () {
 		        $(this).data('recordId', index);
 		        $(this).attr("name", $(this).data("defaultName").replace("%id%", $(this).data('recordId')));
 	        });
