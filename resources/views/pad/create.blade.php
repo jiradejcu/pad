@@ -5,7 +5,7 @@
 	
 	<hr/>
 	
-	{!! Form::open(['url'=>'pad']) !!}
+	{!! Form::model($padRecord, ['url'=>'pad']) !!}
 		<div class="form-group">
 			{!! Form::hidden('admission_id', $id)!!}
 		</div>

@@ -17,7 +17,7 @@ class PatientAdmission extends Model {
 	}
 	
 	public function padRecords(){
-		return $this->hasMany('App\PadRecord', 'admission_id');
+		return $this->hasMany('App\PadRecord', 'admission_id')->orderBy('date_assessed');
 	}
 	
 	public function setHospitalAdmissionDateFromAttribute($value){

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\PatientAdmission;
-use Carbon\Carbon;
 
 class PatientController extends Controller {
 

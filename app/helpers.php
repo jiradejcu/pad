@@ -1,4 +1,6 @@
 <?php
+define('DISPLAY_DATE_FORMAT', 'd-m-Y g:i A');
+
 function convertEmptyToNull($value){
 	return (is_null($value) || trim($value) == "" || trim($value) == "-") ? null : $value;
 }
@@ -16,7 +18,7 @@ function displayDate($value){
 }
 
 function displayDateTime($value){
-	return convertDateFormat($value, 'd-m-Y g:i A');
+	return convertDateFormat($value, DISPLAY_DATE_FORMAT);
 }
 
 function convertDateFormat($value, $format){
