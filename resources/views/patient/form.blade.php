@@ -101,6 +101,7 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'hyperthyroid', 'label_text' => 'Hyperthyroid'])
 			@include('form_control.checkbox', ['checkbox_name' => 'asthma', 'label_text' => 'Asthma'])
 			@include('form_control.checkbox', ['checkbox_name' => 'copd', 'label_text' => 'COPD'])
+			@include('form_control.checkbox', ['checkbox_name' => 'cirrhosis', 'label_text' => 'Cirrhosis'])
 		</div>
 			@include('form_control.checkbox', ['checkbox_name' => 'others', 'label_text' => 'Others', 'detail_text' => 1])
 			
@@ -119,6 +120,11 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'aki', 'label_text' => 'AKI'])
 			@include('form_control.checkbox', ['checkbox_name' => 'liver_shock', 'label_text' => 'Liver Shock'])
 			@include('form_control.checkbox', ['checkbox_name' => 'seizure_shock', 'label_text' => 'Seizure Shock'])
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'ugib', 'label_text' => 'UGIB'])
+			@include('form_control.checkbox', ['checkbox_name' => 'coagulopathy', 'label_text' => 'Coagulopathy'])
+			@include('form_control.checkbox', ['checkbox_name' => 'anemia', 'label_text' => 'Anemia'])
 		</div>
 			@include('form_control.checkbox', ['checkbox_name' => 'others_active', 'label_text' => 'Others', 'detail_text' => 1])
 		<hr/>

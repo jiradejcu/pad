@@ -18,13 +18,14 @@ class PatientController extends Controller {
 		$this->patientField = array_merge($this->patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
 		$this->patientField = array_merge($this->patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
 		$this->patientField = array_merge($this->patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
-		$this->patientField = array_merge($this->patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'others', 'others_detail']);
+		$this->patientField = array_merge($this->patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'cirrhosis', 'others', 'others_detail']);
 
 		$this->patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from', 'death']);
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason', 'previous_meds']);
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['septic_shock', 'adrenal_shock', 'hypovolemic_shock', 'cardiogenic_shock', 'asthma_exacerbation']);
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['copd_exacerbation', 'aki', 'liver_shock', 'seizure_shock', 'others_active', 'others_active_detail']);
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['ugib', 'coagulopathy', 'anemia']);
 	}
 
 	/**
