@@ -24,7 +24,7 @@
 			{!! Form::text('rass', null, ['class' => 'form-control']) !!}
 		</div>
 			@include('form_control.tri_state', ['radio_name' => 'bis', 'label_text' => 'BIS'])
-			@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
+			@include('form_control.tetra_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
 			{!! Form::label('ast', 'AST :') !!}
 			{!! Form::text('ast', null, ['class' => 'form-control']) !!}

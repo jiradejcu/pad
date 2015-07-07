@@ -47,7 +47,7 @@
 			<td>{{ displayNullNumber($padRecord->bps) }}</td>
 			<td>{{ displayNullNumber($padRecord->rass) }}</td>
 			<td>{{ convertTriState($padRecord->bis) }}</td>
-			<td>{{ convertTriState($padRecord->delirium) }}</td>
+			<td>{{ convertTetraState($padRecord->delirium) }}</td>
 			<td>{{ displayNullNumber($padRecord->ast) }}</td>
 			<td>{{ displayNullNumber($padRecord->alt) }}</td>
 			<td>{{ displayNullNumber($padRecord->tb) }}</td>

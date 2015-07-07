@@ -30,6 +30,18 @@ function convertTriState($value){
 	if(!isset($value))
 		return 'N/A';
 	else
-		return !empty($value) ? 'yes' : 'no';
+		return !empty($value) ? 'Yes' : 'No';
+}
+
+function convertTetraState($value){
+	if(!isset($value))
+		return 'N/A';
+	else if(!empty($value)){
+		if($value == 1)
+			return 'Positive';
+		else if($value == -1)
+			return 'Negative';
+	}
+	return 'Not Eval';
 }
 ?>
