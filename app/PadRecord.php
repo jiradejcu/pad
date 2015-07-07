@@ -24,6 +24,10 @@ class PadRecord extends Model {
 		return displayDateTime($value);
 	}
 	
+	public function setBwAttribute($value){
+		$this->attributes['bw'] = convertEmptyToNull($value);
+	}
+	
 	public function setNrAttribute($value){
 		$this->attributes['nr'] = convertEmptyToNull($value);
 	}
@@ -34,6 +38,10 @@ class PadRecord extends Model {
 	
 	public function setRassAttribute($value){
 		$this->attributes['rass'] = convertEmptyToNull($value);
+	}
+	
+	public function setBisAttribute($value){
+		$this->attributes['bis'] = convertEmptyToNull($value);
 	}
 	
 	public function setDeliriumAttribute($value){

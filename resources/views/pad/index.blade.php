@@ -13,9 +13,11 @@
 			<td></td>
 			<td></td>
 			<td>Date</td>
+			<td>Body Weight</td>
 			<td>Numeric Rating</td>
 			<td>Behavioral Pain Scale</td>
 			<td>Sedation Assessment</td>
+			<td>BIS</td>
 			<td>Delirium Assessment</td>
 			<td>AST</td>
 			<td>ALT</td>
@@ -40,9 +42,11 @@
 			<td><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $padRecord->record_id }}">x</a></td>
 			<td><a href="{{ url('/pad/'.$padRecord->record_id.'/edit') }}">Edit</a></td>
 			<td>{{ displayDate($padRecord->date_assessed) }}</td>
+			<td>{{ displayNullNumber($padRecord->bw) }}</td>
 			<td>{{ displayNullNumber($padRecord->nr) }}</td>
 			<td>{{ displayNullNumber($padRecord->bps) }}</td>
 			<td>{{ displayNullNumber($padRecord->rass) }}</td>
+			<td>{{ convertTriState($padRecord->bis) }}</td>
 			<td>{{ convertTriState($padRecord->delirium) }}</td>
 			<td>{{ displayNullNumber($padRecord->ast) }}</td>
 			<td>{{ displayNullNumber($padRecord->alt) }}</td>

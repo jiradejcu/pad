@@ -8,6 +8,10 @@
             </div>
 		</div>
 		<div class="form-group">
+			{!! Form::label('bw', 'Body Weight :') !!}
+			{!! Form::text('bw', null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
 			{!! Form::label('nr', 'Numeric Rating :') !!}
 			{!! Form::text('nr', null, ['class' => 'form-control']) !!}
 		</div>
@@ -19,6 +23,7 @@
 			{!! Form::label('rass', 'Sedation Assessment :') !!}
 			{!! Form::text('rass', null, ['class' => 'form-control']) !!}
 		</div>
+			@include('form_control.tri_state', ['radio_name' => 'bis', 'label_text' => 'BIS'])
 			@include('form_control.tri_state', ['radio_name' => 'delirium', 'label_text' => 'Delirium Assessment'])
 		<div class="form-group">
 			{!! Form::label('ast', 'AST :') !!}
