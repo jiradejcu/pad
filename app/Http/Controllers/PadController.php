@@ -10,6 +10,8 @@ use Carbon\Carbon;
 
 class PadController extends Controller {
 
+	private $numeric_fields = ['bw', 'ast', 'alt', 'tb', 'db', 'albumin', 'bun', 'scr', 'i', 'urine'];
+	
 	private function getPadRecord($admission_id = null)
 	{
 		$result = [];
@@ -51,6 +53,8 @@ class PadController extends Controller {
 		$previousPadRecord = $patientAdmission->padRecords->last();
 		if(!empty($previousPadRecord)){
 			$padRecord = $previousPadRecord;
+			foreach($this->numeric_fields as $field)
+				unset($padRecord->$field);
 			$padRecord->date_assessed = Carbon::createFromFormat(DISPLAY_DATE_FORMAT, $previousPadRecord->date_assessed)->addDay();
 		}
 		
