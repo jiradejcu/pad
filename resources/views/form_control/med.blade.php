@@ -25,6 +25,7 @@
 	                	$(this).prop("checked",true);
                 });
 			}
+            setAddRemoveButton();
 		});
 
 		function setMedRecordIndex(medForm, index){
@@ -58,6 +59,7 @@
 	        medForm.find(".add-record").click(function(e){
 		        e.preventDefault();
 		        addMedRecordForm();
+		        setAddRemoveButton();
 		    });
 		    
 	        medForm.find('.remove-record').click(function(e){
@@ -70,6 +72,22 @@
 	                setMedRecordIndex($(this), ++index);
                 });
                 next = index;
+                setAddRemoveButton();
+            });
+		}
+
+		function setAddRemoveButton(){
+            $('.med-record').each(function(i){
+                var medForm = $(this);
+    			var index = medForm.find('.remove-record').data('recordId');
+                
+    	        if(index == $('.med-record').length){
+	   	        	 medForm.find(".add-record").show();
+	   	        	 medForm.find(".remove-record").hide();
+	   	        } else {
+	   	        	 medForm.find(".add-record").hide();
+	   	        	 medForm.find(".remove-record").show();
+	   	        }
             });
 		}
 		//-->
