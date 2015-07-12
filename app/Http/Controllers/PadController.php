@@ -49,8 +49,10 @@ class PadController extends Controller {
 		$patientAdmission = PatientAdmission::findOrFail($id);
 		$padRecord->date_assessed = $patientAdmission->icu_admission_date_from;
 		$previousPadRecord = $patientAdmission->padRecords->last();
-		if(!empty($previousPadRecord))
+		if(!empty($previousPadRecord)){
+			$padRecord = $previousPadRecord;
 			$padRecord->date_assessed = Carbon::createFromFormat(DISPLAY_DATE_FORMAT, $previousPadRecord->date_assessed)->addDay();
+		}
 		
 		return view('pad.create', compact('id', 'medicines', 'padRecord'));
 	}
