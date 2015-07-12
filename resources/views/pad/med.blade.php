@@ -30,6 +30,6 @@
 			{!! Form::label('remark', 'Remark :') !!}
 			{!! Form::text('remark', null, ['class' => 'form-control med-record-field', 'style' => 'width: 10%']) !!}
 		
-  			{!! Form::button('+', ['class' => 'btn add-record']) !!}
   			{!! Form::button('--', ['class' => 'btn btn-danger remove-record']) !!}
+  			{!! Form::button('+', ['class' => 'btn add-record']) !!}
 		</div>

@@ -83,10 +83,8 @@
                 
     	        if(index == $('.med-record').length){
 	   	        	 medForm.find(".add-record").show();
-	   	        	 medForm.find(".remove-record").hide();
 	   	        } else {
 	   	        	 medForm.find(".add-record").hide();
-	   	        	 medForm.find(".remove-record").show();
 	   	        }
             });
 		}
