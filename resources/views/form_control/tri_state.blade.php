@@ -5,6 +5,6 @@
 	<label class="radio-inline">{!! Form::radio($radio_name, 0, null, ['class' => $form_class]) !!}No</label>
 	<label class="radio-inline">{!! Form::radio($radio_name, 1, null, ['class' => $form_class]) !!}Yes</label>
 	@if(!empty($detail_text))
-	{!! Form::text($radio_name . '_detail', null, ['class' => 'form-control' + $form_class]) !!}
+	{!! Form::text($radio_name . '_detail', null, ['class' => 'form-control' . $form_class]) !!}
 	@endif
 </div>
