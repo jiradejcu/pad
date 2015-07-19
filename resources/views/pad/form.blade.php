@@ -104,14 +104,21 @@
 		<!--
 		function bindOptionalEvent(medForm){
 			setMedChannel(medForm);
+			setAllDay(medForm);
 	        medForm.find("#med_channel").change(function(){
     	        setMedChannel(medForm);
+    			setAllDay(medForm);
+    	    });
+	        medForm.find(".all_day :checkbox").change(function(){
+    			setAllDay(medForm);
     	    });
 		}
 
 		function setMedChannel(medForm) {
 			var medChannel = medForm.find("#med_channel:checked").get(0);
+			var allDay = medForm.find(".all_day :checkbox");
 			if(medChannel.value == 'bolus'){
+				allDay.prop('checked', false);
 	        	medForm.find(".all_day").addClass('hide');
 	        	medForm.find(".med_time_to").addClass('hide');
 	        	medForm.find(".med_dose_hr").addClass('hide');
@@ -122,7 +129,17 @@
 	        	medForm.find(".med_dose_hr").removeClass('hide');
 	        	medForm.find(".med_dose").addClass('hide');
 	        }
-        	console.log(medChannel.value);
+		}
+
+		function setAllDay(medForm) {
+			var allDay = medForm.find(".all_day :checkbox").get(0);
+			if(allDay.checked){
+	        	medForm.find(".med_time_from :text").prop("disabled", true).val('');
+	        	medForm.find(".med_time_to :text").prop("disabled", true).val('');
+			} else {
+	        	medForm.find(".med_time_from :text").prop("disabled", false);
+	        	medForm.find(".med_time_to :text").prop("disabled", false);
+			}
 		}
 		//-->
 		</script>
