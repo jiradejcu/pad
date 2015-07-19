@@ -24,4 +24,7 @@
 			margin: 0 10px;
 			padding: 8px 0;
 		}
+		.hide {
+			display: none;
+		}
 	</style>

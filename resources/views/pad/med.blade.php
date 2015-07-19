@@ -30,10 +30,10 @@
 				{!! Form::label('remark', 'Remark :') !!}
 				{!! Form::text('remark', null, ['class' => 'form-control med-record-field']) !!}
 			</div>
-			<div class="form-inline">
+			<div class="form-inline" style="padding-top: 8px">
 				@include('form_control.time_from_to', ['time_name' => 'med_time', 'form_class' => 'med-record-field'])
 				<span class="space-vertical"></span>
-				<div class="form-group">
+				<div class="form-group all_day">
 					@include('form_control.checkbox', ['checkbox_name' => 'all_date', 'label_text' => 'All Day', 'form_class' => 'med-record-field'])
 				</div>
 				<span class="space-vertical"></span>
@@ -50,5 +50,5 @@
 		  			{!! Form::button('+', ['class' => 'btn add-record']) !!}
 	  			</div>
 			</div>
-		<hr>
+			<hr>
 		</div>

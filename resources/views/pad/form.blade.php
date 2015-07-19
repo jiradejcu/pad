@@ -99,3 +99,30 @@
 		<div class="form-group">
 			{!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
 		</div>
+		
+		<script type="text/javascript">
+		<!--
+		function bindOptionalEvent(medForm){
+			setMedChannel(medForm);
+	        medForm.find("#med_channel").change(function(){
+    	        setMedChannel(medForm);
+    	    });
+		}
+
+		function setMedChannel(medForm) {
+			var medChannel = medForm.find("#med_channel:checked").get(0);
+			if(medChannel.value == 'bolus'){
+	        	medForm.find(".all_day").addClass('hide');
+	        	medForm.find(".med_time_to").addClass('hide');
+	        	medForm.find(".med_dose_hr").addClass('hide');
+	        	medForm.find(".med_dose").removeClass('hide');
+	        } else if(medChannel.value == 'drip') {
+	        	medForm.find(".all_day").removeClass('hide');
+	        	medForm.find(".med_time_to").removeClass('hide');
+	        	medForm.find(".med_dose_hr").removeClass('hide');
+	        	medForm.find(".med_dose").addClass('hide');
+	        }
+        	console.log(medChannel.value);
+		}
+		//-->
+		</script>

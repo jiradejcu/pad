@@ -74,6 +74,10 @@
                 next = index;
                 setAddRemoveButton();
             });
+            
+	        if (typeof(bindOptionalEvent) == "function"){
+	        	bindOptionalEvent(medForm);
+	        }
 		}
 
 		function setAddRemoveButton(){
