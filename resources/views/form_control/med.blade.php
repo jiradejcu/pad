@@ -16,13 +16,16 @@
                 var index = 0;
                 $('.med-record').each(function(i){
 	                setMedRecordIndex($(this), ++index);
-	                bindButtonEvent($(this));
                 });
                 next = index;
 
                 $(".med-record-field[type='radio']").each(function(i){
                     if($(this).attr("checked") == "checked")
 	                	$(this).prop("checked",true);
+                });
+                
+                $('.med-record').each(function(i){
+	                bindButtonEvent($(this));
                 });
 			}
             setAddRemoveButton();
