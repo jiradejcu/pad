@@ -102,6 +102,10 @@
 		
 		<script type="text/javascript">
 		<!--
+		$('input[type=submit]').click(function(e) {
+			$('.all_day').remove();
+		});
+		
 		function bindOptionalEvent(medForm){
 			setMedChannel(medForm);
 			setAllDay(medForm);

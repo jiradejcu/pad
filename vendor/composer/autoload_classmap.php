@@ -10,6 +10,7 @@ return array(
     'AddDrugInteractionDetail' => $baseDir . '/database/migrations/2015_07_01_135458_add_drug_interaction_detail.php',
     'AddPadColumn' => $baseDir . '/database/migrations/2015_06_30_163613_add_pad_column.php',
     'AddPadMedColumn' => $baseDir . '/database/migrations/2015_07_01_124118_add_pad_med_column.php',
+    'AddPadMedColumns' => $baseDir . '/database/migrations/2015_07_19_084818_add_pad_med_columns.php',
     'AddPatientColumn' => $baseDir . '/database/migrations/2015_05_19_193039_add_patient_column.php',
     'AddPatientColumn2' => $baseDir . '/database/migrations/2015_05_24_171249_add_patient_column_2.php',
     'AddPatientColumn3' => $baseDir . '/database/migrations/2015_06_05_031724_add_patient_column_3.php',

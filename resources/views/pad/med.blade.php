@@ -34,7 +34,7 @@
 				@include('form_control.time_from_to', ['time_name' => 'med_time', 'form_class' => 'med-record-field'])
 				<span class="space-vertical"></span>
 				<div class="form-group all_day">
-					@include('form_control.checkbox', ['checkbox_name' => 'all_date', 'label_text' => 'All Day', 'form_class' => 'med-record-field'])
+					@include('form_control.checkbox', ['checkbox_name' => 'all_date', 'label_text' => 'All Day'])
 				</div>
 				<span class="space-vertical"></span>
 				<div class="form-group med_dose">

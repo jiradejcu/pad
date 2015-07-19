@@ -1,5 +1,6 @@
 <?php
 define('DISPLAY_DATE_FORMAT', 'd-m-Y g:i A');
+define('DISPLAY_TIME_FORMAT', 'g:i A');
 
 function convertEmptyToNull($value){
 	return (is_null($value) || trim($value) == "" || trim($value) == "-") ? null : $value;
@@ -7,6 +8,10 @@ function convertEmptyToNull($value){
 
 function convertFormDateToDBFormat($value){
 	return convertDateFormat($value, 'Y-m-d H:i:s');
+}
+
+function convertFormTimeToDBFormat($value){
+	return !empty($value) ? convertDateFormat($value, 'H:i:s') : null;
 }
 
 function displayNullNumber($value){
@@ -19,6 +24,10 @@ function displayDate($value){
 
 function displayDateTime($value){
 	return convertDateFormat($value, DISPLAY_DATE_FORMAT);
+}
+
+function displayTime($value){
+	return !empty($value) ? convertDateFormat($value, DISPLAY_TIME_FORMAT) : null;
 }
 
 function convertDateFormat($value, $format){
