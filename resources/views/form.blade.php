@@ -1,14 +1,18 @@
 	<script type="text/javascript">
 	<!--
 	$(function() {
-		$(".input-group.date").datetimepicker({
+		setDateTimePicker($('form'));
+	});
+
+	function setDateTimePicker(element){
+		element.find(".input-group.date").not('.template').datetimepicker({
             format: "DD-MM-YYYY LT",
             defaultDate: new Date(),
         });
-		$(".input-group.time").datetimepicker({
+		element.find(".input-group.time").not('.template').datetimepicker({
             format: "LT",
         });
-	});
+	}
 	//-->
 	</script>
 	<script src="{{ asset('/js/vendor.js') }}"></script>
