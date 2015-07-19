@@ -35,7 +35,7 @@
 	        medForm.attr('id','medRecord' + index);
 	        medForm.removeAttr("style");
 	        medForm.addClass('med-record');
-	        medForm.find('*').removeClass('template');
+	        medForm.find('.template').removeClass('template');
 	        
 	        medForm.find('.remove-record').data('recordId', index);
 	        medForm.find('.med-record-field').each(function () {
