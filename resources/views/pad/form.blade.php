@@ -126,12 +126,12 @@
 	        	medForm.find(".all_day").addClass('hide');
 	        	medForm.find(".med_time_to").addClass('hide');
 	        	medForm.find(".med_dose_hr").addClass('hide');
-	        	medForm.find(".med_dose").removeClass('hide');
+	        	// medForm.find(".med_dose").removeClass('hide');
 	        } else if(medChannel.value == 'drip') {
 	        	medForm.find(".all_day").removeClass('hide');
 	        	medForm.find(".med_time_to").removeClass('hide');
 	        	medForm.find(".med_dose_hr").removeClass('hide');
-	        	medForm.find(".med_dose").addClass('hide');
+	        	// medForm.find(".med_dose").addClass('hide');
 	        }
 		}
 
