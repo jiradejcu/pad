@@ -12,6 +12,10 @@
 			{!! Form::text('hn', null, ['class' => 'form-control']) !!}
 		</div>
 		<div class="form-group">
+			{!! Form::label('ward', 'Ward :') !!}
+			{!! Form::select('ward', $ward_master, null, ['class' => 'form-control']) !!}
+		</div>
+		<div class="form-group">
 			{!! Form::label('problem', 'Problem :') !!}
 			{!! Form::select('problem_main', $problem_master, null, ['class' => 'form-control', 'data-toggle' => 'main']) !!}
 			{!! Form::select('problem', [], null, ['class' => 'form-control']) !!}

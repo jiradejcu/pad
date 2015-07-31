@@ -30,12 +30,13 @@ class DrpController extends Controller {
 	 */
 	public function create()
 	{
+		$ward_master = $this->getWardMaster();
 		$problem_master = $this->getDrpMaster('P');
 		$cause_master = $this->getDrpMaster('C');
 		$intervention_master = $this->getDrpMaster('I');
 		$outcome_master = $this->getDrpMaster('O');
 		$medicines = Medicine::lists('name', 'name');
-		return view('drp.create', compact('problem_master', 'cause_master', 'intervention_master', 'outcome_master', 'medicines'));
+		return view('drp.create', compact('ward_master', 'problem_master', 'cause_master', 'intervention_master', 'outcome_master', 'medicines'));
 	}
 
 	/**
@@ -119,6 +120,10 @@ class DrpController extends Controller {
 			$results[$master->code] = $master->code . ' : ' . $master->description;
 		}
 		return $results;
+	}
+	
+	public function getWardMaster(){
+		return ['9IC'=>'9IC', '4IT'=>'4IT', '8IK'=>'8IK', 'CVT'=>'CVT'];
 	}
 
 }

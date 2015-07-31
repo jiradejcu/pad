@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddBisToPad' => $baseDir . '/database/migrations/2015_07_07_062222_add_bis_to_pad.php',
+    'AddDrpColumn' => $baseDir . '/database/migrations/2015_07_31_093913_add_drp_column.php',
     'AddDrugInteractionDetail' => $baseDir . '/database/migrations/2015_07_01_135458_add_drug_interaction_detail.php',
     'AddPadColumn' => $baseDir . '/database/migrations/2015_06_30_163613_add_pad_column.php',
     'AddPadMedColumn' => $baseDir . '/database/migrations/2015_07_01_124118_add_pad_med_column.php',

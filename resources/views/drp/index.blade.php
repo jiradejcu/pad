@@ -11,6 +11,7 @@
 <!-- 			<td></td> -->
 			<td>Date</td>
 			<td>HN</td>
+			<td>Ward</td>
 			<td>Problem</td>
 			<td>Cause</td>
 			<td>Intervention</td>
@@ -25,6 +26,7 @@
 <!-- 			<td><a href="{{ url('/drp/'.$drpRecord->record_id.'/edit') }}">Edit</a></td> -->
 			<td>{{ displayDate($drpRecord->date_recorded) }}</td>
 			<td>{{ $drpRecord->HN }}</td>
+			<td>{{ $drpRecord->ward }}</td>
 			<td>{{ $drpRecord->problem }}</td>
 			<td>{{ $drpRecord->cause }}</td>
 			<td>{{ $drpRecord->intervention }}</td>
@@ -35,7 +37,7 @@
 		</tr>
 		@foreach ($drpRecord->drpMedRecords->all() as $drpMedRecord)
 		<tr>
-			<td colspan="2">&nbsp;</td>
+			<td colspan="3">&nbsp;</td>
 			<td>From</td>
 			<td>{{ $drpMedRecord->med_from }}</td>
 			<td>{{ $drpMedRecord->med_from_dose . ' mg' }}</td>
