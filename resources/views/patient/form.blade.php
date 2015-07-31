@@ -19,6 +19,7 @@
 			<label class="radio-inline">{!! Form::radio('sex', 'm') !!}Male</label>
 			<label class="radio-inline">{!! Form::radio('sex', 'f') !!}Female</label>
 		</div>
+		<hr/>
 		<div class="form-group">
 			{!! Form::label('age', 'Age :') !!}
 			{!! Form::text('age', null, ['class' => 'form-control']) !!}
@@ -140,6 +141,8 @@
 			    	$(":text[name*='_to']").val($(":text[name='icu_admission_date_to']").val());
 				}
 			});
+			var add_admission = $(":checkbox[name='add_admission']");
+			add_admission.prop('checked', true);
 		});
 		//-->
 		</script>

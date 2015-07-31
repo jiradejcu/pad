@@ -59,7 +59,8 @@ class PatientController extends Controller {
 		$this->rules = array_merge(['HN' => 'required|numeric|unique:patient'], $this->rules);
 		$this->validate($request, $this->rules);
 		Patient::create($request->only($this->patientField));
-		PatientAdmission::create($request->only($this->patientAdmissionField));
+		if($request->get('add_admission'))
+			PatientAdmission::create($request->only($this->patientAdmissionField));
 		return redirect('patient');
 	}
 
