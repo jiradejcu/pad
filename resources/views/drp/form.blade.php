@@ -39,6 +39,14 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'med_recon', 'label_text' => 'Medication Reconciliation'])
 		</div>
 		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'intervene', 'label_text' => 'Intervention', 'detail_text' => 1])
+			@include('form_control.checkbox', ['checkbox_name' => 'intervention_accepted', 'label_text' => 'Intervention Accepted', 'detail_text' => 1])
+			{!! Form::label('intervention_to', 'Intervention To :') !!}
+			@include('form_control.checkbox', ['checkbox_name' => 'intervene_to_physician', 'label_text' => 'Physicians'])
+			@include('form_control.checkbox', ['checkbox_name' => 'intervene_to_nurse', 'label_text' => 'Nurses'])
+			@include('form_control.checkbox', ['checkbox_name' => 'intervene_to_other', 'label_text' => 'Others'])
+		</div>
+		<div class="form-group">
 			{!! Form::label('drpMedRecords', 'Medication Lists') !!}
 			@include('drp.med', ['isHidden' => 1, 'medicines' => $medicines])
 			@include('form_control.med', ['medRecordName' => 'drpMedRecords'])

@@ -55,7 +55,6 @@ class DrpController extends Controller
      */
     public function store(Request $request)
     {
-        $drpMedRecords = $request->only(['drpMedRecords']);
         $this->validate($request, $this->rules($request));
 
         $fallbackFields = ['problem', 'cause', 'intervention', 'outcome'];
@@ -68,6 +67,7 @@ class DrpController extends Controller
 
         $drpRecord = DrpRecord::create($data);
 
+        $drpMedRecords = $request->only(['drpMedRecords']);
         if (is_array($drpMedRecords['drpMedRecords'])) {
             foreach ($drpMedRecords['drpMedRecords'] as $drpMedRecord) {
                 $drpMedRecord['drp_record_id'] = $drpRecord->record_id;
