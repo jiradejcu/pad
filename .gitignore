@@ -3,6 +3,8 @@
 .env.php
 .env
 
+.idea/
+
 *.pydevproject
 .metadata
 .gradle
