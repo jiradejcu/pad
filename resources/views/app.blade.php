@@ -36,6 +36,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}" tabindex="-1">Home</a></li>
 					<li><a href="{{ url('/drp') }}" tabindex="-1">DRP</a></li>
+					<li><a href="{{ url('/statistic') }}" tabindex="-1">Statistic</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

@@ -27,7 +27,9 @@ Route::get('drp/master/{id}', 'DrpController@getDrpMaster');
 
 Route::resource('med', 'MedController');
 
+Route::get('statistic', 'StatisticController@index');
+
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
