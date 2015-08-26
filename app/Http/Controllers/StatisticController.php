@@ -9,18 +9,14 @@ use DB;
 class StatisticController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index()
     {
-        $patients = $this->overviewStatistic();
-        return view('statistic.index', compact('patients'));
+        $patients = $this->patientOverviewStatistic();
+        $padMedRecords = $this->patientPadMedStatistic();
+        return view('statistic.index', compact('patients', 'padMedRecords'));
     }
 
-    public function overviewStatistic()
+    public function patientOverviewStatistic()
     {
         $sql = "SELECT type, COUNT(HN) AS cnt, SUM(is_male)/COUNT(HN) AS percent_male, AVG(age) AS avg_age, AVG(apache_ii) AS avg_apache_ii";
         $sql .= ", SUM(septic_shock)/COUNT(HN) AS percent_septic_shock, SUM(cardiogenic_shock)/COUNT(HN) AS percent_cardiogenic_shock";
@@ -31,8 +27,24 @@ class StatisticController extends Controller
         $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) WHERE p.apache_ii IS NOT NULL) A";
         $sql .= " WHERE icu_stay > 0 GROUP BY type";
-        $patients = DB::select($sql);
-        return $patients;
+        return DB::select($sql);
+    }
+
+    public function patientPadMedStatistic()
+    {
+        $sql = "SELECT type, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day FROM (";
+        $sql .= "SELECT HN, type, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
+        $sql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
+        $sql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
+        $sql .= "SELECT p.HN, p.apache_ii, pa.type, pa.death, pa.reason LIKE '%ARDS%' AS ards";
+        $sql .= ", ppmr.med_record_id, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+        $sql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
+        $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
+        $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id WHERE p.apache_ii IS NOT NULL) A) B) C";
+        $sql .= " WHERE icu_stay > 0 GROUP BY HN, med_name) D";
+        $sql .= " GROUP BY type, med_name";
+        return DB::select($sql);
     }
 
 }
