@@ -61,17 +61,10 @@ class StatisticController extends Controller
         $sql .= ", SUM(CASE type WHEN 'prospective' THEN percent ELSE 0 END) AS prospective_percent";
         $sql .= ", SUM(CASE type WHEN 'retrospective' THEN percent ELSE 0 END) AS retrospective_percent FROM (";
 
-        $sql .= "SELECT type, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day FROM (";
+        $sql .= "SELECT type, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day, COUNT(HN) / (SELECT COUNT(*) FROM patient_admission pa WHERE pa.type = D.type) AS percent FROM (";
         $sql .= $mainSql . ") D GROUP BY type, med_name";
 
-        $sql .= ") E";
-
-        $sql .= " JOIN (SELECT type, med_name, COUNT(HN) / (SELECT COUNT(*) FROM patient_admission pa WHERE pa.type = F.type) AS percent FROM (";
-        $sql .= $mainSql . ") F GROUP BY type, med_name";
-
-        $sql .= ") G USING(type, med_name)";
-
-        $sql .= " GROUP BY med_name";
+        $sql .= ") E GROUP BY med_name";
 
         return DB::select($sql);
     }

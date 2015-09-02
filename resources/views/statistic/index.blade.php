@@ -62,8 +62,8 @@
                 <td>med name</td>
                 <td>prospective</td>
                 <td>retrospective</td>
-                <td>prospective percent</td>
-                <td>retrospective percent</td>
+                <td>%prospective</td>
+                <td>%retrospective</td>
             </tr>
             @forelse ($padMedRecords as $padMedRecord)
                 <tr>
