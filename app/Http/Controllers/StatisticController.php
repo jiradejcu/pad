@@ -22,15 +22,22 @@ class StatisticController extends Controller
         $sql .= ", SUM(septic_shock)/COUNT(HN) AS percent_septic_shock, SUM(cardiogenic_shock)/COUNT(HN) AS percent_cardiogenic_shock";
         $sql .= ", SUM(adrenal_shock)/COUNT(HN) AS percent_adrenal_shock, SUM(hypovolemic_shock)/COUNT(HN) AS percent_hypovolemic_shock";
         $sql .= ", SUM(asthma_exacerbation)/COUNT(HN) AS percent_asthma_exacerbation, SUM(copd_exacerbation)/COUNT(HN) AS percent_copd_exacerbation";
-        $sql .= ", SUM(aki)/COUNT(HN) AS percent_aki, SUM(death)/COUNT(HN) AS percent_death, SUM(ards)/COUNT(HN) AS percent_ards";
-        $sql .= ", AVG(icu_stay) AS avg_icu_stay, AVG(hospital_stay) AS avg_hospital_stay";
-        $sql .= " FROM (SELECT p.HN, IF(p.sex='m',1,0) AS is_male, p.apache_ii, pa.age, pa.type";
-        $sql .= ", pa.septic_shock, pa.cardiogenic_shock, pa.adrenal_shock, pa.hypovolemic_shock";
+        $sql .= ", SUM(aki)/COUNT(HN) AS percent_aki, SUM(liver_shock)/COUNT(HN) AS percent_liver_shock, SUM(seizure_shock)/COUNT(HN) AS percent_seizure_shock";
+        $sql .= ", SUM(ugib)/COUNT(HN) AS percent_ugib, SUM(coagulopathy)/COUNT(HN) AS percent_coagulopathy, SUM(anemia)/COUNT(HN) AS percent_anemia";
+        $sql .= ", SUM(death)/COUNT(HN) AS percent_death, SUM(ards)/COUNT(HN) AS percent_ards";
+        $sql .= ", AVG(icu_stay) AS avg_icu_stay, AVG(hospital_stay) AS avg_hospital_stay FROM (";
+
+        $sql .= "SELECT p.HN, IF(p.sex='m',1,0) AS is_male, p.apache_ii, pa.age, pa.type";
+        $sql .= ", pa.septic_shock, pa.cardiogenic_shock";
+        $sql .= ", pa.adrenal_shock, pa.hypovolemic_shock";
         $sql .= ", pa.asthma_exacerbation, pa.copd_exacerbation";
-        $sql .= ", pa.aki, pa.death, pa.reason LIKE '%ARDS%' AS ards";
+        $sql .= ", pa.aki, pa.liver_shock, pa.seizure_shock";
+        $sql .= ", pa.ugib, pa.coagulopathy, anemia";
+        $sql .= ", pa.death, pa.reason LIKE '%ARDS%' AS ards";
         $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
         $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) WHERE p.apache_ii IS NOT NULL) A";
+
         $sql .= " WHERE icu_stay > 0 GROUP BY type";
         return DB::select($sql);
     }

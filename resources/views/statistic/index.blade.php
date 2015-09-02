@@ -16,6 +16,11 @@
                 <td>%asthma exacerbation</td>
                 <td>%copd exacerbation</td>
                 <td>%aki</td>
+                <td>%liver shock</td>
+                <td>%seizure shock</td>
+                <td>%ugib</td>
+                <td>%coagulopathy</td>
+                <td>%anemia</td>
                 <td>%death</td>
                 <td>%ards</td>
                 <td>avg icu stay</td>
@@ -35,6 +40,11 @@
                     <td>{{ number_format($patient->percent_asthma_exacerbation, 2) }}</td>
                     <td>{{ number_format($patient->percent_copd_exacerbation, 2) }}</td>
                     <td>{{ number_format($patient->percent_aki, 2) }}</td>
+                    <td>{{ number_format($patient->percent_liver_shock, 2) }}</td>
+                    <td>{{ number_format($patient->percent_seizure_shock, 2) }}</td>
+                    <td>{{ number_format($patient->percent_ugib, 2) }}</td>
+                    <td>{{ number_format($patient->percent_coagulopathy, 2) }}</td>
+                    <td>{{ number_format($patient->percent_anemia, 2) }}</td>
                     <td>{{ number_format($patient->percent_death, 2) }}</td>
                     <td>{{ number_format($patient->percent_ards, 2) }}</td>
                     <td>{{ number_format($patient->avg_icu_stay, 2) }}</td>
