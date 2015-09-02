@@ -62,12 +62,16 @@
                 <td>med name</td>
                 <td>prospective</td>
                 <td>retrospective</td>
+                <td>prospective percent</td>
+                <td>retrospective percent</td>
             </tr>
             @forelse ($padMedRecords as $padMedRecord)
                 <tr>
                     <td>{{ $padMedRecord->med_name }}</td>
                     <td>{{ $padMedRecord->prospective }}</td>
                     <td>{{ $padMedRecord->retrospective }}</td>
+                    <td>{{ number_format($padMedRecord->prospective_percent, 2) }}</td>
+                    <td>{{ number_format($padMedRecord->retrospective_percent, 2) }}</td>
                 </tr>
             @empty
                 <tr><td>No patient</td></tr>

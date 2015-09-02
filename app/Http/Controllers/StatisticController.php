@@ -36,33 +36,42 @@ class StatisticController extends Controller
         $sql .= ", pa.death, pa.reason LIKE '%ARDS%' AS ards";
         $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
         $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
-        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) WHERE p.apache_ii IS NOT NULL) A";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) WHERE p.apache_ii IS NOT NULL";
 
-        $sql .= " WHERE icu_stay > 0 GROUP BY type";
+        $sql .= ") A WHERE icu_stay > 0 GROUP BY type";
         return DB::select($sql);
     }
 
     public function patientPadMedStatistic()
     {
+        $mainSql = "SELECT HN, type, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
+        $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
+        $mainSql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
+
+        $mainSql .= "SELECT p.HN, pa.type, ppmr.med_record_id, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+        $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
+        $mainSql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
+        $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
+        $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id WHERE p.apache_ii IS NOT NULL";
+
+        $mainSql .= ") A) B) C WHERE icu_stay > 0 GROUP BY HN, med_name";
+
         $sql = "SELECT med_name, SUM(CASE type WHEN 'prospective' THEN avg_med_dose_day ELSE 0 END) AS prospective";
-        $sql .= ", SUM(CASE type WHEN 'retrospective' THEN avg_med_dose_day ELSE 0 END) AS retrospective FROM (";
+        $sql .= ", SUM(CASE type WHEN 'retrospective' THEN avg_med_dose_day ELSE 0 END) AS retrospective";
+        $sql .= ", SUM(CASE type WHEN 'prospective' THEN percent ELSE 0 END) AS prospective_percent";
+        $sql .= ", SUM(CASE type WHEN 'retrospective' THEN percent ELSE 0 END) AS retrospective_percent FROM (";
 
         $sql .= "SELECT type, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day FROM (";
-        $sql .= "SELECT HN, type, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
-        $sql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
-        $sql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
+        $sql .= $mainSql . ") D GROUP BY type, med_name";
 
-        $sql .= "SELECT p.HN, p.apache_ii, pa.type, pa.death, pa.reason LIKE '%ARDS%' AS ards";
-        $sql .= ", ppmr.med_record_id, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
-        $sql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
-        $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
-        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
-        $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id WHERE p.apache_ii IS NOT NULL) A) B) C";
+        $sql .= ") E";
 
-        $sql .= " WHERE icu_stay > 0 GROUP BY HN, med_name) D";
-        $sql .= " GROUP BY type, med_name";
+        $sql .= " JOIN (SELECT type, med_name, COUNT(HN) / (SELECT COUNT(*) FROM patient_admission pa WHERE pa.type = F.type) AS percent FROM (";
+        $sql .= $mainSql . ") F GROUP BY type, med_name";
 
-        $sql .= ") E GROUP BY med_name";
+        $sql .= ") G USING(type, med_name)";
+
+        $sql .= " GROUP BY med_name";
 
         return DB::select($sql);
     }
