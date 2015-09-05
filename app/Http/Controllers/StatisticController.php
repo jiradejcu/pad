@@ -16,7 +16,35 @@ class StatisticController extends Controller
         return view('statistic.index', compact('patients', 'padMedRecords'));
     }
 
-    public function patientOverviewStatistic()
+    public function outliner()
+    {
+        $patientOutliner = $this->patientOutliner();
+        return view('statistic.patient', compact('patientOutliner'));
+    }
+
+    private function patientOutliner()
+    {
+        $sql = "SELECT admission_id, HN, firstname, lastname, age, icu_stay, hospital_stay, ett_duration, apache_ii";
+        $sql .= ", icu_admission_date_from, icu_admission_date_to, hospital_admission_date_from, hospital_admission_date_to";
+        $sql .= ", ett_date_from, ett_date_to FROM (";
+
+        $sql .= "SELECT *, DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
+        $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
+        $sql .= ", DATEDIFF(pa.ett_date_to, pa.ett_date_from) AS ett_duration";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)) A";
+
+        $sql .= " WHERE icu_stay <= 0 OR hospital_stay < 5 OR ett_duration <= 3";
+        $sql .= " OR ett_duration > hospital_stay OR icu_stay > hospital_stay OR icu_stay >100";
+        $sql .= " OR icu_admission_date_from < hospital_admission_date_from OR ett_date_from < hospital_admission_date_from";
+        $sql .= " OR icu_admission_date_to > hospital_admission_date_to OR ett_date_to > hospital_admission_date_to";
+        $sql .= " OR hospital_stay > 100 OR ett_duration > 100 OR age < 10 OR age > 100 OR apache_ii IS NULL";
+        $sql .= " GROUP BY admission_id";
+        $sql .= " ORDER BY admission_id DESC";
+
+        return DB::select($sql);
+    }
+
+    private function patientOverviewStatistic()
     {
         $sql = "SELECT type, COUNT(HN) AS cnt, SUM(is_male)/COUNT(HN) AS percent_male, AVG(age) AS avg_age, AVG(apache_ii) AS avg_apache_ii";
         $sql .= ", SUM(septic_shock)/COUNT(HN) AS percent_septic_shock, SUM(cardiogenic_shock)/COUNT(HN) AS percent_cardiogenic_shock";
@@ -42,7 +70,7 @@ class StatisticController extends Controller
         return DB::select($sql);
     }
 
-    public function patientPadMedStatistic()
+    private function patientPadMedStatistic()
     {
         $mainSql = "SELECT HN, type, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
         $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";

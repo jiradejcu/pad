@@ -29,6 +29,8 @@ Route::resource('med', 'MedController');
 
 Route::get('statistic', 'StatisticController@index');
 
+Route::get('outliner', 'StatisticController@outliner');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
