@@ -21,8 +21,8 @@
                 <td>%ugib</td>
                 <td>%coagulopathy</td>
                 <td>%anemia</td>
-                <td>%death</td>
                 <td>%ards</td>
+                <td>%death</td>
                 <td>avg icu stay</td>
                 <td>avg hospital stay</td>
             </tr>
@@ -45,8 +45,8 @@
                     <td>{{ number_format($patient->percent_ugib, 2) }}</td>
                     <td>{{ number_format($patient->percent_coagulopathy, 2) }}</td>
                     <td>{{ number_format($patient->percent_anemia, 2) }}</td>
-                    <td>{{ number_format($patient->percent_death, 2) }}</td>
                     <td>{{ number_format($patient->percent_ards, 2) }}</td>
+                    <td>{{ number_format($patient->percent_death, 2) }}</td>
                     <td>{{ number_format($patient->avg_icu_stay, 2) }}</td>
                     <td>{{ number_format($patient->avg_hospital_stay, 2) }}</td>
                 </tr>
