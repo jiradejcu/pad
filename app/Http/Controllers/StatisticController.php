@@ -60,10 +60,11 @@ class StatisticController extends Controller
         $sql .= ", pa.asthma_exacerbation, pa.copd_exacerbation";
         $sql .= ", pa.aki, pa.liver_shock, pa.seizure_shock";
         $sql .= ", pa.ugib, pa.coagulopathy, anemia";
-        $sql .= ", pa.death, pa.reason LIKE '%ARDS%' AS ards";
+        $sql .= ", pa.reason LIKE '%ARDS%' AS ards, pa.death";
         $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
         $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
-        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) WHERE p.apache_ii IS NOT NULL";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
+        $sql .= " WHERE p.apache_ii IS NOT NULL GROUP BY p.HN";
 
         $sql .= ") A WHERE icu_stay > 0 GROUP BY type";
         return DB::select($sql);
@@ -75,7 +76,7 @@ class StatisticController extends Controller
         $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
         $mainSql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
 
-        $mainSql .= "SELECT p.HN, pa.type, ppmr.med_record_id, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+        $mainSql .= "SELECT p.HN, pa.type, ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
         $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
         $mainSql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
         $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
