@@ -29,13 +29,13 @@
                     <td>{{ $patient->age }}</td>
                     <td>{{ $patient->icu_admission_date_from }}</td>
                     <td>{{ $patient->icu_admission_date_to }}</td>
-                    <td>{{ $patient->icu_stay }}</td>
+                    <td>{{ number_format($patient->icu_stay, 2) }}</td>
                     <td>{{ $patient->hospital_admission_date_from }}</td>
                     <td>{{ $patient->hospital_admission_date_to }}</td>
-                    <td>{{ $patient->hospital_stay }}</td>
+                    <td>{{ number_format($patient->hospital_stay, 2) }}</td>
                     <td>{{ $patient->ett_date_from }}</td>
                     <td>{{ $patient->ett_date_to }}</td>
-                    <td>{{ $patient->ett_duration }}</td>
+                    <td>{{ number_format($patient->ett_duration, 2) }}</td>
                     <td>{{ $patient->apache_ii }}</td>
                 </tr>
             @empty

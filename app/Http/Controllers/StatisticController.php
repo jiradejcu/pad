@@ -28,9 +28,9 @@ class StatisticController extends Controller
         $sql .= ", icu_admission_date_from, icu_admission_date_to, hospital_admission_date_from, hospital_admission_date_to";
         $sql .= ", ett_date_from, ett_date_to FROM (";
 
-        $sql .= "SELECT *, DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
-        $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
-        $sql .= ", DATEDIFF(pa.ett_date_to, pa.ett_date_from) AS ett_duration";
+        $sql .= "SELECT *, TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
+        $sql .= ", TIMESTAMPDIFF(HOUR, pa.hospital_admission_date_from, pa.hospital_admission_date_to)/24 AS hospital_stay";
+        $sql .= ", TIMESTAMPDIFF(HOUR, pa.ett_date_from, pa.ett_date_to)/24 AS ett_duration";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)) A";
 
         $sql .= " WHERE icu_stay <= 0 OR hospital_stay < 5 OR ett_duration <= 3 OR icu_stay > 100";
@@ -61,8 +61,8 @@ class StatisticController extends Controller
         $sql .= ", pa.aki, pa.liver_shock, pa.seizure_shock";
         $sql .= ", pa.ugib, pa.coagulopathy, anemia";
         $sql .= ", pa.reason LIKE '%ARDS%' AS ards, pa.death";
-        $sql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
-        $sql .= ", DATEDIFF(pa.hospital_admission_date_to, pa.hospital_admission_date_from) AS hospital_stay";
+        $sql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
+        $sql .= ", TIMESTAMPDIFF(HOUR, pa.hospital_admission_date_from, pa.hospital_admission_date_to)/24 AS hospital_stay";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $sql .= " WHERE p.apache_ii IS NOT NULL GROUP BY p.HN";
 
@@ -78,7 +78,7 @@ class StatisticController extends Controller
 
         $mainSql .= "SELECT p.HN, pa.type, ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
         $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
-        $mainSql .= ", DATEDIFF(pa.icu_admission_date_to, pa.icu_admission_date_from) AS icu_stay";
+        $mainSql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
         $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id WHERE p.apache_ii IS NOT NULL";
 
