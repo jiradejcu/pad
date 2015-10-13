@@ -9,6 +9,7 @@
                 <td>%male</td>
                 <td>avg age</td>
                 <td>avg apache ii</td>
+                <td>std apache ii</td>
                 <td>%septic shock</td>
                 <td>%adrenal shock</td>
                 <td>%hypovolemic shock</td>
@@ -33,6 +34,7 @@
                     <td>{{ number_format($patient->percent_male, 2) }}</td>
                     <td>{{ number_format($patient->avg_age, 2) }}</td>
                     <td>{{ number_format($patient->avg_apache_ii, 2) }}</td>
+                    <td>{{ number_format($patient->std_apache_ii, 2) }}</td>
                     <td>{{ number_format($patient->percent_septic_shock, 2) }}</td>
                     <td>{{ number_format($patient->percent_adrenal_shock, 2) }}</td>
                     <td>{{ number_format($patient->percent_hypovolemic_shock, 2) }}</td>
