@@ -32,25 +32,69 @@ function mean($array, $key){
     return $sum / count($array);
 }
 
-$sql = "SELECT * FROM patient WHERE apache_ii IS NOT NULL";
+function sd($array, $key){
+    $mean = mean($array, $key);
+    $sum = 0;
+    foreach($array as $row){
+        $sum += pow($mean - $row[$key], 2);
+    }
+    return pow($sum / (count($array) - 1), 0.5);
+}
+
+function percent($array, $key){
+    $cnt = 0;
+    foreach($array as $row){
+        $cnt += !empty($row[$key]) ? 1 : 0;
+    }
+    return $cnt / count($array);
+}
+
+$cnt = 50;
+if(!empty($_GET['cnt']))
+    $cnt = $_GET['cnt'];
+
+$mean = 25;
+if(!empty($_GET['mean']))
+    $mean = $_GET['mean'];
+
+$sd = 8;
+if(!empty($_GET['sd']))
+    $sd = $_GET['sd'];
+
+$disease_code = 'I10';
+if(!empty($_GET['disease_code']))
+    $disease_code = $_GET['disease_code'];
+
+$disease_percent = '50';
+if(!empty($_GET['disease_percent']))
+    $disease_percent = $_GET['disease_percent'];
+
+$sql = "SELECT p.*, IF(COUNT(CASE DX_CODE WHEN '$disease_code' THEN DISEASE_NAME ELSE NULL END) > 0, 1, 0) AS '$disease_code'";
+$sql .= " FROM patient p LEFT JOIN disease d USING(HN) WHERE apache_ii IS NOT NULL GROUP BY HN";
 $data = query($sql);
 
 while (true) {
     $selected = [];
     $indices = [];
-    while (count($selected) < 50) {
+    while (count($selected) < $cnt) {
         $index = array_rand($data);
         if (!in_array($index, $indices)) {
             $indices[] = $index;
             $selected[] = $data[$index];
         }
     }
-    if(abs(mean($selected, 'apache_ii') - 25) < 1)
+    if(abs(mean($selected, 'apache_ii') - $mean) < 1 && abs(sd($selected, 'apache_ii') - $sd) < 1 && abs(percent($selected, $disease_code) - ($disease_percent / 100)) < 0.05)
         break;
 }
 
+usort($selected, function($a, $b) {
+    return $a['HN'] - $b['HN'];
+});
+
 $i = 0;
-echo 'Mean : ' . mean($selected, 'apache_ii');
+echo 'Mean : ' . mean($selected, 'apache_ii') . '<br>';
+echo 'SD : ' . sd($selected, 'apache_ii') . '<br>';
+echo 'Percent : ' . percent($selected, $disease_code) * 100 . '%<br>';
 ?>
 <table>
 <?
