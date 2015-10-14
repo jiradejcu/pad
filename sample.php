@@ -61,13 +61,17 @@ $sd = 8;
 if(!empty($_GET['sd']))
     $sd = $_GET['sd'];
 
-$disease_code = 'I10';
+$disease_code = 'J80';
 if(!empty($_GET['disease_code']))
     $disease_code = $_GET['disease_code'];
 
-$disease_percent = '50';
+$disease_percent = '20';
 if(!empty($_GET['disease_percent']))
     $disease_percent = $_GET['disease_percent'];
+
+$disease_percent_range = '5';
+if(!empty($_GET['disease_percent_range']))
+    $disease_percent_range = $_GET['disease_percent_range'];
 
 $sql = "SELECT p.*, IF(COUNT(CASE DX_CODE WHEN '$disease_code' THEN DISEASE_NAME ELSE NULL END) > 0, 1, 0) AS '$disease_code'";
 $sql .= " FROM patient p LEFT JOIN disease d USING(HN) WHERE apache_ii IS NOT NULL GROUP BY HN";
@@ -83,7 +87,8 @@ while (true) {
             $selected[] = $data[$index];
         }
     }
-    if(abs(mean($selected, 'apache_ii') - $mean) < 1 && abs(sd($selected, 'apache_ii') - $sd) < 1 && abs(percent($selected, $disease_code) - ($disease_percent / 100)) < 0.05)
+    if(abs(mean($selected, 'apache_ii') - $mean) < 1 && abs(sd($selected, 'apache_ii') - $sd) < 1
+        && abs(percent($selected, $disease_code) - ($disease_percent / 100)) < ($disease_percent_range / 100))
         break;
 }
 
