@@ -73,16 +73,22 @@ $disease_percent_range = '5';
 if(!empty($_GET['disease_percent_range']))
     $disease_percent_range = $_GET['disease_percent_range'];
 
+$primary_key = 'HN';
+$exclude_key = [];
+if(!empty($_GET['exclude_key'])){
+    $exclude_key = explode(',',$_GET['exclude_key']);
+}
+
 $sql = "SELECT p.*, IF(COUNT(CASE DX_CODE WHEN '$disease_code' THEN DISEASE_NAME ELSE NULL END) > 0, 1, 0) AS '$disease_code'";
 $sql .= " FROM patient p LEFT JOIN disease d USING(HN) WHERE apache_ii IS NOT NULL GROUP BY HN";
 $data = query($sql);
 
 while (true) {
-    $selected = [];
     $indices = [];
+    $selected = [];
     while (count($selected) < $cnt) {
         $index = array_rand($data);
-        if (!in_array($index, $indices)) {
+        if (!in_array($index, $indices) && !in_array($data[$index][$primary_key], $exclude_key)) {
             $indices[] = $index;
             $selected[] = $data[$index];
         }
