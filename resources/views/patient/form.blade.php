@@ -40,6 +40,7 @@
 		<div class="form-group">
 			<label class="radio-inline">{!! Form::radio('type', 'prospective', true) !!}Prospective</label>
 			<label class="radio-inline">{!! Form::radio('type', 'retrospective') !!}Retrospective</label>
+			<label class="radio-inline">{!! Form::radio('type', 'unknown') !!}Unknown</label>
 		</div>
 		<hr/>
 		<h2>Date</h2>
