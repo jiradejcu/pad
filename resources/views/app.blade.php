@@ -36,8 +36,14 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}" tabindex="-1">Home</a></li>
 					<li><a href="{{ url('/drp') }}" tabindex="-1">DRP</a></li>
-					<li><a href="{{ url('/statistic') }}" tabindex="-1">Statistic</a></li>
-					<li><a href="{{ url('/outliner') }}" tabindex="-1">Outliner</a></li>
+					<li class="dropdown">
+                        <a href="#" tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">Statistic <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/statistic') }}" tabindex="-1">By Type</a></li>
+                            <li><a href="{{ url('/statistic/year') }}" tabindex="-1">By Year</a></li>
+                            <li><a href="{{ url('/outliner') }}" tabindex="-1">Outliner</a></li>
+                        </ul>
+                    </li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

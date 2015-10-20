@@ -4,7 +4,7 @@
     <table id="summary_statistic"  width="100%" border="1px black">
     	<tbody>
             <tr>
-                <td>type</td>
+                <td>{{ $group }}</td>
                 <td>count</td>
                 <td>%male</td>
                 <td>avg age</td>
@@ -29,7 +29,7 @@
             </tr>
             @forelse ($patients as $patient)
                 <tr>
-                    <td>{{ $patient->type }}</td>
+                    <td>{{ $patient->$group }}</td>
                     <td>{{ $patient->cnt }}</td>
                     <td>{{ number_format($patient->percent_male, 2) }}</td>
                     <td>{{ number_format($patient->avg_age, 2) }}</td>
@@ -62,18 +62,22 @@
         <tbody>
             <tr>
                 <td>med name</td>
-                <td>prospective</td>
-                <td>retrospective</td>
-                <td>%prospective</td>
-                <td>%retrospective</td>
+                @foreach ($pivotList as $pivot)
+                    <td>{{ $pivot->$group }}</td>
+                    <td>%{{ $pivot->$group }}</td>
+                @endforeach
             </tr>
             @forelse ($padMedRecords as $padMedRecord)
                 <tr>
                     <td>{{ $padMedRecord->med_name }}</td>
-                    <td>{{ $padMedRecord->prospective }}</td>
-                    <td>{{ $padMedRecord->retrospective }}</td>
-                    <td>{{ number_format($padMedRecord->prospective_percent, 2) }}</td>
-                    <td>{{ number_format($padMedRecord->retrospective_percent, 2) }}</td>
+                    @foreach ($pivotList as $pivot)
+                        <?php
+                            $pivot_name = $pivot->$group;
+                            $pivot_percent_name = $pivot->$group . '_percent';
+                         ?>
+                        <td>{{ $padMedRecord->$pivot_name }}</td>
+                        <td>{{ number_format($padMedRecord->$pivot_percent_name, 2) }}</td>
+                    @endforeach
                 </tr>
             @empty
                 <tr><td>No patient</td></tr>

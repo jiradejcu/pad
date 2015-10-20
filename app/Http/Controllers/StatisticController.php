@@ -9,11 +9,12 @@ use DB;
 class StatisticController extends Controller
 {
 
-    public function index()
+    public function index($group = 'type')
     {
-        $patients = $this->patientOverviewStatistic();
-        $padMedRecords = $this->patientPadMedStatistic();
-        return view('statistic.index', compact('patients', 'padMedRecords'));
+        $patients = $this->patientOverviewStatistic($group);
+        $padMedRecords = $this->patientPadMedStatistic($group);
+        $pivotList = $this->patientPivotList($group);
+        return view('statistic.index', compact('patients', 'padMedRecords', 'pivotList', 'group'));
     }
 
     public function outliner()
@@ -43,9 +44,9 @@ class StatisticController extends Controller
         return DB::select($sql);
     }
 
-    private function patientOverviewStatistic()
+    private function patientOverviewStatistic($group)
     {
-        $sql = "SELECT type, COUNT(HN) AS cnt, SUM(is_male)/COUNT(HN) AS percent_male, AVG(age) AS avg_age, AVG(apache_ii) AS avg_apache_ii";
+        $sql = "SELECT $group, COUNT(HN) AS cnt, SUM(is_male)/COUNT(HN) AS percent_male, AVG(age) AS avg_age, AVG(apache_ii) AS avg_apache_ii";
         $sql .= ", STD(apache_ii) AS std_apache_ii";
         $sql .= ", SUM(septic_shock)/COUNT(HN) AS percent_septic_shock, SUM(cardiogenic_shock)/COUNT(HN) AS percent_cardiogenic_shock";
         $sql .= ", SUM(adrenal_shock)/COUNT(HN) AS percent_adrenal_shock, SUM(hypovolemic_shock)/COUNT(HN) AS percent_hypovolemic_shock";
@@ -55,7 +56,7 @@ class StatisticController extends Controller
         $sql .= ", SUM(ards)/COUNT(HN) AS percent_ards, SUM(death)/COUNT(HN) AS percent_death";
         $sql .= ", AVG(icu_stay) AS avg_icu_stay, AVG(hospital_stay) AS avg_hospital_stay FROM (";
 
-        $sql .= "SELECT p.HN, IF(p.sex='m',1,0) AS is_male, p.apache_ii, pa.age, pa.type";
+        $sql .= "SELECT p.HN, IF(p.sex='m',1,0) AS is_male, p.apache_ii, pa.age, pa.type, YEAR(pa.icu_admission_date_from) AS year";
         $sql .= ", pa.septic_shock, pa.cardiogenic_shock";
         $sql .= ", pa.adrenal_shock, pa.hypovolemic_shock";
         $sql .= ", pa.asthma_exacerbation, pa.copd_exacerbation";
@@ -67,17 +68,17 @@ class StatisticController extends Controller
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $sql .= " WHERE p.apache_ii IS NOT NULL GROUP BY p.HN";
 
-        $sql .= ") A WHERE icu_stay > 0 GROUP BY type";
+        $sql .= ") A WHERE icu_stay > 0 GROUP BY $group";
         return DB::select($sql);
     }
 
-    private function patientPadMedStatistic()
+    private function patientPadMedStatistic($group)
     {
-        $mainSql = "SELECT HN, type, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
+        $mainSql = "SELECT HN, type, year, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
         $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
         $mainSql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
 
-        $mainSql .= "SELECT p.HN, pa.type, ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+        $mainSql .= "SELECT p.HN, pa.type, YEAR(pa.icu_admission_date_from) AS year, ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
         $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
         $mainSql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
         $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
@@ -85,16 +86,27 @@ class StatisticController extends Controller
 
         $mainSql .= ") A) B) C WHERE icu_stay > 0 GROUP BY HN, med_name";
 
-        $sql = "SELECT med_name, SUM(CASE type WHEN 'prospective' THEN avg_med_dose_day ELSE 0 END) AS prospective";
-        $sql .= ", SUM(CASE type WHEN 'retrospective' THEN avg_med_dose_day ELSE 0 END) AS retrospective";
-        $sql .= ", SUM(CASE type WHEN 'prospective' THEN percent ELSE 0 END) AS prospective_percent";
-        $sql .= ", SUM(CASE type WHEN 'retrospective' THEN percent ELSE 0 END) AS retrospective_percent FROM (";
+        $sql = "SELECT med_name";
 
-        $sql .= "SELECT type, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day, COUNT(HN) / (SELECT COUNT(*) FROM patient_admission pa WHERE pa.type = D.type) AS percent FROM (";
-        $sql .= $mainSql . ") D GROUP BY type, med_name";
+        $list = $this->patientPivotList($group);
+        foreach ($list as $row) {
+            $sql .= ", SUM(CASE $group WHEN '" . $row->$group . "' THEN avg_med_dose_day ELSE 0 END) AS `" . $row->$group . "`";
+            $sql .= ", SUM(CASE $group WHEN '" . $row->$group . "' THEN percent ELSE 0 END) AS `" . $row->$group . "_percent`";
+        }
+        $sql .= " FROM (";
+
+        $sql .= "SELECT $group, med_name, format(AVG(med_dose_day), 2) AS avg_med_dose_day";
+        $sql .= ", COUNT(HN) / (SELECT COUNT(*) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A WHERE A.$group = D.$group) AS percent";
+        $sql .= " FROM (" . $mainSql . ") D GROUP BY $group, med_name";
 
         $sql .= ") E GROUP BY med_name";
 
+        return DB::select($sql);
+    }
+
+    private function patientPivotList($group)
+    {
+        $sql = "SELECT DISTINCT($group) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A";
         return DB::select($sql);
     }
 

@@ -27,7 +27,7 @@ Route::get('drp/master/{id}', 'DrpController@getDrpMaster');
 
 Route::resource('med', 'MedController');
 
-Route::get('statistic', 'StatisticController@index');
+Route::get('statistic/{group?}', 'StatisticController@index');
 
 Route::get('outliner', 'StatisticController@outliner');
 
