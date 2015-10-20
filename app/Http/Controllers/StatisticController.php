@@ -68,7 +68,7 @@ class StatisticController extends Controller
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $sql .= " WHERE p.apache_ii IS NOT NULL GROUP BY p.HN";
 
-        $sql .= ") A WHERE icu_stay > 0 GROUP BY $group";
+        $sql .= ") A WHERE icu_stay > 0 GROUP BY $group ORDER BY $group";
         return DB::select($sql);
     }
 
@@ -106,7 +106,7 @@ class StatisticController extends Controller
 
     private function patientPivotList($group)
     {
-        $sql = "SELECT DISTINCT($group) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A";
+        $sql = "SELECT DISTINCT($group) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A ORDER BY $group";
         return DB::select($sql);
     }
 
