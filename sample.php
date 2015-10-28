@@ -49,7 +49,7 @@ function percent($array, $key){
     return $cnt / count($array);
 }
 
-$cnt = 50;
+$cnt = 60;
 if(!empty($_GET['cnt']))
     $cnt = $_GET['cnt'];
 
@@ -65,11 +65,11 @@ $disease_code = 'J80';
 if(!empty($_GET['disease_code']))
     $disease_code = $_GET['disease_code'];
 
-$disease_percent = '20';
+$disease_percent = 18;
 if(!empty($_GET['disease_percent']))
     $disease_percent = $_GET['disease_percent'];
 
-$disease_percent_range = '5';
+$disease_percent_range = 1;
 if(!empty($_GET['disease_percent_range']))
     $disease_percent_range = $_GET['disease_percent_range'];
 
@@ -93,7 +93,7 @@ while (true) {
             $selected[] = $data[$index];
         }
     }
-    if(abs(mean($selected, 'apache_ii') - $mean) < 1 && abs(sd($selected, 'apache_ii') - $sd) < 1
+    if(abs(mean($selected, 'apache_ii') - $mean) < 0.5 && abs(sd($selected, 'apache_ii') - $sd) < 0.25
         && abs(percent($selected, $disease_code) - ($disease_percent / 100)) < ($disease_percent_range / 100))
         break;
 }
