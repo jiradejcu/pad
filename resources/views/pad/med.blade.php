@@ -37,13 +37,13 @@
 					@include('form_control.checkbox', ['checkbox_name' => 'all_date', 'label_text' => 'All Day'])
 				</div>
 				<span class="space-vertical"></span>
-				<div class="form-group med_dose">
-				{!! Form::label('med_dose', 'Dose :') !!}
-				{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field']) !!}
-				</div>
 				<div class="form-group med_dose_hr">
 				{!! Form::label('med_dose_hr', 'Dose/Hr :') !!}
 				{!! Form::text('med_dose_hr', null, ['class' => 'form-control med-record-field']) !!}
+				</div>
+				<div class="form-group med_dose">
+				{!! Form::label('med_dose', 'Dose :') !!}
+				{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field']) !!}
 				</div>
 				<div class="pull-right">
 		  			{!! Form::button('--', ['class' => 'btn btn-danger remove-record']) !!}
