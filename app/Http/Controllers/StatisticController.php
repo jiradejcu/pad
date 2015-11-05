@@ -36,7 +36,7 @@ class StatisticController extends Controller
 
         $sql .= " WHERE icu_stay <= 0 OR hospital_stay < 5 OR ett_duration <= 3 OR icu_stay > 100";
         $sql .= " OR hospital_stay > 100 OR ett_duration > 100 OR age < 10 OR age > 100 OR apache_ii IS NULL";
-        $sql .= " OR icu_admission_date_from < hospital_admission_date_from OR ett_date_from < hospital_admission_date_from";
+        $sql .= " OR icu_admission_date_from < hospital_admission_date_from";
         $sql .= " OR icu_admission_date_to > hospital_admission_date_to OR ett_date_to > hospital_admission_date_to";
         $sql .= " GROUP BY admission_id";
         $sql .= " ORDER BY admission_id DESC";
