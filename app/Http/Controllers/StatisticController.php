@@ -34,8 +34,8 @@ class StatisticController extends Controller
         $sql .= ", TIMESTAMPDIFF(HOUR, pa.ett_date_from, pa.ett_date_to)/24 AS ett_duration";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)) A";
 
-        $sql .= " WHERE icu_stay <= 0 OR hospital_stay < 5 OR ett_duration <= 3 OR icu_stay > 100";
-        $sql .= " OR hospital_stay > 100 OR ett_duration > 100 OR age < 10 OR age > 100 OR apache_ii IS NULL";
+        $sql .= " WHERE icu_stay <= 0 OR (icu_stay < 2 AND death = 1) OR ett_duration <= 3 OR icu_stay > 100";
+        $sql .= " OR hospital_stay > 100 OR ett_duration > 100 OR age < 18 OR age > 100 OR apache_ii IS NULL";
         $sql .= " OR icu_admission_date_from < hospital_admission_date_from";
         $sql .= " OR icu_admission_date_to > hospital_admission_date_to OR ett_date_to > hospital_admission_date_to";
         $sql .= " GROUP BY admission_id";
