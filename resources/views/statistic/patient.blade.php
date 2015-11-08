@@ -9,6 +9,7 @@
                 <td>firstname</td>
                 <td>lastname</td>
                 <td>age</td>
+                <td>type</td>
                 <td>icu from</td>
                 <td>icu to</td>
                 <td>icu stay</td>
@@ -19,6 +20,7 @@
                 <td>ett to</td>
                 <td>ett duration</td>
                 <td>apache ii</td>
+                <td>death</td>
             </tr>
             @forelse ($patientOutliner as $patient)
                 <tr>
@@ -27,6 +29,7 @@
                     <td>{{ $patient->firstname }}</td>
                     <td>{{ $patient->lastname }}</td>
                     <td>{{ $patient->age }}</td>
+                    <td>{{ $patient->type }}</td>
                     <td>{{ $patient->icu_admission_date_from }}</td>
                     <td>{{ $patient->icu_admission_date_to }}</td>
                     <td>{{ number_format($patient->icu_stay, 2) }}</td>
@@ -37,6 +40,7 @@
                     <td>{{ $patient->ett_date_to }}</td>
                     <td>{{ number_format($patient->ett_duration, 2) }}</td>
                     <td>{{ $patient->apache_ii }}</td>
+                    <td>{{ $patient->death }}</td>
                 </tr>
             @empty
                 <tr><td>No patient</td></tr>

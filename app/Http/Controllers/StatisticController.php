@@ -25,7 +25,7 @@ class StatisticController extends Controller
 
     private function patientOutliner()
     {
-        $sql = "SELECT admission_id, HN, firstname, lastname, age, icu_stay, hospital_stay, ett_duration, apache_ii";
+        $sql = "SELECT admission_id, HN, firstname, lastname, age, type, icu_stay, hospital_stay, ett_duration, apache_ii, death";
         $sql .= ", icu_admission_date_from, icu_admission_date_to, hospital_admission_date_from, hospital_admission_date_to";
         $sql .= ", ett_date_from, ett_date_to FROM (";
 
