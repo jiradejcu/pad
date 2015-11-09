@@ -6483,5 +6483,8 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.odd {
+  background-color: #e0e0e0;
+}
 
 /*# sourceMappingURL=app.css.map */

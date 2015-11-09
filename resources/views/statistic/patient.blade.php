@@ -4,6 +4,7 @@
     <table width="100%" border="1px black">
     	<tbody>
             <tr>
+                <td>No.</td>
                 <td>admission id</td>
                 <td>HN</td>
                 <td>firstname</td>
@@ -22,8 +23,9 @@
                 <td>apache ii</td>
                 <td>death</td>
             </tr>
-            @forelse ($patientOutliner as $patient)
-                <tr>
+            @forelse ($patientOutliner as $key=>$patient)
+                <tr class="@if($key % 2 == 0){{ 'even' }}@else{{ 'odd' }}@endif">
+                    <td>{{ $key + 1 }}</td>
                     <td>{{ $patient->admission_id }}</td>
                     <td><a href="{{ url('/patient/'.$patient->HN.'/edit') }}">{{ $patient->HN }}</a></td>
                     <td>{{ $patient->firstname }}</td>
