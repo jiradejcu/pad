@@ -65,7 +65,8 @@ class StatisticController extends Controller
         $sql .= ", pa.reason LIKE '%ARDS%' AS ards, pa.death";
         $sql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
         $sql .= ", TIMESTAMPDIFF(HOUR, pa.hospital_admission_date_from, pa.hospital_admission_date_to)/24 AS hospital_stay";
-        $sql .= " FROM patient p JOIN patient_admission pa USING(HN)";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
+        $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
         $sql .= " WHERE p.apache_ii IS NOT NULL GROUP BY p.HN";
 
         $sql .= ") A WHERE icu_stay > 0 GROUP BY $group ORDER BY $group";
