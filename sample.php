@@ -1,5 +1,5 @@
 <?php
-$db_name = "wichai_rama";
+$db_name = "tigecycline";
 $character_set = 'utf8';
 session_start();
 $link = mysql_connect("127.0.0.1", "root", "");
@@ -49,15 +49,15 @@ function percent($array, $key){
     return $cnt / count($array);
 }
 
-$cnt = 60;
+$cnt = 36;
 if(!empty($_GET['cnt']))
     $cnt = $_GET['cnt'];
 
-$mean = 25;
+$mean = 17;
 if(!empty($_GET['mean']))
     $mean = $_GET['mean'];
 
-$sd = 8;
+$sd = 5.3;
 if(!empty($_GET['sd']))
     $sd = $_GET['sd'];
 
@@ -79,11 +79,11 @@ if(!empty($_GET['exclude_key'])){
     $exclude_key = explode(',',$_GET['exclude_key']);
 }
 
-$sql = "SELECT p.*, IF(COUNT(CASE DX_CODE WHEN '$disease_code' THEN DISEASE_NAME ELSE NULL END) > 0, 1, 0) AS '$disease_code'";
-$sql .= " FROM patient p LEFT JOIN disease d USING(HN) WHERE apache_ii IS NOT NULL GROUP BY HN";
+$sql = "SELECT * FROM main WHERE Tigecycine = 1";
 $data = query($sql);
 
-while (true) {
+$i = 0;
+while ($i < 100000) {
     $indices = [];
     $selected = [];
     while (count($selected) < $cnt) {
@@ -93,19 +93,20 @@ while (true) {
             $selected[] = $data[$index];
         }
     }
-    if(abs(mean($selected, 'apache_ii') - $mean) < 0.5 && abs(sd($selected, 'apache_ii') - $sd) < 0.25
-        && abs(percent($selected, $disease_code) - ($disease_percent / 100)) < ($disease_percent_range / 100))
+    $i++;
+    if(abs(mean($selected, 'APACHEII') - $mean) < 0.9 && abs(sd($selected, 'APACHEII') - $sd) < 0.25)
         break;
 }
+if($i == 100000)
+    exit;
 
 usort($selected, function($a, $b) {
     return $a['HN'] - $b['HN'];
 });
 
 $i = 0;
-echo 'Mean : ' . mean($selected, 'apache_ii') . '<br>';
-echo 'SD : ' . sd($selected, 'apache_ii') . '<br>';
-echo 'Percent : ' . percent($selected, $disease_code) * 100 . '%<br>';
+echo 'Mean : ' . mean($selected, 'APACHEII') . '<br>';
+echo 'SD : ' . sd($selected, 'APACHEII') . '<br>';
 ?>
 <table>
 <?
@@ -114,7 +115,7 @@ foreach($selected as $row){
     <tr>
         <td><? echo ++$i ?></td>
         <td><? echo $row['HN'] ?></td>
-        <td><? echo $row['apache_ii'] ?></td>
+        <td><? echo $row['APACHEII'] ?></td>
     </tr>
     <?
 }
