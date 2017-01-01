@@ -147,6 +147,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Felixkiss\UniqueWithValidator\UniqueWithValidatorServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider'
 	],
 
 	/*
@@ -196,6 +197,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
 	],
 
 ];
