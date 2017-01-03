@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder {
 	public function run() {
 		Model::unguard();
 
-		$import_patient = false;
-		$import_drug = false;
+		$import_patient = true;
+		$import_drug = true;
 		$import_lab = true;
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -38,6 +38,11 @@ class DatabaseSeeder extends Seeder {
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
+		$med_mapping = [
+			'MIDA-I-' => 'M',
+			'DOXA2T-' => 'D'
+		];
+
 		$lab_mapping = [
 			'ALT'  => 'alt',
 			'AST'  => 'ast',
@@ -50,14 +55,16 @@ class DatabaseSeeder extends Seeder {
 			foreach ($patients as $row) {
 
 				$patient_data = [
-					'HN'  => $row['hn'],
-					'sex' => $row['gender'] == 'ชาย' ? 'm' : 'f',
+					'HN'        => $row['hn'],
+					'sex'       => $row['gender'] == 'ชาย' ? 'm' : 'f',
+					'apache_ii' => 0
 				];
 
 				$patient_admission_data = [
 					'admission_id'                 => $row['an'],
 					'HN'                           => $row['hn'],
 					'age'                          => $row['age'],
+					'type'                         => 'unknown',
 					'hospital_admission_date_from' => $row['admit_date'],
 					'hospital_admission_date_to'   => $row['discharge_date'],
 					'death'                        => $row['type_of_discharge'] == 'Death (ตาย)' ? 1 : 0
@@ -98,14 +105,11 @@ class DatabaseSeeder extends Seeder {
 			foreach ($drugs as $row) {
 				$pad_record_data = [
 					'admission_id'  => $row['an'],
-					'date_assessed' => $row['payment_date']
+					'date_assessed' => $row['payment_date']->toDateString()
 				];
 
-				$pad_record = PadRecord::where('admission_id', $row['an'])->where('date_assessed', $row['payment_date'])->first();
-
-				if (empty($pad_record)) {
-					$pad_record = PadRecord::create($pad_record_data);
-				}
+				$pad_record = PadRecord::firstOrNew($pad_record_data);
+				$pad_record->save();
 
 				$pad_med_record_data = [
 					'pad_record_id' => $pad_record->record_id,
@@ -115,6 +119,12 @@ class DatabaseSeeder extends Seeder {
 				];
 
 				PadMedRecord::create($pad_med_record_data);
+
+				if (array_key_exists($row['code'], $med_mapping)) {
+					$patient_admission = PatientAdmission::find($row['an']);
+					$patient_admission->type = $med_mapping[$row['code']];
+					$patient_admission->save();
+				}
 			}
 		}
 
@@ -124,19 +134,16 @@ class DatabaseSeeder extends Seeder {
 			foreach ($labs as $row) {
 				$pad_record_data = [
 					'admission_id'  => $row['an'],
-					'date_assessed' => $row['assess_date']
+					'date_assessed' => $row['assess_date']->toDateString()
 				];
 
-				$pad_record = PadRecord::where('admission_id', $row['an'])->where('date_assessed', $row['assess_date'])->first();
-
-				if (empty($pad_record)) {
-					$pad_record = PadRecord::create($pad_record_data);
-				}
+				$pad_record = PadRecord::firstOrNew($pad_record_data);
 
 				if (array_key_exists($row['code_test'], $lab_mapping)) {
 					$pad_record[$lab_mapping[$row['code_test']]] = $row['result'];
-					$pad_record->save();
 				}
+
+				$pad_record->save();
 			}
 		}
 	}
