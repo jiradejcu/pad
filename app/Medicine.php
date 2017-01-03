@@ -12,4 +12,6 @@ class Medicine extends Model {
 	'name',
 	];
 
+	public $timestamps = false;
+
 }

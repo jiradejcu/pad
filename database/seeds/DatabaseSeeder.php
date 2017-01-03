@@ -5,6 +5,9 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Patient;
 use App\PatientAdmission;
+use App\PadRecord;
+use App\PadMedRecord;
+use App\Medicine;
 
 class DatabaseSeeder extends Seeder {
 
@@ -16,49 +19,96 @@ class DatabaseSeeder extends Seeder {
 	public function run() {
 		Model::unguard();
 
+		$import_patient = false;
+		$import_drug = true;
+
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-		DB::table('patient_pad_med_records')->truncate();
-		DB::table('patient_pad_record')->truncate();
-		DB::table('patient_admission')->truncate();
-		DB::table('patient')->truncate();
-		DB::table('medicines')->truncate();
+
+		if ($import_drug) {
+			DB::table('patient_pad_med_records')->truncate();
+			DB::table('patient_pad_record')->truncate();
+			DB::table('medicines')->truncate();
+		}
+
+		if ($import_patient) {
+			DB::table('patient_admission')->truncate();
+			DB::table('patient')->truncate();
+		}
+
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-		$reports = Excel::load(public_path() . '/data/Test.xlsx')->get();
+		if ($import_patient) {
+			$patients = Excel::load(public_path() . '/data/TestPatients.xlsx')->get();
 
-		foreach ($reports as $row) {
+			foreach ($patients as $row) {
 
-			$patient_data = [
-				'HN'  => $row['hn'],
-				'sex' => $row['gender'] == 'ชาย' ? 'm' : 'f',
-			];
+				$patient_data = [
+					'HN'  => $row['hn'],
+					'sex' => $row['gender'] == 'ชาย' ? 'm' : 'f',
+				];
 
-			$patient_admission_data = [
-				'admission_id'                 => $row['an'],
-				'HN'                           => $row['hn'],
-				'age'                          => $row['age'],
-				'hospital_admission_date_from' => $row['admit_date'],
-				'hospital_admission_date_to'   => $row['discharge_date'],
-				'death'                        => $row['type_of_discharge'] == 'Death (ตาย)' ? 1 : 0
-			];
+				$patient_admission_data = [
+					'admission_id'                 => $row['an'],
+					'HN'                           => $row['hn'],
+					'age'                          => $row['age'],
+					'hospital_admission_date_from' => $row['admit_date'],
+					'hospital_admission_date_to'   => $row['discharge_date'],
+					'death'                        => $row['type_of_discharge'] == 'Death (ตาย)' ? 1 : 0
+				];
 
-			$patient = Patient::firstOrNew($patient_data);
-			$patient->save();
+				$patient = Patient::firstOrNew($patient_data);
+				$patient->save();
 
-			$patient_admission = PatientAdmission::firstOrNew($patient_admission_data);
+				$patient_admission = PatientAdmission::firstOrNew($patient_admission_data);
 
-			if ($row['transfer_ward_date_icu_to_others_ward']) {
-				$existing_icu_stay = 0;
-				if ($patient_admission->icu_admission_date_from && $patient_admission->icu_admission_date_to) {
-					$icu_admission_date_from = new Carbon($patient_admission->icu_admission_date_from);
-					$icu_admission_date_to = new Carbon($patient_admission->icu_admission_date_to);
-					$existing_icu_stay = $icu_admission_date_from->diffInHours($icu_admission_date_to);
+				if ($row['transfer_ward_date_icu_to_others_ward']) {
+					$existing_icu_stay = 0;
+					if ($patient_admission->icu_admission_date_from && $patient_admission->icu_admission_date_to) {
+						$icu_admission_date_from = new Carbon($patient_admission->icu_admission_date_from);
+						$icu_admission_date_to = new Carbon($patient_admission->icu_admission_date_to);
+						$existing_icu_stay = $icu_admission_date_from->diffInHours($icu_admission_date_to);
+					}
+					$patient_admission->icu_admission_date_to = $row['transfer_ward_date_icu_to_others_ward'];
+					$patient_admission->icu_admission_date_from = $row['transfer_ward_date_icu_to_others_ward']->subHours($row['icu_stay_hours'] + $existing_icu_stay);
 				}
-				$patient_admission->icu_admission_date_to = $row['transfer_ward_date_icu_to_others_ward'];
-				$patient_admission->icu_admission_date_from = $row['transfer_ward_date_icu_to_others_ward']->subHours($row['icu_stay_hours'] + $existing_icu_stay);
+
+				$patient_admission->save();
+			}
+		}
+
+		if ($import_drug) {
+			$drugs = Excel::load(public_path() . '/data/TestDrugs.xlsx')->get();
+
+			foreach ($drugs as $row) {
+				$medicine_data = [
+					'name' => $row['code']
+				];
+
+				$medicine = Medicine::firstOrNew($medicine_data);
+				$medicine->save();
 			}
 
-			$patient_admission->save();
+			foreach ($drugs as $row) {
+				$pad_record_data = [
+					'admission_id'  => $row['an'],
+					'date_assessed' => $row['payment_date']
+				];
+
+				$pad_record = PadRecord::where('admission_id', $row['an'])->where('date_assessed', $row['payment_date'])->first();
+
+				if (empty($pad_record)) {
+					$pad_record = PadRecord::create($pad_record_data);
+				}
+
+				$pad_med_record_data = [
+					'pad_record_id' => $pad_record->record_id,
+					'med_name'      => $row['code'],
+					'med_channel'   => 'bolus',
+					'med_dose'          => $row['dose']
+				];
+
+				PadMedRecord::create($pad_med_record_data);
+			}
 		}
 	}
 
