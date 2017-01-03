@@ -7,7 +7,7 @@ function convertEmptyToNull($value){
 }
 
 function convertFormDateToDBFormat($value){
-	return convertDateFormat($value, 'Y-m-d H:i:s');
+	return !empty($value) ? convertDateFormat($value, 'Y-m-d H:i:s') : null;
 }
 
 function convertFormTimeToDBFormat($value){
@@ -23,7 +23,7 @@ function displayDate($value){
 }
 
 function displayDateTime($value){
-	return convertDateFormat($value, DISPLAY_DATE_FORMAT);
+	return !empty($value) ? convertDateFormat($value, DISPLAY_DATE_FORMAT) : null;
 }
 
 function displayTime($value){

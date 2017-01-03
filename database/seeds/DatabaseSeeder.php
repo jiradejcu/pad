@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 use App\Patient;
 use App\PatientAdmission;
 
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder {
 		$reports = Excel::load(public_path() . '/data/Test.xlsx')->get();
 
 		foreach ($reports as $row) {
-			
+
 			$patient_data = [
 				'HN'  => $row['hn'],
 				'sex' => $row['gender'] == 'ชาย' ? 'm' : 'f',
@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder {
 				'HN'                           => $row['hn'],
 				'age'                          => $row['age'],
 				'hospital_admission_date_from' => $row['admit_date'],
-				'hospital_admission_date_to'   => $row['discharge_date']
+				'hospital_admission_date_to'   => $row['discharge_date'],
+				'death'                        => $row['type_of_discharge'] == 'Death (ตาย)' ? 1 : 0
 			];
 
 			$patient = Patient::firstOrNew($patient_data);
@@ -46,9 +47,15 @@ class DatabaseSeeder extends Seeder {
 
 			$patient_admission = PatientAdmission::firstOrNew($patient_admission_data);
 
-			if ($row['transfer_ward_date_icu_to_others_ward'] && $patient_admission->icu_admission_date_from) {
+			if ($row['transfer_ward_date_icu_to_others_ward']) {
+				$existing_icu_stay = 0;
+				if ($patient_admission->icu_admission_date_from && $patient_admission->icu_admission_date_to) {
+					$icu_admission_date_from = new Carbon($patient_admission->icu_admission_date_from);
+					$icu_admission_date_to = new Carbon($patient_admission->icu_admission_date_to);
+					$existing_icu_stay = $icu_admission_date_from->diffInHours($icu_admission_date_to);
+				}
 				$patient_admission->icu_admission_date_to = $row['transfer_ward_date_icu_to_others_ward'];
-				$patient_admission->icu_admission_date_from = $row['transfer_ward_date_icu_to_others_ward']->subHours($row['icu_stay_hours']);
+				$patient_admission->icu_admission_date_from = $row['transfer_ward_date_icu_to_others_ward']->subHours($row['icu_stay_hours'] + $existing_icu_stay);
 			}
 
 			$patient_admission->save();
