@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		$import_patient = false;
-		$import_drug = true;
+		$import_drug = false;
+		$import_lab = true;
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
@@ -36,6 +37,12 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+		$lab_mapping = [
+			'ALT'  => 'alt',
+			'AST'  => 'ast',
+			'FIO2' => 'fio2'
+		];
 
 		if ($import_patient) {
 			$patients = Excel::load(public_path() . '/data/TestPatients.xlsx')->get();
@@ -104,10 +111,32 @@ class DatabaseSeeder extends Seeder {
 					'pad_record_id' => $pad_record->record_id,
 					'med_name'      => $row['code'],
 					'med_channel'   => 'bolus',
-					'med_dose'          => $row['dose']
+					'med_dose'      => $row['dose']
 				];
 
 				PadMedRecord::create($pad_med_record_data);
+			}
+		}
+
+		if ($import_lab) {
+			$labs = Excel::load(public_path() . '/data/TestLabs.xlsx')->get();
+
+			foreach ($labs as $row) {
+				$pad_record_data = [
+					'admission_id'  => $row['an'],
+					'date_assessed' => $row['assess_date']
+				];
+
+				$pad_record = PadRecord::where('admission_id', $row['an'])->where('date_assessed', $row['assess_date'])->first();
+
+				if (empty($pad_record)) {
+					$pad_record = PadRecord::create($pad_record_data);
+				}
+
+				if (array_key_exists($row['code_test'], $lab_mapping)) {
+					$pad_record[$lab_mapping[$row['code_test']]] = $row['result'];
+					$pad_record->save();
+				}
 			}
 		}
 	}
