@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder {
 	public function run() {
 		Model::unguard();
 
+		ini_set("memory_limit", -1);
+
 		$import_patient = true;
 		$import_drug = true;
 		$import_lab = true;
@@ -50,7 +52,7 @@ class DatabaseSeeder extends Seeder {
 		];
 
 		if ($import_patient) {
-			$patients = Excel::load(public_path() . '/data/TestPatients.xlsx')->get();
+			$patients = Excel::load(public_path() . '/data/Patients.xlsx')->get();
 
 			foreach ($patients as $row) {
 
@@ -91,16 +93,24 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		if ($import_drug) {
-			$drugs = Excel::load(public_path() . '/data/TestDrugs.xlsx')->get();
+
+			$drugs = Excel::load(public_path() . '/data/DrugMaster.xlsx')->get();
 
 			foreach ($drugs as $row) {
-				$medicine_data = [
-					'name' => $row['code']
-				];
+				if ($row['name'] != '-') {
+					$medicine_data = [
+						'name' => $row['code']
+					];
 
-				$medicine = Medicine::firstOrNew($medicine_data);
-				$medicine->save();
+					$medicine = Medicine::firstOrNew($medicine_data);
+					$medicine->trade_name = $row['name'];
+					$medicine->format = $row['format'];
+					$medicine->unit = $row['unit'];
+					$medicine->save();
+				}
 			}
+
+			$drugs = Excel::load(public_path() . '/data/Drugs.xlsx')->get();
 
 			foreach ($drugs as $row) {
 				$pad_record_data = [
@@ -129,7 +139,7 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		if ($import_lab) {
-			$labs = Excel::load(public_path() . '/data/TestLabs.xlsx')->get();
+			$labs = Excel::load(public_path() . '/data/Labs.xlsx')->get();
 
 			foreach ($labs as $row) {
 				$pad_record_data = [

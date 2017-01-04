@@ -10,6 +10,7 @@ return array(
     'AddDrpColumn' => $baseDir . '/database/migrations/2015_07_31_093913_add_drp_column.php',
     'AddDrpColumn2' => $baseDir . '/database/migrations/2015_08_19_063502_add_drp_column_2.php',
     'AddDrugInteractionDetail' => $baseDir . '/database/migrations/2015_07_01_135458_add_drug_interaction_detail.php',
+    'AddMedicinesColumn' => $baseDir . '/database/migrations/2017_01_04_121141_add_medicines_column.php',
     'AddPadColumn' => $baseDir . '/database/migrations/2015_06_30_163613_add_pad_column.php',
     'AddPadMedColumn' => $baseDir . '/database/migrations/2015_07_01_124118_add_pad_med_column.php',
     'AddPadMedColumns' => $baseDir . '/database/migrations/2015_07_19_084818_add_pad_med_columns.php',
