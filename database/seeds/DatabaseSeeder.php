@@ -90,6 +90,28 @@ class DatabaseSeeder extends Seeder {
 
 				$patient_admission->save();
 			}
+
+			$files = [
+				'Patients_7NW',
+				'Patients_9IC'
+			];
+
+			foreach ($files as $file) {
+				$apache_scores = Excel::load(public_path() . '/data/' . $file . '.xlsx')->get();
+
+				foreach ($apache_scores as $row) {
+					$patient_admission = PatientAdmission::find($row['an']);
+
+					if (!empty($patient_admission)) {
+						$patient = Patient::find($patient_admission->HN);
+
+						if (!empty($patient)) {
+							$patient->apache_ii = $row['apache'];
+							$patient->save();
+						}
+					}
+				}
+			}
 		}
 
 		if ($import_drug) {
