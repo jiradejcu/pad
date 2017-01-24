@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		ini_set("memory_limit", -1);
 
 		$import_patient = true;
+		$import_diagnosis = true;
 		$import_drug = true;
 		$import_lab = true;
 
@@ -39,6 +40,21 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+		$diagnosis_under_mapping = [
+//			'J1[2-8]'              => 'pneumonia',
+//			'A4[0-1]'              => 'sepsis',
+			'J45'                  => 'asthma',
+			'J449'                 => 'copd',
+			'C([0-7][0-9]|80)'     => 'cancer_solid',
+			'C(8[1-9]|9[0-6])'     => 'cancer_hemato',
+//			'E(0[[8-9]|1[0-3]|78)' => 'metabolic',
+		];
+
+		$diagnosis_active_mapping = [
+			'D(5[0-9]|6[0-4])'     => 'anemia',
+			'D6[5-9]'          => 'coagulopathy',
+		];
 
 		$med_mapping = [
 			'MIDA-I-' => 'M',
@@ -108,6 +124,34 @@ class DatabaseSeeder extends Seeder {
 						if (!empty($patient)) {
 							$patient->apache_ii = $row['apache'];
 							$patient->save();
+						}
+					}
+				}
+			}
+		}
+
+		if ($import_diagnosis) {
+
+			$diagnosis_list = Excel::load(public_path() . '/data/Diagnosis.xlsx')->get();
+
+			foreach ($diagnosis_list as $row) {
+				$patient = Patient::find($row['hn']);
+				$patient_admission = PatientAdmission::find($row['an']);
+
+						if ($patient) {
+					foreach ($diagnosis_under_mapping as $key => $value) {
+						if (preg_match('/' . $key . '/', $row['icd10'])) {
+							$patient->$value = 1;
+							$patient->save();
+						}
+					}
+						}
+
+						if ($patient_admission) {
+					foreach ($diagnosis_active_mapping as $key => $value) {
+						if (preg_match('/' . $key . '/', $row['icd10'])) {
+							$patient_admission->$value = 1;
+							$patient_admission->save();
 						}
 					}
 				}
