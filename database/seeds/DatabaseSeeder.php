@@ -57,8 +57,10 @@ class DatabaseSeeder extends Seeder {
 		];
 
 		$med_mapping = [
-			'MIDA-I-' => 'M',
-			'DOXA2T-' => 'D'
+			'PACR-I-' => 'P',
+			'ESMR-I-' => 'E',
+			'NIMB1I-' => 'N',
+			'TRAC-I1' => 'T'
 		];
 
 		$lab_mapping = [
