@@ -19,6 +19,7 @@ return array(
     'AddPatientColumn3' => $baseDir . '/database/migrations/2015_06_05_031724_add_patient_column_3.php',
     'AddRemarkColumn' => $baseDir . '/database/migrations/2015_06_30_151528_add_remark_column.php',
     'AddUnderlyingAndActiveProblem' => $baseDir . '/database/migrations/2015_07_07_063700_add_underlying_and_active_problem.php',
+    'AddUnderlyingDisease' => $baseDir . '/database/migrations/2017_01_24_171317_add_underlying_disease.php',
     'AlterPadColumn' => $baseDir . '/database/migrations/2015_07_07_082718_alter_pad_column.php',
     'App\\Commands\\Command' => $baseDir . '/app/Commands/Command.php',
     'App\\Console\\Commands\\Inspire' => $baseDir . '/app/Console/Commands/Inspire.php',

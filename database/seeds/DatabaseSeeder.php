@@ -42,13 +42,29 @@ class DatabaseSeeder extends Seeder {
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
 		$diagnosis_under_mapping = [
-//			'J1[2-8]'              => 'pneumonia',
-//			'A4[0-1]'              => 'sepsis',
+			'J80'                              => 'ards',
+			'J960'                             => 'arf',
+			'J189'                             => 'hap',
+			'J958'                             => 'vap',
+			'J1[2-8]'                          => 'pneumonia',
+			'A4[0-1]'                          => 'sepsis',
 			'J45'                  => 'asthma',
 			'J449'                 => 'copd',
+			'L89'                              => 'decubitus',
 			'C([0-7][0-9]|80)'     => 'cancer_solid',
 			'C(8[1-9]|9[0-6])'     => 'cancer_hemato',
-//			'E(0[[8-9]|1[0-3]|78)' => 'metabolic',
+			'E(0[[8-9]|1[0-3]|78)'             => 'metabolic',
+			'B20'                              => 'hiv',
+			'M32'                              => 'sle',
+			'F[0-9]+'                          => 'psychi',
+			'G([0-5][0-9]|6[0-5]|[8-9][0-9])'  => 'neuro',
+			'G7[0-3]'                          => 'neuromuscular',
+			'I[0-9][0-9]'                      => 'circulatory',
+			'K7[0-7]'                          => 'liver',
+			'N17'                              => 'aki',
+			'N18'                              => 'ckd',
+			'S[0-9][0-9]|T([0-7][0-9]|8[0-8])' => 'injury',
+			'(V|Y)[0-9][0-9]'                  => 'morbidity'
 		];
 
 		$diagnosis_active_mapping = [
