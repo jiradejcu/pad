@@ -48,11 +48,11 @@ class DatabaseSeeder extends Seeder {
 			'J958'                             => 'vap',
 			'J1[2-8]'                          => 'pneumonia',
 			'A4[0-1]'                          => 'sepsis',
-			'J45'                  => 'asthma',
-			'J449'                 => 'copd',
+			'J45'                              => 'asthma',
+			'J449'                             => 'copd',
 			'L89'                              => 'decubitus',
-			'C([0-7][0-9]|80)'     => 'cancer_solid',
-			'C(8[1-9]|9[0-6])'     => 'cancer_hemato',
+			'C([0-7][0-9]|80)'                 => 'cancer_solid',
+			'C(8[1-9]|9[0-6])'                 => 'cancer_hemato',
 			'E(0[[8-9]|1[0-3]|78)'             => 'metabolic',
 			'B20'                              => 'hiv',
 			'M32'                              => 'sle',
@@ -61,15 +61,15 @@ class DatabaseSeeder extends Seeder {
 			'G7[0-3]'                          => 'neuromuscular',
 			'I[0-9][0-9]'                      => 'circulatory',
 			'K7[0-7]'                          => 'liver',
-			'N17'                              => 'aki',
 			'N18'                              => 'ckd',
 			'S[0-9][0-9]|T([0-7][0-9]|8[0-8])' => 'injury',
 			'(V|Y)[0-9][0-9]'                  => 'morbidity'
 		];
 
 		$diagnosis_active_mapping = [
-			'D(5[0-9]|6[0-4])'     => 'anemia',
+			'D(5[0-9]|6[0-4])' => 'anemia',
 			'D6[5-9]'          => 'coagulopathy',
+			'N17'              => 'aki'
 		];
 
 		$med_mapping = [
@@ -80,8 +80,8 @@ class DatabaseSeeder extends Seeder {
 		];
 
 		$lab_mapping = [
-			'ALT'  => 'alt',
-			'AST'  => 'ast',
+			'ALT'              => 'alt',
+			'AST'              => 'ast',
 			'Creatinine'       => 'scr',
 			'pH@37'            => 'ph',
 			'pCO2@37'          => 'pco2',
@@ -110,6 +110,7 @@ class DatabaseSeeder extends Seeder {
 					'type'                         => 'unknown',
 					'hospital_admission_date_from' => $row['admit_date'],
 					'hospital_admission_date_to'   => $row['discharge_date'],
+					'hospital_admission_from'      => $row['ward'],
 					'death'                        => $row['type_of_discharge'] == 'Death (ตาย)' ? 1 : 0
 				];
 
@@ -163,16 +164,16 @@ class DatabaseSeeder extends Seeder {
 				$patient = Patient::find($row['hn']);
 				$patient_admission = PatientAdmission::find($row['an']);
 
-						if ($patient) {
+				if ($patient) {
 					foreach ($diagnosis_under_mapping as $key => $value) {
 						if (preg_match('/' . $key . '/', $row['icd10'])) {
 							$patient->$value = 1;
 							$patient->save();
 						}
 					}
-						}
+				}
 
-						if ($patient_admission) {
+				if ($patient_admission) {
 					foreach ($diagnosis_active_mapping as $key => $value) {
 						if (preg_match('/' . $key . '/', $row['icd10'])) {
 							$patient_admission->$value = 1;
