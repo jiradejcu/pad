@@ -31,6 +31,8 @@ Route::get('statistic/{group?}', 'StatisticController@index');
 
 Route::get('outliner', 'StatisticController@outliner');
 
+Route::get('sql', 'StatisticController@sql');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

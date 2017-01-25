@@ -111,4 +111,199 @@ class StatisticController extends Controller
         return DB::select($sql);
     }
 
+    public function sql()
+    {
+        $this->patientListSQL();
+        $this->patientPadListSQL();
+    }
+
+    private $drugs = [
+        'PACR-I-',
+        'ESMR-I-',
+        'NIMB1I-',
+        'TRAC-I1'
+    ];
+
+    private function patientListSQL()
+    {
+        $drugs = [
+            'AMKC1I-',
+            'AMKC2I-',
+            'GENT2I-',
+            'NETM1I-',
+            'CFZL-I-',
+            'MEIA-T-',
+            'MAXM-I-',
+            'SUPR1I-',
+            'CFTX2I-',
+            'CFXN-I-',
+            'CEFF2I-',
+            ['CEFC-I-', 'CEFV-I-', 'ROCV3I-'],
+            'CFRM-I-',
+            ['KEFX2T-', 'CELX1C-'],
+            'AMOX1C-',
+            'AUGM-I-',
+            'AMPC3I-',
+            'UNSY1I-',
+            'CLOX2I-',
+            'DICX-C-',
+            'PGSG-I-',
+            'PENV2T-',
+            'TAZC-I-',
+            'DORB-I-',
+            'INVZ-I-',
+            'TIEN-I-',
+            'MERN2I-',
+            'ZITM-I-',
+            'AZIB-C-',
+            'KLAC-I-',
+            'CLRM2T-',
+            'CIFX1T-',
+            'CIFX2T-',
+            'CIFX2I-',
+            'CRAV1T-',
+            'CRAV2I-',
+            'LEVV-T-',
+            'AVEL-I-',
+            'NORX1T-',
+            'OFLX1T-',
+            'DOXY-C-',
+            'BACT-I-',
+            'CTMX-T-',
+            'DALC-I2',
+            'DALC1C-',
+            'COLM-I-',
+            'CUBI-I-',
+            'FOMC2I-',
+            'ZYVX-T-',
+            'ZYVX-I-',
+            'FUCD-T-',
+            'TYGC-I-',
+            'VANM-I-',
+            'FLAG2T-',
+            'METZ-I-',
+            'RIFP-T-',
+            'RIFP1C-',
+            'CYCS-C-',
+            'ETBI-T-',
+            'ETHI-T-',
+            'INH.-T-',
+            'PZA.-T-',
+            'RIFN2C-',
+            'RIFT-T-',
+            'AMPB-I-',
+            'AMBS-I-',
+            'ERAX-I-',
+            'CACD1I-',
+            'CACD2I-',
+            'FLCN-I-',
+            'FLCN2C-',
+            'FLCN3C-',
+            'SPOR-C-',
+            'MYCA-I-',
+            'VFEN-I-',
+            'VFEN2T-',
+            'VFEN1T-',
+            'ADRL-I1',
+            'LEVP-I-',
+            'NORE-I-',
+            'DOPA3I-',
+            'DOPA-I-',
+            'DOBT-I-',
+            'DXMT-I1',
+            'FLRN-T-',
+            'SOCT-I-',
+            'SOMD1I-',
+            'SOMD2I-',
+            'SOMD3I-',
+            'SOMD-I-',
+            'DPMD-I-',
+            'PRED-T-',
+            'TRIA1I-',
+            'ROHN1T-',
+            'DORM-I1',
+            'MIDA-I-',
+            'NITZ-T-',
+            'PNOB3T-',
+            'PNOB2T-',
+            'GARD-I-',
+            'PNOB-I-',
+            'ZOLP-T-',
+            'FENT-I-',
+            'MORP-I1',
+            'PETD-I9',
+            'PRPL-I-',
+            'FRES-I-',
+            'FRES1I-',
+            'ANEP-I-',
+            'PETT-I-',
+        ];
+
+        $sql = "SELECT *, (SELECT FORMAT((TIMESTAMPDIFF(HOUR, MIN(ppr.date_assessed), MAX(ppr.date_assessed)) / 24) + 1, 0) FROM patient_pad_record ppr";
+        $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+        $sql .= " WHERE ppr.admission_id = A.AN AND ppmr.med_name IN ('" . implode("','", $this->drugs) . "')) AS med_day FROM (";
+
+        $sql .= "SELECT p.HN, pa.admission_id AS AN, pa.type, pa.hospital_admission_from AS ward, pa.age, p.apache_ii, p.sex";
+        $sql .= ", FORMAT((TIMESTAMPDIFF(HOUR, pa.hospital_admission_date_from, pa.hospital_admission_date_to) / 24) + 1, 0) AS hospital_stay";
+        $sql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to) + 1 AS icu_hour";
+        $sql .= ", pa.death, p.ards, p.arf, p.hap, p.vap, p.pneumonia, p.sepsis, p.asthma, p.copd, p.decubitus";
+        $sql .= ", p.cancer_solid, p.cancer_hemato, p.metabolic, p.hiv, p.sle, pa.anemia, pa.coagulopathy";
+        $sql .= ", p.psychi, p.neuro, p.neuromuscular, p.circulatory, p.liver, pa.aki, p.ckd, p.injury, p.morbidity";
+
+        foreach ($drugs as $drug) {
+            $sql .= ", IF(SUM(IF(";
+
+            $drug_conditions = [];
+            if (!is_array($drug)) {
+                $drug = [$drug];
+            }
+
+            foreach ($drug as $d) {
+                $drug_conditions[] = "med_name = '" . $d . "'";
+            }
+
+            $sql .= implode(' OR ', $drug_conditions);
+            $sql .= ",med_dose,0)) > 0,1,0) AS `" . implode('_', $drug) . "`";
+        }
+
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) LEFT JOIN patient_pad_record ppr USING(admission_id)";
+        $sql .= " LEFT JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+        $sql .= " GROUP BY pa.admission_id) A";
+
+        echo '<br>' . $sql . '<br>';
+    }
+
+    private function patientPadListSQL()
+    {
+        $labs = [
+            'alt',
+            'ast',
+            'scr',
+            'ph',
+            'pco2',
+            'po2',
+            'hco3',
+            'po2_fi',
+            'ca',
+            'mg'
+        ];
+
+        $sql = "SELECT p.HN, pa.admission_id AS AN, ppr.date_assessed";
+
+        foreach ($labs as $lab) {
+            $sql .= ", ppr." . $lab;
+        }
+
+        foreach ($this->drugs as $drug) {
+            $sql .= ", SUM(IF(med_name = '" . $drug . "'";
+            $sql .= ",med_dose,0)) AS `" . $drug . "`";
+        }
+
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) LEFT JOIN patient_pad_record ppr USING(admission_id)";
+        $sql .= " LEFT JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+        $sql .= " GROUP BY pa.admission_id, ppr.date_assessed";
+
+        echo '<br>' . $sql . '<br>';
+    }
+
 }
