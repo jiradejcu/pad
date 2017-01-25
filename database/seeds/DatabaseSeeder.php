@@ -82,7 +82,14 @@ class DatabaseSeeder extends Seeder {
 		$lab_mapping = [
 			'ALT'  => 'alt',
 			'AST'  => 'ast',
-			'FIO2' => 'fio2'
+			'Creatinine'       => 'scr',
+			'pH@37'            => 'ph',
+			'pCO2@37'          => 'pco2',
+			'pO2@37'           => 'po2',
+			'HCO3-'            => 'hco3',
+			'PO2/FI'           => 'po2_fi',
+			'Ca++(pH_:ACTUAL)' => 'ca',
+			'MG++(pH_:ACTUAL)' => 'mg'
 		];
 
 		if ($import_patient) {
