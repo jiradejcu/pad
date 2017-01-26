@@ -268,6 +268,7 @@ class StatisticController extends Controller
 
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+        $sql .= " WHERE `type` != 'unknown'";
         $sql .= " GROUP BY pa.admission_id) A";
 
         echo '<br>' . $sql . '<br>';
@@ -288,7 +289,7 @@ class StatisticController extends Controller
             'mg'
         ];
 
-        $sql = "SELECT p.HN, pa.admission_id AS AN, ppr.date_assessed";
+        $sql = "SELECT p.HN, pa.admission_id AS AN, pa.type, ppr.date_assessed";
 
         foreach ($labs as $lab) {
             $sql .= ", ppr." . $lab;
@@ -301,6 +302,7 @@ class StatisticController extends Controller
 
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $sql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+        $sql .= " WHERE `type` != 'unknown'";
         $sql .= " GROUP BY pa.admission_id, ppr.date_assessed";
 
         echo '<br>' . $sql . '<br>';
