@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		ini_set("memory_limit", -1);
 
 		$import_patient = true;
+		$import_apache = true;
 		$import_diagnosis = true;
 		$import_drug = true;
 		$import_lab = true;
@@ -132,6 +133,9 @@ class DatabaseSeeder extends Seeder {
 
 				$patient_admission->save();
 			}
+		}
+
+		if ($import_apache) {
 
 			$files = [
 				'Patients_7NW',
