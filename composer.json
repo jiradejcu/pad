@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+		"php": "~7.0.0",
 		"laravel/framework": "5.0.*",
 		"illuminate/html": "^5.0",
 		"felixkiss/uniquewith-validator": "2.*",
