@@ -67,4 +67,64 @@ class PatientAdmission extends Model {
 	public function getEttDateToAttribute($value){
 		return displayDateTime($value);
 	}
+
+	public function setTemperatureAttribute($value){
+		$this->attributes['temperature'] = convertEmptyToNull($value);
+	}
+
+	public function setMeanArterialPressureAttribute($value){
+		$this->attributes['mean_arterial_pressure'] = convertEmptyToNull($value);
+	}
+
+	public function setHeartRateAttribute($value){
+		$this->attributes['heart_rate'] = convertEmptyToNull($value);
+	}
+
+	public function setRespiratoryRateAttribute($value){
+		$this->attributes['respiratory_rate'] = convertEmptyToNull($value);
+	}
+
+	public function setFio2Attribute($value){
+		$this->attributes['fio2'] = convertEmptyToNull($value);
+	}
+
+	public function setAapo2Attribute($value){
+		$this->attributes['aapo2'] = convertEmptyToNull($value);
+	}
+
+	public function setPao2Attribute($value){
+		$this->attributes['pao2'] = convertEmptyToNull($value);
+	}
+
+	public function setPhAttribute($value){
+		$this->attributes['ph'] = convertEmptyToNull($value);
+	}
+
+	public function setHco3Attribute($value){
+		$this->attributes['hco3'] = convertEmptyToNull($value);
+	}
+
+	public function setSerumNaAttribute($value){
+		$this->attributes['serum_na'] = convertEmptyToNull($value);
+	}
+
+	public function setSerumKAttribute($value){
+		$this->attributes['serum_k'] = convertEmptyToNull($value);
+	}
+
+	public function setCreatinineAttribute($value){
+		$this->attributes['creatinine'] = convertEmptyToNull($value);
+	}
+
+	public function setHematocritAttribute($value){
+		$this->attributes['hematocrit'] = convertEmptyToNull($value);
+	}
+
+	public function setWbcAttribute($value){
+		$this->attributes['wbc'] = convertEmptyToNull($value);
+	}
+
+	public function setGlasgowComaAttribute($value){
+		$this->attributes['glasgow_coma'] = convertEmptyToNull($value);
+	}
 }

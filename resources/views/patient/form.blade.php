@@ -140,7 +140,64 @@
             </div>
             <div id="apache_tab" class="tab-pane fade">
                 <div class="form-group">
-                    Apache II
+                    {!! Form::label('temperature', 'Temperature :') !!}
+                    {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('mean_arterial_pressure', 'Mean Arterial Pressure :') !!}
+                    {!! Form::text('mean_arterial_pressure', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('heart_rate', 'Heart Rate :') !!}
+                    {!! Form::text('heart_rate', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('respiratory_rate', 'Respiratory Rate :') !!}
+                    {!! Form::text('respiratory_rate', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('fio2', 'FiO2 :') !!}
+                    {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('aapo2', 'A-aPO2 :') !!}
+                    {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('pao2', 'PaO2 :') !!}
+                    {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('ph', 'Arterial pH :') !!}
+                    {!! Form::text('ph', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('hco3', 'HCO3 :') !!}
+                    {!! Form::text('hco3', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('serum_na', 'Serun Na+ :') !!}
+                    {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('serum_k', 'Serum K+ :') !!}
+                    {!! Form::text('serum_k', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('creatinine', 'Creatinine :') !!}
+                    {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('hematocrit', 'Hematocrit :') !!}
+                    {!! Form::text('hematocrit', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('wbc', 'WBC Count :') !!}
+                    {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('glasgow_coma', 'Glasgow Coma Score :') !!}
+                    {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
                 </div>
             </div>
         </div>
