@@ -32,6 +32,8 @@ const input_list = [
 ]
 
 const getScoreFromRange = function(input, range) {
+  if (input == "")
+    return NaN
   input = Number(input)
   var result = range.initial_value;
   range.map.some(function(item) {
@@ -43,11 +45,19 @@ const getScoreFromRange = function(input, range) {
   return result
 }
 
+const recalculateAllScore = function() {
+  var total_score = 0;
+  input_list.forEach(function(item) {
+    const score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
+    console.log(item.name + ' score: ' + score)
+    total_score += score
+  })
+  $("#apache_ii_score").text(total_score)
+}
+
 $(function() {
   input_list.forEach(function(item) {
-    $("[name='" + item.name + "']").change(function() {
-      const score = getScoreFromRange($(this).val(), item.range)
-      console.log('score: ' + score)
-    })
+    $("[name='" + item.name + "']").change(recalculateAllScore)
   })
+  recalculateAllScore()
 });
