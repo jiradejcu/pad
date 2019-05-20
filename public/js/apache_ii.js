@@ -89,6 +89,60 @@ const input_list = [
         {key: 7, value: 3},
       ]
     }
+  },
+  {
+    name: 'creatinine',
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 0.6, value: 2},
+        {key: 1.5, value: 0},
+        {key: 2, value: 2},
+        {key: 3.5, value: 3},
+      ]
+    }
+  },
+  {
+    name: 'hematocrit',
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 20, value: 4},
+        {key: 30, value: 2},
+        {key: 46, value: 0},
+        {key: 50, value: 1},
+        {key: 60, value: 2},
+      ]
+    }
+  },
+  {
+    name: 'wbc',
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 1, value: 4},
+        {key: 3, value: 2},
+        {key: 15, value: 0},
+        {key: 20, value: 1},
+        {key: 40, value: 2},
+      ]
+    }
+  },
+  {
+    name: 'age',
+    range: {
+      include_equal: false,
+      initial_value: 6,
+      map: [
+        {key: 45, value: 0},
+        {key: 55, value: 2},
+        {key: 65, value: 3},
+        {key: 75, value: 5},
+      ]
+    }
   }
 ]
 
@@ -108,11 +162,21 @@ const getScoreFromRange = function(input, range) {
 
 const recalculateAllScore = function() {
   var total_score = 0;
+  var score;
   input_list.forEach(function(item) {
-    const score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
+    score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
     $("[name='" + item.name + "_score']").val(score)
     total_score += score
   })
+
+  if ($("[name='glasgow_coma']").val() != "") {
+    score = 15 - $("[name='glasgow_coma']").val()
+  } else {
+    score = NaN
+  }
+  $("[name='glasgow_coma_score']").val(score)
+  total_score += score
+
   $("#apache_ii_score").text(total_score)
 }
 
@@ -120,5 +184,8 @@ $(function() {
   input_list.forEach(function(item) {
     $("[name='" + item.name + "']").change(recalculateAllScore)
   })
+
+  $("[name='glasgow_coma']").change(recalculateAllScore)
+
   recalculateAllScore()
 });

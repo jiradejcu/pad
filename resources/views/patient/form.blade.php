@@ -28,10 +28,6 @@
                 </div>
                 <hr/>
                 <div class="form-group">
-                    {!! Form::label('age', 'Age :') !!}
-                    {!! Form::text('age', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
                     {!! Form::label('height', 'Height :') !!}
                     {!! Form::text('height', null, ['class' => 'form-control']) !!}
                 </div>
@@ -141,9 +137,13 @@
             <div id="apache_tab" class="tab-pane fade">
                 <div class="row">
                     <div class="col-md-4">
-                        <div id="apache_ii_score"></div>
+                        Apache II Score : <div id="apache_ii_score"></div>
                     </div>
                     <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('age', 'Age :') !!}
+                            {!! Form::text('age', null, ['class' => 'form-control']) !!}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('temperature', 'Temperature :') !!}
                             {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
@@ -206,6 +206,10 @@
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('age_score', 'Age Score :') !!}
+                            {!! Form::text('age_score', null, ['class' => 'form-control']) !!}
+                        </div>
                         <div class="form-group">
                             {!! Form::label('temperature_score', 'Temperature Score :') !!}
                             {!! Form::text('temperature_score', null, ['class' => 'form-control']) !!}
