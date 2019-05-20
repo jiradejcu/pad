@@ -143,7 +143,7 @@
                     <div class="col-md-4">
                         <div id="apache_ii_score"></div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('temperature', 'Temperature :') !!}
                             {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
@@ -201,8 +201,70 @@
                             {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('glasgow_coma', 'Glasgow Coma Score :') !!}
+                            {!! Form::label('glasgow_coma', 'Glasgow Coma :') !!}
                             {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('temperature_score', 'Temperature Score :') !!}
+                            {!! Form::text('temperature_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('mean_arterial_pressure_score', 'Mean Arterial Pressure Score :') !!}
+                            {!! Form::text('mean_arterial_pressure_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('heart_rate_score', 'Heart Rate Score :') !!}
+                            {!! Form::text('heart_rate_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('respiratory_rate_score', 'Respiratory Rate Score :') !!}
+                            {!! Form::text('respiratory_rate_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('fio2_score', 'FiO2 Score :') !!}
+                            {!! Form::text('fio2_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('aapo2_score', 'A-aPO2 Score :') !!}
+                            {!! Form::text('aapo2_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('pao2_score', 'PaO2 Score :') !!}
+                            {!! Form::text('pao2_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('ph_score', 'Arterial pH Score :') !!}
+                            {!! Form::text('ph_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('hco3_score', 'HCO3 Score :') !!}
+                            {!! Form::text('hco3_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('serum_na_score', 'Serun Na+ Score :') !!}
+                            {!! Form::text('serum_na_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('serum_k_score', 'Serum K+ Score :') !!}
+                            {!! Form::text('serum_k_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('creatinine_score', 'Creatinine Score :') !!}
+                            {!! Form::text('creatinine_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('hematocrit_score', 'Hematocrit Score :') !!}
+                            {!! Form::text('hematocrit_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('wbc_score', 'WBC Count Score :') !!}
+                            {!! Form::text('wbc_score', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('glasgow_coma_score', 'Glasgow Coma Score :') !!}
+                            {!! Form::text('glasgow_coma_score', null, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>
