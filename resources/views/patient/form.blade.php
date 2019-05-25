@@ -184,7 +184,7 @@
                             {!! Form::text('hco3', null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('serum_na', 'Serun Na+ :') !!}
+                            {!! Form::label('serum_na', 'Serum Na+ :') !!}
                             {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
@@ -250,7 +250,7 @@
                             {!! Form::text('hco3_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('serum_na_score', 'Serun Na+ Score :') !!}
+                            {!! Form::label('serum_na_score', 'Serum Na+ Score :') !!}
                             {!! Form::text('serum_na_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                         <div class="form-group">

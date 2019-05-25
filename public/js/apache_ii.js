@@ -67,7 +67,7 @@ const input_list = [
       map: [
         {key: 111, value: 4},
         {key: 120, value: 3},
-        {key: 130, value: 4},
+        {key: 130, value: 2},
         {key: 150, value: 0},
         {key: 155, value: 1},
         {key: 160, value: 2},
