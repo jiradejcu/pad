@@ -177,7 +177,7 @@ const recalculateAllScore = function() {
   $("[name='glasgow_coma_score']").val(score)
   total_score += score
 
-  $("#apache_ii_score").val(total_score)
+  $("[name='apache_ii_score']").val(total_score)
 }
 
 $(function() {

@@ -139,7 +139,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('apache_ii_score', 'Apache II Score :') !!}
-                            {!! Form::text('apache_ii_score', null, ['id' => 'apache_ii_score', 'class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                            {!! Form::text('apache_ii_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -147,128 +147,267 @@
                             {!! Form::label('age', 'Age :') !!}
                             {!! Form::text('age', null, ['class' => 'form-control']) !!}
                         </div>
-                        <div class="form-group">
-                            {!! Form::label('temperature', 'Temperature :') !!}
-                            {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('mean_arterial_pressure', 'Mean Arterial Pressure :') !!}
-                            {!! Form::text('mean_arterial_pressure', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('heart_rate', 'Heart Rate :') !!}
-                            {!! Form::text('heart_rate', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('respiratory_rate', 'Respiratory Rate :') !!}
-                            {!! Form::text('respiratory_rate', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('fio2', 'FiO2 :') !!}
-                            {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('aapo2', 'A-aPO2 :') !!}
-                            {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('pao2', 'PaO2 :') !!}
-                            {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('ph', 'Arterial pH :') !!}
-                            {!! Form::text('ph', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('hco3', 'HCO3 :') !!}
-                            {!! Form::text('hco3', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('serum_na', 'Serum Na+ :') !!}
-                            {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('serum_k', 'Serum K+ :') !!}
-                            {!! Form::text('serum_k', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('creatinine', 'Creatinine :') !!}
-                            {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('hematocrit', 'Hematocrit :') !!}
-                            {!! Form::text('hematocrit', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('wbc', 'WBC Count :') !!}
-                            {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('glasgow_coma', 'Glasgow Coma :') !!}
-                            {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
-                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('age_score', 'Age Score :') !!}
                             {!! Form::text('age_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('temperature', 'Temperature :') !!}
+                            {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('temperature_score', 'Temperature Score :') !!}
                             {!! Form::text('temperature_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('mean_arterial_pressure', 'Mean Arterial Pressure :') !!}
+                            {!! Form::text('mean_arterial_pressure', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('mean_arterial_pressure_score', 'Mean Arterial Pressure Score :') !!}
                             {!! Form::text('mean_arterial_pressure_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('heart_rate', 'Heart Rate :') !!}
+                            {!! Form::text('heart_rate', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('heart_rate_score', 'Heart Rate Score :') !!}
                             {!! Form::text('heart_rate_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('respiratory_rate', 'Respiratory Rate :') !!}
+                            {!! Form::text('respiratory_rate', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('respiratory_rate_score', 'Respiratory Rate Score :') !!}
                             {!! Form::text('respiratory_rate_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('fio2', 'FiO2 :') !!}
+                            {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('fio2_score', 'FiO2 Score :') !!}
                             {!! Form::text('fio2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('aapo2', 'A-aPO2 :') !!}
+                            {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('aapo2_score', 'A-aPO2 Score :') !!}
                             {!! Form::text('aapo2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('pao2', 'PaO2 :') !!}
+                            {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('pao2_score', 'PaO2 Score :') !!}
                             {!! Form::text('pao2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('ph', 'Arterial pH :') !!}
+                            {!! Form::text('ph', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('ph_score', 'Arterial pH Score :') !!}
                             {!! Form::text('ph_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('hco3', 'HCO3 :') !!}
+                            {!! Form::text('hco3', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('hco3_score', 'HCO3 Score :') !!}
                             {!! Form::text('hco3_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('serum_na', 'Serum Na+ :') !!}
+                            {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('serum_na_score', 'Serum Na+ Score :') !!}
                             {!! Form::text('serum_na_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('serum_k', 'Serum K+ :') !!}
+                            {!! Form::text('serum_k', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('serum_k_score', 'Serum K+ Score :') !!}
                             {!! Form::text('serum_k_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('creatinine', 'Creatinine :') !!}
+                            {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('creatinine_score', 'Creatinine Score :') !!}
                             {!! Form::text('creatinine_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('hematocrit', 'Hematocrit :') !!}
+                            {!! Form::text('hematocrit', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('hematocrit_score', 'Hematocrit Score :') !!}
                             {!! Form::text('hematocrit_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('wbc', 'WBC Count :') !!}
+                            {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('wbc_score', 'WBC Count Score :') !!}
                             {!! Form::text('wbc_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('apache_ii_score', 'Apache II Score :') !!}
+                            {!! Form::text('apache_ii_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('glasgow_coma', 'Glasgow Coma :') !!}
+                            {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('glasgow_coma_score', 'Glasgow Coma Score :') !!}
                             {!! Form::text('glasgow_coma_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
