@@ -242,35 +242,21 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('fio2', 'FiO2 :') !!}
-                            {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('fio2_score', 'FiO2 Score :') !!}
-                            {!! Form::text('fio2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('aapo2', 'A-aPO2 :') !!}
-                            {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('aapo2_score', 'A-aPO2 Score :') !!}
-                            {!! Form::text('aapo2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                            <div>
+                                <div class="btn-group" data-toggle="buttons" id="fio2">
+                                    <label class="btn btn-default">
+                                        {!! Form::radio('fio2', 'less') !!} <50% (or non-intubated)
+                                    </label>
+                                    <label class="btn btn-default">
+                                        {!! Form::radio('fio2', 'more') !!} ≥50%
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row pao2">
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4">
@@ -283,6 +269,23 @@
                         <div class="form-group">
                             {!! Form::label('pao2_score', 'PaO2 Score :') !!}
                             {!! Form::text('pao2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row aapo2">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('aapo2', 'A-aPO2 :') !!}
+                            {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('aapo2_score', 'A-aPO2 Score :') !!}
+                            {!! Form::text('aapo2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                 </div>

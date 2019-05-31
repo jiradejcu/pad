@@ -60,6 +60,30 @@ const input_list = [
     }
   },
   {
+    name: 'pao2',
+    range: {
+      include_equal: false,
+      initial_value: 0,
+      map: [
+        {key: 55, value: 4},
+        {key: 61, value: 3},
+        {key: 71, value: 1},
+      ]
+    }
+  },
+  {
+    name: 'aapo2',
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 200, value: 0},
+        {key: 350, value: 2},
+        {key: 500, value: 3},
+      ]
+    }
+  },
+  {
     name: 'serum_na',
     range: {
       include_equal: false,
@@ -166,6 +190,15 @@ const recalculateAllScore = function() {
   input_list.forEach(function(item) {
     score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
     $("[name='" + item.name + "_score']").val(score)
+    if (["pao2", "aapo2"].indexOf(item.name) >= 0) {
+      const choice = $("#fio2 input:radio:checked").val();
+      if (!choice)
+        return;
+      if (choice == 'less' && item.name != 'pao2')
+        return;
+      if (choice == 'more' && item.name != 'aapo2')
+        return;
+    }
     total_score += score
   })
 
@@ -180,6 +213,23 @@ const recalculateAllScore = function() {
   $("[name='apache_ii_score']").val(total_score)
 }
 
+$("#fio2 input:radio:checked").parent().addClass('active');
+
+const displayOption = function() {
+  const choice = $("#fio2 input:radio:checked").val();
+
+  ["pao2", "aapo2"].forEach(function(item) {
+    if (
+      (choice == 'less' && item == 'pao2')
+      || (choice == 'more' && item == 'aapo2')
+    ) {
+      $("." + item).show();
+    } else
+      $("." + item).hide();
+  })
+  recalculateAllScore();
+}
+
 $(function() {
   input_list.forEach(function(item) {
     $("[name='" + item.name + "']").change(recalculateAllScore)
@@ -187,5 +237,8 @@ $(function() {
 
   $("[name='glasgow_coma']").change(recalculateAllScore)
 
+  $("#fio2 input:radio").change(displayOption)
+
+  displayOption()
   recalculateAllScore()
 });
