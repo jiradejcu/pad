@@ -162,7 +162,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('temperature', 'Temperature :') !!}
-                            {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('temperature', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">C</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -179,7 +182,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('mean_arterial_pressure', 'Mean Arterial Pressure :') !!}
-                            {!! Form::text('mean_arterial_pressure', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('mean_arterial_pressure', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mmHg</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -196,7 +202,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('heart_rate', 'Heart Rate :') !!}
-                            {!! Form::text('heart_rate', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('heart_rate', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">beats/min</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -213,7 +222,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('respiratory_rate', 'Respiratory Rate :') !!}
-                            {!! Form::text('respiratory_rate', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('respiratory_rate', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">breaths/min</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -315,7 +327,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('serum_na', 'Serum Na+ :') !!}
-                            {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('serum_na', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mEq/L</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -332,7 +347,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('serum_k', 'Serum K+ :') !!}
-                            {!! Form::text('serum_k', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('serum_k', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mEq/L</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -349,7 +367,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('creatinine', 'Creatinine :') !!}
-                            {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mg/dL</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -366,7 +387,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('hematocrit', 'Hematocrit :') !!}
-                            {!! Form::text('hematocrit', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('hematocrit', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">%</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -383,7 +407,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('wbc', 'WBC Count :') !!}
-                            {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">× 10⁹ cells/L</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -404,7 +431,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('glasgow_coma', 'Glasgow Coma :') !!}
-                            {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">points</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
