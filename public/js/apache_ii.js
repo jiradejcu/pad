@@ -93,6 +93,45 @@ const input_list = [
     }
   },
   {
+    name: 'ph_choice',
+    choices: {
+      ph: 'ph',
+      hco3: 'hco3',
+    }
+  },
+  {
+    name: 'ph',
+    exclude: true,
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 7.15, value: 4},
+        {key: 7.25, value: 3},
+        {key: 7.33, value: 2},
+        {key: 7.5, value: 0},
+        {key: 7.6, value: 1},
+        {key: 7.7, value: 3},
+      ]
+    }
+  },
+  {
+    name: 'hco3',
+    exclude: true,
+    range: {
+      include_equal: false,
+      initial_value: 4,
+      map: [
+        {key: 15, value: 4},
+        {key: 18, value: 3},
+        {key: 22, value: 2},
+        {key: 32, value: 0},
+        {key: 41, value: 1},
+        {key: 52, value: 3},
+      ]
+    }
+  },
+  {
     name: 'serum_na',
     range: {
       include_equal: false,

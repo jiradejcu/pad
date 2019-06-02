@@ -295,6 +295,26 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            {!! Form::label('ph_choice', 'pH or HCO3 :') !!}
+                            <div>
+                                <div class="btn-group" data-toggle="buttons" id="ph_choice">
+                                    <label class="btn btn-default">
+                                        {!! Form::radio('ph_choice', 'ph') !!} pH
+                                    </label>
+                                    <label class="btn btn-default">
+                                        {!! Form::radio('ph_choice', 'hco3') !!} HCO3
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ph">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             {!! Form::label('ph', 'Arterial pH :') !!}
                             {!! Form::text('ph', null, ['class' => 'form-control']) !!}
                         </div>
@@ -307,7 +327,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row hco3">
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4">
