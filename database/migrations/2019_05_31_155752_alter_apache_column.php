@@ -14,7 +14,6 @@ class AlterApacheColumn extends Migration {
 	{
 		Schema::table('patient_admission', function(Blueprint $table)
 		{
-			$table->string('fio2')->nullable()->change();
 			$table->string('ph_choice')->nullable()->after('pao2');
 		});
 	}
@@ -28,7 +27,6 @@ class AlterApacheColumn extends Migration {
 	{
 		Schema::table('patient_admission', function(Blueprint $table)
 		{
-			$table->integer('fio2')->nullable()->change();
 			$table->dropColumn('ph_choice');
 		});
 	}

@@ -1,6 +1,6 @@
 		<ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#basic_tab">Basic</a></li>
-          <li><a data-toggle="tab" href="#apache_tab">Apache II</a></li>
+          <li><a data-toggle="tab" href="#score_tab">Score</a></li>
         </ul>
         <br>
         <div class="tab-content">
@@ -134,7 +134,7 @@
                     @include('form_control.checkbox', ['checkbox_name' => 'others_active', 'label_text' => 'Others', 'detail_text' => 1])
                 <hr/>
             </div>
-            <div id="apache_tab" class="tab-pane fade">
+            <div id="score_tab" class="tab-pane fade">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -242,13 +242,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('fio2', 'FiO2 :') !!}
+                            {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('fio2_score', 'FiO2 Score :') !!}
                             <div>
-                                <div class="btn-group" data-toggle="buttons" id="fio2">
+                                <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-default">
-                                        {!! Form::radio('fio2', 'less') !!} <50% (or non-intubated)
+                                        {!! Form::radio('fio2_score', 'less', null, ['disabled']) !!} <50% (or non-intubated)
                                     </label>
                                     <label class="btn btn-default">
-                                        {!! Form::radio('fio2', 'more') !!} ≥50%
+                                        {!! Form::radio('fio2_score', 'more', null, ['disabled']) !!} ≥50%
                                     </label>
                                 </div>
                             </div>
@@ -297,7 +303,7 @@
                         <div class="form-group">
                             {!! Form::label('ph_choice', 'pH or HCO3 :') !!}
                             <div>
-                                <div class="btn-group" data-toggle="buttons" id="ph_choice">
+                                <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-default">
                                         {!! Form::radio('ph_choice', 'ph') !!} pH
                                     </label>

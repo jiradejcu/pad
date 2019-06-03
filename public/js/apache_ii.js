@@ -61,6 +61,10 @@ const input_list = [
   },
   {
     name: 'fio2',
+    threshold: {
+      value: 50,
+      include_equal: false,
+    },
     choices: {
       less: 'pao2',
       more: 'aapo2',
@@ -232,6 +236,14 @@ const getScoreFromRange = function(input, range) {
   return result
 }
 
+const getChoiceFromThreshold = function(input, threshold) {
+  if (input == "")
+    return null
+  if ((threshold.include_equal && input <= threshold.value)
+    || (!threshold.include_equal && input < threshold.value)) return "less"
+  else return "more"
+}
+
 const recalculateAllScore = function() {
   var total_score = 0;
   var score;
@@ -247,9 +259,17 @@ const recalculateAllScore = function() {
 
     var score;
     if (item.choices) {
-      const choice = $("#" + item.name + " input:radio:checked").val();
+      var choice;
+
+      if (item.threshold) {
+        choice = getChoiceFromThreshold($("[name='" + item.name + "']").val(), item.threshold)
+        $("[name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
+      } else
+        choice = $("[name=" + item.name + "]:checked").val();
+
       if (!choice)
         return
+
       Object.keys(item.choices).forEach(function(key) {
         if (choice == key)
           score = $("[name='" + item.choices[key] + "_score']").val()
@@ -275,32 +295,39 @@ const recalculateAllScore = function() {
 const displayOption = function() {
   input_list.forEach(function(item) {
     if (item.choices) {
-      const choice = $("#" + item.name + " input:radio:checked").val();
+      var name = item.threshold ? item.name + "_score" : item.name;
+      const choice = $("[name=" + name + "]:checked").val();
       Object.keys(item.choices).forEach(function(key) {
         if (choice == key)
           $("." + item.choices[key]).show();
         else
           $("." + item.choices[key]).hide();
       })
+      $("[name=" + name + "]").parent().removeClass('active');
+      $("[name=" + name + "]:checked").parent().addClass('active');
     }
   })
   recalculateAllScore();
 }
 
 $(function() {
-  input_list.forEach(function(item) {
-    $("[name='" + item.name + "']").change(recalculateAllScore)
-  })
+  recalculateAllScore()
+  displayOption()
 
   $("[name='glasgow_coma']").change(recalculateAllScore)
-
   input_list.forEach(function(item) {
+    $("[name='" + item.name + "']").change(recalculateAllScore)
+
     if (item.choices) {
-      $("#" + item.name + " input:radio:checked").parent().addClass('active');
-      $("#" + item.name + " input:radio").change(displayOption)
+      $("[name=" + item.name + "]").change(function() {
+        setTimeout(displayOption)
+      })
+
+      if (item.threshold) {
+        $("[name=" + item.name + "_score]").parent().click(function() {
+          return false
+        })
+      }
     }
   })
-
-  displayOption()
-  recalculateAllScore()
-});
+})
