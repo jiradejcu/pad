@@ -230,6 +230,37 @@ const input_lists = {
           return NaN
       }
     }
+  ],
+  'sofa_score': [
+    {
+      name: 'pao2',
+      exclude: true,
+    },
+    {
+      name: 'fio2',
+      exclude: true,
+    },
+    {
+      name: 'pao2_fio2_ratio',
+      args: ['pao2', 'fio2'],
+      preprocess: function() {
+        if (arguments.length == 2) {
+          const result = arguments[0] / (arguments[1] / 100)
+          return Math.round(result * 100) / 100
+        } else
+          return NaN
+      },
+      range: {
+        include_equal: false,
+        initial_value: 0,
+        map: [
+          {key: 100, value: 4},
+          {key: 200, value: 3},
+          {key: 300, value: 2},
+          {key: 400, value: 1},
+        ]
+      }
+    },
   ]
 }
 
@@ -256,9 +287,10 @@ const getChoiceFromThreshold = function(input, threshold) {
 }
 
 const recalculateAllScore = function() {
-  var total_score = 0;
-  var score;
   Object.keys(input_lists).forEach(function(score_name) {
+    var total_score = 0;
+    var score;
+
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       if (item.range) {
@@ -274,6 +306,15 @@ const recalculateAllScore = function() {
       if (item.exclude) return;
 
       var score;
+      if (item.preprocess) {
+        const args = [];
+        if (item.args) {
+          item.args.forEach(function(arg) {
+            args.push($("#" + score_name + "_tab [name='" + arg + "']").val())
+          })
+        }
+        $("#" + score_name + "_tab [name='" + item.name + "']").val(item.preprocess.apply(null, args))
+      }
       if (item.choices) {
         var choice;
 
@@ -330,7 +371,7 @@ $(function() {
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       $("#" + score_name + "_tab [name='" + item.name + "']").change(function(event) {
-        $("#" + score_name + "_tab [name='" + item.name + "']").val(event.originalEvent.srcElement.value);
+        $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
       })
       $("#" + score_name + "_tab [name='" + item.name + "']").change(recalculateAllScore)
 

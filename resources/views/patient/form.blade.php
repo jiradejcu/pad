@@ -501,12 +501,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('pao2_score', 'PaO2 Score :') !!}
-                            {!! Form::text('pao2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -521,10 +515,21 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            {!! Form::label('fio2_score', 'FiO2 Score :') !!}
-                            {!! Form::text('fio2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                            {!! Form::label('pao2_fio2_ratio', 'PaO2/FiO2 :') !!}
+                            {!! Form::text('pao2_fio2_ratio', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('pao2_fio2_ratio_score', 'PaO2/FiO2 Score :') !!}
+                            {!! Form::text('pao2_fio2_ratio_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                 </div>
