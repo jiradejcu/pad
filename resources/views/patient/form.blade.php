@@ -243,7 +243,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('fio2', 'FiO2 :') !!}
-                            {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">%</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -269,7 +272,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('pao2', 'PaO2 :') !!}
-                            {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mmHg</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -286,7 +292,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('aapo2', 'A-aPO2 :') !!}
-                            {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
+                            <div class="input-group">
+                                {!! Form::text('aapo2', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mmHg</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -481,6 +490,41 @@
                         <div class="form-group">
                             {!! Form::label('sofa_score', 'SOFA Score :') !!}
                             {!! Form::text('sofa_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('pao2', 'PaO2 :') !!}
+                            <div class="input-group">
+                                {!! Form::text('pao2', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mmHg</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('pao2_score', 'PaO2 Score :') !!}
+                            {!! Form::text('pao2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('fio2', 'FiO2 :') !!}
+                            <div class="input-group">
+                                {!! Form::text('fio2', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('fio2_score', 'FiO2 Score :') !!}
+                            {!! Form::text('fio2_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                 </div>
