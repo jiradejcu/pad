@@ -1,226 +1,237 @@
-const input_list = [
-  {
-    name: 'temperature',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 30, value: 4},
-        {key: 32, value: 3},
-        {key: 34, value: 2},
-        {key: 36, value: 1},
-        {key: 38.5, value: 0},
-        {key: 39, value: 1},
-        {key: 41, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'mean_arterial_pressure',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 50, value: 4},
-        {key: 70, value: 2},
-        {key: 110, value: 0},
-        {key: 130, value: 2},
-        {key: 160, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'heart_rate',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 40, value: 4},
-        {key: 55, value: 3},
-        {key: 70, value: 2},
-        {key: 110, value: 0},
-        {key: 140, value: 2},
-        {key: 180, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'respiratory_rate',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 6, value: 4},
-        {key: 10, value: 2},
-        {key: 12, value: 1},
-        {key: 25, value: 0},
-        {key: 35, value: 1},
-        {key: 50, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'fio2',
-    threshold: {
-      value: 50,
-      include_equal: false,
+const input_lists = {
+  'apache_ii_score': [
+    {
+      name: 'temperature',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 30, value: 4},
+          {key: 32, value: 3},
+          {key: 34, value: 2},
+          {key: 36, value: 1},
+          {key: 38.5, value: 0},
+          {key: 39, value: 1},
+          {key: 41, value: 3},
+        ]
+      }
     },
-    choices: {
-      less: 'pao2',
-      more: 'aapo2',
+    {
+      name: 'mean_arterial_pressure',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 50, value: 4},
+          {key: 70, value: 2},
+          {key: 110, value: 0},
+          {key: 130, value: 2},
+          {key: 160, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'heart_rate',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 40, value: 4},
+          {key: 55, value: 3},
+          {key: 70, value: 2},
+          {key: 110, value: 0},
+          {key: 140, value: 2},
+          {key: 180, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'respiratory_rate',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 6, value: 4},
+          {key: 10, value: 2},
+          {key: 12, value: 1},
+          {key: 25, value: 0},
+          {key: 35, value: 1},
+          {key: 50, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'fio2',
+      threshold: {
+        value: 50,
+        include_equal: false,
+      },
+      choices: {
+        less: 'pao2',
+        more: 'aapo2',
+      }
+    },
+    {
+      name: 'pao2',
+      exclude: true,
+      range: {
+        include_equal: false,
+        initial_value: 0,
+        map: [
+          {key: 55, value: 4},
+          {key: 61, value: 3},
+          {key: 71, value: 1},
+        ]
+      }
+    },
+    {
+      name: 'aapo2',
+      exclude: true,
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 200, value: 0},
+          {key: 350, value: 2},
+          {key: 500, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'ph_choice',
+      choices: {
+        ph: 'ph',
+        hco3: 'hco3',
+      }
+    },
+    {
+      name: 'ph',
+      exclude: true,
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 7.15, value: 4},
+          {key: 7.25, value: 3},
+          {key: 7.33, value: 2},
+          {key: 7.5, value: 0},
+          {key: 7.6, value: 1},
+          {key: 7.7, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'hco3',
+      exclude: true,
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 15, value: 4},
+          {key: 18, value: 3},
+          {key: 22, value: 2},
+          {key: 32, value: 0},
+          {key: 41, value: 1},
+          {key: 52, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'serum_na',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 111, value: 4},
+          {key: 120, value: 3},
+          {key: 130, value: 2},
+          {key: 150, value: 0},
+          {key: 155, value: 1},
+          {key: 160, value: 2},
+          {key: 180, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'serum_k',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 2.5, value: 4},
+          {key: 3, value: 2},
+          {key: 3.5, value: 1},
+          {key: 5.5, value: 0},
+          {key: 6, value: 1},
+          {key: 7, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'creatinine',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 0.6, value: 2},
+          {key: 1.5, value: 0},
+          {key: 2, value: 2},
+          {key: 3.5, value: 3},
+        ]
+      }
+    },
+    {
+      name: 'hematocrit',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 20, value: 4},
+          {key: 30, value: 2},
+          {key: 46, value: 0},
+          {key: 50, value: 1},
+          {key: 60, value: 2},
+        ]
+      }
+    },
+    {
+      name: 'wbc',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 1, value: 4},
+          {key: 3, value: 2},
+          {key: 15, value: 0},
+          {key: 20, value: 1},
+          {key: 40, value: 2},
+        ]
+      }
+    },
+    {
+      name: 'age',
+      range: {
+        include_equal: false,
+        initial_value: 6,
+        map: [
+          {key: 45, value: 0},
+          {key: 55, value: 2},
+          {key: 65, value: 3},
+          {key: 75, value: 5},
+        ]
+      }
+    },
+    {
+      name: 'glasgow_coma',
+      equation: function(value) {
+        if (value)
+          return 15 - value
+        else
+          return NaN
+      }
     }
-  },
-  {
-    name: 'pao2',
-    exclude: true,
-    range: {
-      include_equal: false,
-      initial_value: 0,
-      map: [
-        {key: 55, value: 4},
-        {key: 61, value: 3},
-        {key: 71, value: 1},
-      ]
-    }
-  },
-  {
-    name: 'aapo2',
-    exclude: true,
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 200, value: 0},
-        {key: 350, value: 2},
-        {key: 500, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'ph_choice',
-    choices: {
-      ph: 'ph',
-      hco3: 'hco3',
-    }
-  },
-  {
-    name: 'ph',
-    exclude: true,
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 7.15, value: 4},
-        {key: 7.25, value: 3},
-        {key: 7.33, value: 2},
-        {key: 7.5, value: 0},
-        {key: 7.6, value: 1},
-        {key: 7.7, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'hco3',
-    exclude: true,
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 15, value: 4},
-        {key: 18, value: 3},
-        {key: 22, value: 2},
-        {key: 32, value: 0},
-        {key: 41, value: 1},
-        {key: 52, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'serum_na',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 111, value: 4},
-        {key: 120, value: 3},
-        {key: 130, value: 2},
-        {key: 150, value: 0},
-        {key: 155, value: 1},
-        {key: 160, value: 2},
-        {key: 180, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'serum_k',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 2.5, value: 4},
-        {key: 3, value: 2},
-        {key: 3.5, value: 1},
-        {key: 5.5, value: 0},
-        {key: 6, value: 1},
-        {key: 7, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'creatinine',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 0.6, value: 2},
-        {key: 1.5, value: 0},
-        {key: 2, value: 2},
-        {key: 3.5, value: 3},
-      ]
-    }
-  },
-  {
-    name: 'hematocrit',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 20, value: 4},
-        {key: 30, value: 2},
-        {key: 46, value: 0},
-        {key: 50, value: 1},
-        {key: 60, value: 2},
-      ]
-    }
-  },
-  {
-    name: 'wbc',
-    range: {
-      include_equal: false,
-      initial_value: 4,
-      map: [
-        {key: 1, value: 4},
-        {key: 3, value: 2},
-        {key: 15, value: 0},
-        {key: 20, value: 1},
-        {key: 40, value: 2},
-      ]
-    }
-  },
-  {
-    name: 'age',
-    range: {
-      include_equal: false,
-      initial_value: 6,
-      map: [
-        {key: 45, value: 0},
-        {key: 55, value: 2},
-        {key: 65, value: 3},
-        {key: 75, value: 5},
-      ]
-    }
-  }
-]
+  ]
+}
 
 const getScoreFromRange = function(input, range) {
   if (input == "")
@@ -247,65 +258,66 @@ const getChoiceFromThreshold = function(input, threshold) {
 const recalculateAllScore = function() {
   var total_score = 0;
   var score;
-  input_list.forEach(function(item) {
-    if (item.range) {
-      score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
-      $("[name='" + item.name + "_score']").val(score)
-    }
+  Object.keys(input_lists).forEach(function(key) {
+    const input_list = input_lists[key]
+    input_list.forEach(function(item) {
+      if (item.range) {
+        score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
+        $("[name='" + item.name + "_score']").val(score)
+      } else if (item.equation) {
+        score = item.equation($("[name='" + item.name + "']").val())
+        $("[name='" + item.name + "_score']").val(score)
+      }
+    })
+
+    input_list.forEach(function(item) {
+      if (item.exclude) return;
+
+      var score;
+      if (item.choices) {
+        var choice;
+
+        if (item.threshold) {
+          choice = getChoiceFromThreshold($("[name='" + item.name + "']").val(), item.threshold)
+          $("[name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
+        } else
+          choice = $("[name=" + item.name + "]:checked").val();
+
+        if (!choice)
+          return
+
+        Object.keys(item.choices).forEach(function(key) {
+          if (choice == key)
+            score = $("[name='" + item.choices[key] + "_score']").val()
+        })
+      } else {
+        score = $("[name='" + item.name + "_score']").val()
+      }
+
+      total_score += Number(score)
+    })
+
+    $("[name='" + key + "']").val(total_score)
   })
-
-  input_list.forEach(function(item) {
-    if (item.exclude) return;
-
-    var score;
-    if (item.choices) {
-      var choice;
-
-      if (item.threshold) {
-        choice = getChoiceFromThreshold($("[name='" + item.name + "']").val(), item.threshold)
-        $("[name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
-      } else
-        choice = $("[name=" + item.name + "]:checked").val();
-
-      if (!choice)
-        return
-
-      Object.keys(item.choices).forEach(function(key) {
-        if (choice == key)
-          score = $("[name='" + item.choices[key] + "_score']").val()
-      })
-    } else {
-      score = $("[name='" + item.name + "_score']").val()
-    }
-
-    total_score += Number(score)
-  })
-
-  if ($("[name='glasgow_coma']").val() != "") {
-    score = 15 - $("[name='glasgow_coma']").val()
-  } else {
-    score = NaN
-  }
-  $("[name='glasgow_coma_score']").val(score)
-  total_score += score
-
-  $("[name='apache_ii_score']").val(total_score)
 }
 
 const displayOption = function() {
-  input_list.forEach(function(item) {
-    if (item.choices) {
-      var name = item.threshold ? item.name + "_score" : item.name;
-      const choice = $("[name=" + name + "]:checked").val();
-      Object.keys(item.choices).forEach(function(key) {
-        if (choice == key)
-          $("." + item.choices[key]).show();
-        else
-          $("." + item.choices[key]).hide();
-      })
-      $("[name=" + name + "]").parent().removeClass('active');
-      $("[name=" + name + "]:checked").parent().addClass('active');
-    }
+  Object.keys(input_lists).forEach(function(key) {
+    const input_list = input_lists[key]
+    input_list.forEach(function(item) {
+      if (item.choices) {
+        var name = item.threshold ? item.name + "_score" : item.name;
+        const choice = $("[name=" + name + "]:checked").val();
+        Object.keys(item.choices).forEach(function(key) {
+          if (choice == key)
+            $("." + item.choices[key]).show();
+          else
+            $("." + item.choices[key]).hide();
+        })
+        $("[name=" + name + "]").parent().removeClass('active');
+        $("[name=" + name + "]:checked").parent().addClass('active');
+      }
+    })
   })
   recalculateAllScore();
 }
@@ -314,23 +326,25 @@ $(function() {
   recalculateAllScore()
   displayOption()
 
-  $("[name='glasgow_coma']").change(recalculateAllScore)
-  input_list.forEach(function(item) {
-    $("[name='" + item.name + "']").change(function(event) {
-      $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
-    })
-    $("[name='" + item.name + "']").change(recalculateAllScore)
-
-    if (item.choices) {
-      $("[name=" + item.name + "]").change(function() {
-        setTimeout(displayOption)
+  Object.keys(input_lists).forEach(function(key) {
+    const input_list = input_lists[key]
+    input_list.forEach(function(item) {
+      $("[name='" + item.name + "']").change(function(event) {
+        $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
       })
+      $("[name='" + item.name + "']").change(recalculateAllScore)
 
-      if (item.threshold) {
-        $("[name=" + item.name + "_score]").parent().click(function() {
-          return false
+      if (item.choices) {
+        $("[name=" + item.name + "]").change(function() {
+          setTimeout(displayOption)
         })
+
+        if (item.threshold) {
+          $("[name=" + item.name + "_score]").parent().click(function() {
+            return false
+          })
+        }
       }
-    }
+    })
   })
 })
