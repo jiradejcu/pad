@@ -293,6 +293,15 @@ const recalculateAllScore = function() {
 
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
+      if (item.preprocess) {
+        const args = [];
+        if (item.args) {
+          item.args.forEach(function(arg) {
+            args.push($("#" + score_name + "_tab [name='" + arg + "']").val())
+          })
+        }
+        $("#" + score_name + "_tab [name='" + item.name + "']").val(item.preprocess.apply(null, args))
+      }
       if (item.range) {
         score = getScoreFromRange($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.range)
         $("#" + score_name + "_tab [name='" + item.name + "_score']").val(score)
@@ -306,15 +315,6 @@ const recalculateAllScore = function() {
       if (item.exclude) return;
 
       var score;
-      if (item.preprocess) {
-        const args = [];
-        if (item.args) {
-          item.args.forEach(function(arg) {
-            args.push($("#" + score_name + "_tab [name='" + arg + "']").val())
-          })
-        }
-        $("#" + score_name + "_tab [name='" + item.name + "']").val(item.preprocess.apply(null, args))
-      }
       if (item.choices) {
         var choice;
 
