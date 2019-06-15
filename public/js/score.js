@@ -258,15 +258,15 @@ const getChoiceFromThreshold = function(input, threshold) {
 const recalculateAllScore = function() {
   var total_score = 0;
   var score;
-  Object.keys(input_lists).forEach(function(key) {
-    const input_list = input_lists[key]
+  Object.keys(input_lists).forEach(function(score_name) {
+    const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       if (item.range) {
-        score = getScoreFromRange($("[name='" + item.name + "']").val(), item.range)
-        $("[name='" + item.name + "_score']").val(score)
+        score = getScoreFromRange($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.range)
+        $("#" + score_name + "_tab [name='" + item.name + "_score']").val(score)
       } else if (item.equation) {
-        score = item.equation($("[name='" + item.name + "']").val())
-        $("[name='" + item.name + "_score']").val(score)
+        score = item.equation($("#" + score_name + "_tab [name='" + item.name + "']").val())
+        $("#" + score_name + "_tab [name='" + item.name + "_score']").val(score)
       }
     })
 
@@ -278,44 +278,44 @@ const recalculateAllScore = function() {
         var choice;
 
         if (item.threshold) {
-          choice = getChoiceFromThreshold($("[name='" + item.name + "']").val(), item.threshold)
-          $("[name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
+          choice = getChoiceFromThreshold($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.threshold)
+          $("#" + score_name + "_tab [name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
         } else
-          choice = $("[name=" + item.name + "]:checked").val();
+          choice = $("#" + score_name + "_tab [name=" + item.name + "]:checked").val();
 
         if (!choice)
           return
 
         Object.keys(item.choices).forEach(function(key) {
           if (choice == key)
-            score = $("[name='" + item.choices[key] + "_score']").val()
+            score = $("#" + score_name + "_tab [name='" + item.choices[key] + "_score']").val()
         })
       } else {
-        score = $("[name='" + item.name + "_score']").val()
+        score = $("#" + score_name + "_tab [name='" + item.name + "_score']").val()
       }
 
       total_score += Number(score)
     })
 
-    $("[name='" + key + "']").val(total_score)
+    $("#" + score_name + "_tab [name='" + score_name + "']").val(total_score)
   })
 }
 
 const displayOption = function() {
-  Object.keys(input_lists).forEach(function(key) {
-    const input_list = input_lists[key]
+  Object.keys(input_lists).forEach(function(score_name) {
+    const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       if (item.choices) {
         var name = item.threshold ? item.name + "_score" : item.name;
-        const choice = $("[name=" + name + "]:checked").val();
+        const choice = $("#" + score_name + "_tab [name=" + name + "]:checked").val();
         Object.keys(item.choices).forEach(function(key) {
           if (choice == key)
-            $("." + item.choices[key]).show();
+            $("#" + score_name + "_tab ." + item.choices[key]).show();
           else
-            $("." + item.choices[key]).hide();
+            $("#" + score_name + "_tab ." + item.choices[key]).hide();
         })
-        $("[name=" + name + "]").parent().removeClass('active');
-        $("[name=" + name + "]:checked").parent().addClass('active');
+        $("#" + score_name + "_tab [name=" + name + "]").parent().removeClass('active');
+        $("#" + score_name + "_tab [name=" + name + "]:checked").parent().addClass('active');
       }
     })
   })
@@ -326,21 +326,21 @@ $(function() {
   recalculateAllScore()
   displayOption()
 
-  Object.keys(input_lists).forEach(function(key) {
-    const input_list = input_lists[key]
+  Object.keys(input_lists).forEach(function(score_name) {
+    const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
-      $("[name='" + item.name + "']").change(function(event) {
-        $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
+      $("#" + score_name + "_tab [name='" + item.name + "']").change(function(event) {
+        $("#" + score_name + "_tab [name='" + item.name + "']").val(event.originalEvent.srcElement.value);
       })
-      $("[name='" + item.name + "']").change(recalculateAllScore)
+      $("#" + score_name + "_tab [name='" + item.name + "']").change(recalculateAllScore)
 
       if (item.choices) {
-        $("[name=" + item.name + "]").change(function() {
+        $("#" + score_name + "_tab [name=" + item.name + "]").change(function() {
           setTimeout(displayOption)
         })
 
         if (item.threshold) {
-          $("[name=" + item.name + "_score]").parent().click(function() {
+          $("#" + score_name + "_tab [name=" + item.name + "_score]").parent().click(function() {
             return false
           })
         }
