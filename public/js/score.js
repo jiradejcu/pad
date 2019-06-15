@@ -316,6 +316,9 @@ $(function() {
 
   $("[name='glasgow_coma']").change(recalculateAllScore)
   input_list.forEach(function(item) {
+    $("[name='" + item.name + "']").change(function(event) {
+      $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
+    })
     $("[name='" + item.name + "']").change(recalculateAllScore)
 
     if (item.choices) {
