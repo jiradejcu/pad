@@ -536,6 +536,19 @@
 
                 <div class="row">
                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('map_or_vaso', 'Mean Arterial Pressure or Vasopressor :') !!}
+                            <div>
+                                <div class="btn-group-vertical btn-block map_or_vaso" data-toggle="buttons"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('sofa_score', 'SOFA Score :') !!}
                             {!! Form::text('sofa_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}

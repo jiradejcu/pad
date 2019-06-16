@@ -261,6 +261,16 @@ const input_lists = {
         ]
       }
     },
+    {
+      name: 'map_or_vaso',
+      choices: [
+        {description: 'No hypotension', value: '0'},
+        {description: 'MAP <70 mmHg', value: '+1'},
+        {description: 'Dopamine ≤5 or dobutamine (any dose)', value: '+2'},
+        {description: 'Dopamine >5, epinephrine or norepinephrine ≤0.1', value: '+3'},
+        {description: 'Dopamine >15, epinephrine or norepinephrine >0.1', value: '+4'},
+      ]
+    },
   ]
 }
 
@@ -318,19 +328,23 @@ const recalculateAllScore = function() {
       if (item.choices) {
         var choice;
 
-        if (item.threshold) {
-          choice = getChoiceFromThreshold($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.threshold)
-          $("#" + score_name + "_tab [name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
-        } else
-          choice = $("#" + score_name + "_tab [name=" + item.name + "]:checked").val();
+        if (Array.isArray(item.choices)) {
+          score = $("#" + score_name + "_tab [name='" + item.name + "']:checked").val()
+        } else {
+          if (item.threshold) {
+            choice = getChoiceFromThreshold($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.threshold)
+            $("#" + score_name + "_tab [name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
+          } else
+            choice = $("#" + score_name + "_tab [name=" + item.name + "]:checked").val();
 
-        if (!choice)
-          return
+          if (!choice)
+            return
 
-        Object.keys(item.choices).forEach(function(key) {
-          if (choice == key)
-            score = $("#" + score_name + "_tab [name='" + item.choices[key] + "_score']").val()
-        })
+          Object.keys(item.choices).forEach(function(key) {
+            if (choice == key)
+              score = $("#" + score_name + "_tab [name='" + item.choices[key] + "_score']").val()
+          })
+        }
       } else {
         score = $("#" + score_name + "_tab [name='" + item.name + "_score']").val()
       }
@@ -347,14 +361,16 @@ const displayOption = function() {
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       if (item.choices) {
-        var name = item.threshold ? item.name + "_score" : item.name;
-        const choice = $("#" + score_name + "_tab [name=" + name + "]:checked").val();
-        Object.keys(item.choices).forEach(function(key) {
-          if (choice == key)
-            $("#" + score_name + "_tab ." + item.choices[key]).show();
-          else
-            $("#" + score_name + "_tab ." + item.choices[key]).hide();
-        })
+        if (!Array.isArray(item.choices)) {
+          var name = item.threshold ? item.name + "_score" : item.name;
+          const choice = $("#" + score_name + "_tab [name=" + name + "]:checked").val();
+          Object.keys(item.choices).forEach(function(key) {
+            if (choice == key)
+              $("#" + score_name + "_tab ." + item.choices[key]).show();
+            else
+              $("#" + score_name + "_tab ." + item.choices[key]).hide();
+          })
+        }
         $("#" + score_name + "_tab [name=" + name + "]").parent().removeClass('active');
         $("#" + score_name + "_tab [name=" + name + "]:checked").parent().addClass('active');
       }
@@ -377,6 +393,18 @@ $(function() {
       $("#" + score_name + "_tab [name='" + item.name + "']").change(recalculateAllScore)
 
       if (item.choices) {
+        if (Array.isArray(item.choices)) {
+          var select = ''
+          item.choices.forEach(function(choice) {
+            select += '<label class="btn btn-default form-control">'
+            select += '<input type="radio" name="' + item.name + '" value="' + Number(choice.value) + '">'
+            select += '<span style="float:left">' + choice.description + '</span>'
+            select += '<span style="float:right">' + choice.value + '</span>'
+            select += '</label>'
+          })
+          $("#" + score_name + "_tab ." + item.name).html(select)
+        }
+
         $("#" + score_name + "_tab [name=" + item.name + "]").change(function() {
           setTimeout(displayOption)
         })
