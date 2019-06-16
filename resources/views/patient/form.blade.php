@@ -456,7 +456,7 @@
                             {!! Form::label('wbc', 'WBC Count :') !!}
                             <div class="input-group">
                                 {!! Form::text('wbc', null, ['class' => 'form-control']) !!}
-                                <div class="input-group-addon">× 10⁹ cells/L</div>
+                                <div class="input-group-addon">×10³/µL</div>
                             </div>
                         </div>
                     </div>
