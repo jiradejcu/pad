@@ -32,20 +32,24 @@
                     {!! Form::label('height', 'Height :') !!}
                     {!! Form::text('height', null, ['class' => 'form-control']) !!}
                 </div>
+                <!--
                 <div class="form-group">
                     {!! Form::label('apache_ii', 'Apache II :') !!}
                     {!! Form::text('apache_ii', null, ['class' => 'form-control']) !!}
                 </div>
+                -->
                 <div class="form-group">
                     {!! Form::label('privilege', 'สิทธิ์ :') !!}
                     {!! Form::text('privilege', null, ['class' => 'form-control']) !!}
                 </div>
+                <!--
                 {!! Form::label('type', 'Type :') !!}
                 <div class="form-group">
                     <label class="radio-inline">{!! Form::radio('type', 'prospective', true) !!}Prospective</label>
                     <label class="radio-inline">{!! Form::radio('type', 'retrospective') !!}Retrospective</label>
                     <label class="radio-inline">{!! Form::radio('type', 'unknown') !!}Unknown</label>
                 </div>
+                -->
                 <hr/>
                 <h2>Date</h2>
                 <hr/>
@@ -57,12 +61,16 @@
                         {!! Form::label('icu_admission_from', 'ICU Admission From :') !!}
                         {!! Form::text('icu_admission_from', null, ['class' => 'form-control']) !!}
                     </div>
+                    <!--
                     @include('form_control.datetime_from_to', ['datetime_name' => 'hospital_admission_date', 'label_text' => 'Hospital Admission Date'])
                     <div class="form-group">
                         {!! Form::label('hospital_admission_from', 'Hospital Admission From :') !!}
                         {!! Form::text('hospital_admission_from', null, ['class' => 'form-control']) !!}
                     </div>
+                    -->
+                    <!--
                     @include('form_control.datetime_from_to', ['datetime_name' => 'ett_date', 'label_text' => 'ETT Date'])
+                    -->
                 <hr/>
                 <h2>Medical History</h2>
                 <hr/>
