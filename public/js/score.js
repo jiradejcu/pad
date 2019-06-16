@@ -371,7 +371,8 @@ $(function() {
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       $("#" + score_name + "_tab [name='" + item.name + "']").change(function(event) {
-        $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
+        if (event.originalEvent)
+          $("[name='" + item.name + "']").val(event.originalEvent.srcElement.value);
       })
       $("#" + score_name + "_tab [name='" + item.name + "']").change(recalculateAllScore)
 
