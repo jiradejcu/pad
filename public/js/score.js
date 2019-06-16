@@ -361,8 +361,8 @@ const displayOption = function() {
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
       if (item.choices) {
+        var name = item.threshold ? item.name + "_score" : item.name;
         if (!Array.isArray(item.choices)) {
-          var name = item.threshold ? item.name + "_score" : item.name;
           const choice = $("#" + score_name + "_tab [name=" + name + "]:checked").val();
           Object.keys(item.choices).forEach(function(key) {
             if (choice == key)
@@ -380,9 +380,6 @@ const displayOption = function() {
 }
 
 $(function() {
-  recalculateAllScore()
-  displayOption()
-
   Object.keys(input_lists).forEach(function(score_name) {
     const input_list = input_lists[score_name]
     input_list.forEach(function(item) {
@@ -395,6 +392,7 @@ $(function() {
       if (item.choices) {
         if (Array.isArray(item.choices)) {
           var select = ''
+          var value = $("#" + score_name + "_tab [name='" + item.name + "']").val()
           item.choices.forEach(function(choice) {
             select += '<label class="btn btn-default form-control">'
             select += '<input type="radio" name="' + item.name + '" value="' + Number(choice.value) + '">'
@@ -403,6 +401,7 @@ $(function() {
             select += '</label>'
           })
           $("#" + score_name + "_tab ." + item.name).html(select)
+          $("#" + score_name + "_tab [name=" + item.name + "][value=" + value + "]").prop('checked', true)
         }
 
         $("#" + score_name + "_tab [name=" + item.name + "]").change(function() {
@@ -417,4 +416,6 @@ $(function() {
       }
     })
   })
+  recalculateAllScore()
+  displayOption()
 })

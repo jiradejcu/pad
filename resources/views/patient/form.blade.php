@@ -540,8 +540,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('map_or_vaso', 'Mean Arterial Pressure or Vasopressor :') !!}
-                            <div>
-                                <div class="btn-group-vertical btn-block map_or_vaso" data-toggle="buttons"></div>
+                            <div class="btn-group-vertical btn-block map_or_vaso" data-toggle="buttons">
+                                {!! Form::text('map_or_vaso', null, ['class' => 'hidden']) !!}
                             </div>
                         </div>
                     </div>

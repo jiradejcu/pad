@@ -29,6 +29,7 @@ class PatientController extends Controller {
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['temperature', 'mean_arterial_pressure', 'heart_rate', 'respiratory_rate']);
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['fio2', 'aapo2', 'pao2', 'ph_choice', 'ph', 'hco3', 'serum_na', 'serum_k']);
 		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['creatinine', 'hematocrit', 'wbc', 'glasgow_coma']);
+		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['platelet', 'bilirubin', 'map_or_vaso', 'creatinine_or_urine']);
 	}
 
 	/**
