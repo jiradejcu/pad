@@ -539,9 +539,82 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            {!! Form::label('platelet', 'Platelet :') !!}
+                            <div class="input-group">
+                                {!! Form::text('platelet', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">×10³/µL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('platelet_score', 'Platelet Score :') !!}
+                            {!! Form::text('platelet_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('glasgow_coma', 'Glasgow Coma :') !!}
+                            <div class="input-group">
+                                {!! Form::text('glasgow_coma', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">points</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('glasgow_coma_score', 'Glasgow Coma Score :') !!}
+                            {!! Form::text('glasgow_coma_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('bilirubin', 'Bilirubin :') !!}
+                            <div class="input-group">
+                                {!! Form::text('bilirubin', null, ['class' => 'form-control']) !!}
+                                <div class="input-group-addon">mg/dL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('bilirubin_score', 'Bilirubin Score :') !!}
+                            {!! Form::text('bilirubin_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             {!! Form::label('map_or_vaso', 'Mean Arterial Pressure or Vasopressor :') !!}
                             <div class="btn-group-vertical btn-block map_or_vaso" data-toggle="buttons">
                                 {!! Form::text('map_or_vaso', null, ['class' => 'hidden']) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('creatinine_or_urine', 'Creatinine or Urine output :') !!}
+                            <div class="btn-group-vertical btn-block creatinine_or_urine" data-toggle="buttons">
+                                {!! Form::text('creatinine_or_urine', null, ['class' => 'hidden']) !!}
                             </div>
                         </div>
                     </div>

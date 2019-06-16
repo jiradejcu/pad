@@ -229,7 +229,7 @@ const input_lists = {
         else
           return NaN
       }
-    }
+    },
   ],
   'sofa_score': [
     {
@@ -262,6 +262,45 @@ const input_lists = {
       }
     },
     {
+      name: 'platelet',
+      range: {
+        include_equal: false,
+        initial_value: 0,
+        map: [
+          {key: 20, value: 4},
+          {key: 50, value: 3},
+          {key: 100, value: 2},
+          {key: 150, value: 1},
+        ]
+      }
+    },
+    {
+      name: 'glasgow_coma',
+      range: {
+        include_equal: false,
+        initial_value: 0,
+        map: [
+          {key: 6, value: 4},
+          {key: 10, value: 3},
+          {key: 13, value: 2},
+          {key: 15, value: 1},
+        ]
+      }
+    },
+    {
+      name: 'bilirubin',
+      range: {
+        include_equal: false,
+        initial_value: 4,
+        map: [
+          {key: 1.2, value: 0},
+          {key: 2.0, value: 1},
+          {key: 6.0, value: 2},
+          {key: 12.0, value: 3},
+        ]
+      }
+    },
+    {
       name: 'map_or_vaso',
       choices: [
         {description: 'No hypotension', value: '0'},
@@ -269,6 +308,16 @@ const input_lists = {
         {description: 'Dopamine ≤5 or dobutamine (any dose)', value: '+2'},
         {description: 'Dopamine >5, epinephrine or norepinephrine ≤0.1', value: '+3'},
         {description: 'Dopamine >15, epinephrine or norepinephrine >0.1', value: '+4'},
+      ]
+    },
+    {
+      name: 'creatinine_or_urine',
+      choices: [
+        {description: '<1.2 (<110)', value: '0'},
+        {description: '1.2–1.9 (110-170)', value: '+1'},
+        {description: '2.0–3.4 (171-299)', value: '+2'},
+        {description: '3.5–4.9 (300-440) or UOP <500 mL/day', value: '+3'},
+        {description: '≥5.0 (>440) or UOP <200 mL/day', value: '+4'},
       ]
     },
   ]
@@ -333,9 +382,9 @@ const recalculateAllScore = function() {
         } else {
           if (item.threshold) {
             choice = getChoiceFromThreshold($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.threshold)
-            $("#" + score_name + "_tab [name=" + item.name + "_score][value=" + choice + "]").prop('checked', true)
+            $("#" + score_name + "_tab [name='" + item.name + "_score'][value='" + choice + "']").prop('checked', true)
           } else
-            choice = $("#" + score_name + "_tab [name=" + item.name + "]:checked").val();
+            choice = $("#" + score_name + "_tab [name='" + item.name + "']:checked").val();
 
           if (!choice)
             return
@@ -363,7 +412,7 @@ const displayOption = function() {
       if (item.choices) {
         var name = item.threshold ? item.name + "_score" : item.name;
         if (!Array.isArray(item.choices)) {
-          const choice = $("#" + score_name + "_tab [name=" + name + "]:checked").val();
+          const choice = $("#" + score_name + "_tab [name='" + name + "']:checked").val();
           Object.keys(item.choices).forEach(function(key) {
             if (choice == key)
               $("#" + score_name + "_tab ." + item.choices[key]).show();
@@ -371,8 +420,8 @@ const displayOption = function() {
               $("#" + score_name + "_tab ." + item.choices[key]).hide();
           })
         }
-        $("#" + score_name + "_tab [name=" + name + "]").parent().removeClass('active');
-        $("#" + score_name + "_tab [name=" + name + "]:checked").parent().addClass('active');
+        $("#" + score_name + "_tab [name='" + name + "']").parent().removeClass('active');
+        $("#" + score_name + "_tab [name='" + name + "']:checked").parent().addClass('active');
       }
     })
   })
@@ -401,15 +450,15 @@ $(function() {
             select += '</label>'
           })
           $("#" + score_name + "_tab ." + item.name).html(select)
-          $("#" + score_name + "_tab [name=" + item.name + "][value=" + value + "]").prop('checked', true)
+          $("#" + score_name + "_tab [name='" + item.name + "'][value='" + value + "']").prop('checked', true)
         }
 
-        $("#" + score_name + "_tab [name=" + item.name + "]").change(function() {
+        $("#" + score_name + "_tab [name='" + item.name + "']").change(function() {
           setTimeout(displayOption)
         })
 
         if (item.threshold) {
-          $("#" + score_name + "_tab [name=" + item.name + "_score]").parent().click(function() {
+          $("#" + score_name + "_tab [name='" + item.name + "_score']").parent().click(function() {
             return false
           })
         }
