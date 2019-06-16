@@ -324,7 +324,7 @@ const input_lists = {
 }
 
 const getScoreFromRange = function(input, range) {
-  if (input == "")
+  if (input == "" || isNaN(input))
     return NaN
   input = Number(input)
   var result = range.initial_value;

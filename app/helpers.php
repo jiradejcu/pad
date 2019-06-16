@@ -2,6 +2,10 @@
 define('DISPLAY_DATE_FORMAT', 'd-m-Y g:i A');
 define('DISPLAY_TIME_FORMAT', 'g:i A');
 
+function convertNullToEmpty($value){
+	return is_null($value) ? "" : $value;
+}
+
 function convertEmptyToNull($value){
 	return (is_null($value) || trim($value) == "" || trim($value) == "-") ? null : $value;
 }
@@ -53,4 +57,3 @@ function convertTetraState($value){
 	}
 	return 'Not Eval';
 }
-?>

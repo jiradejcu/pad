@@ -19,6 +19,14 @@ class PatientAdmission extends Model {
 	public function padRecords(){
 		return $this->hasMany('App\PadRecord', 'admission_id')->orderBy('date_assessed');
 	}
+
+	public function setAgeAttribute($value){
+		$this->attributes['age'] = convertEmptyToNull($value);
+	}
+
+	public function setTypeAttribute($value){
+		$this->attributes['type'] = convertNullToEmpty($value);
+	}
 	
 	public function setHospitalAdmissionDateFromAttribute($value){
 		$this->attributes['hospital_admission_date_from'] = convertFormDateToDBFormat($value);
@@ -34,6 +42,10 @@ class PatientAdmission extends Model {
 	
 	public function getHospitalAdmissionDateToAttribute($value){
 		return displayDateTime($value);
+	}
+
+	public function setHospitalAdmissionFromAttribute($value){
+		$this->attributes['hospital_admission_from'] = convertNullToEmpty($value);
 	}
 	
 	public function setIcuAdmissionDateFromAttribute($value){
@@ -126,5 +138,13 @@ class PatientAdmission extends Model {
 
 	public function setGlasgowComaAttribute($value){
 		$this->attributes['glasgow_coma'] = convertEmptyToNull($value);
+	}
+
+	public function setPlateletAttribute($value){
+		$this->attributes['platelet'] = convertEmptyToNull($value);
+	}
+
+	public function setBilirubinAttribute($value){
+		$this->attributes['bilirubin'] = convertEmptyToNull($value);
 	}
 }
