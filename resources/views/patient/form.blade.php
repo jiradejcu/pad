@@ -414,16 +414,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('creatinine', 'Creatinine :') !!}
-                            <div class="input-group">
-                                {!! Form::text('creatinine', null, ['class' => 'form-control']) !!}
-                                <div class="input-group-addon">mg/dL</div>
+                            <div class="btn-group-vertical btn-block" data-toggle="buttons">
+                                {!! Form::text('creatinine', null, ['class' => 'hidden']) !!}
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('creatinine_score', 'Creatinine Score :') !!}
-                            {!! Form::text('creatinine_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                 </div>
@@ -464,6 +457,19 @@
                         <div class="form-group">
                             {!! Form::label('wbc_score', 'WBC Count Score :') !!}
                             {!! Form::text('wbc_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('chronic_health_problem', 'Chronic Health Problems :') !!}
+                            <div class="btn-group-vertical btn-block" data-toggle="buttons">
+                                {!! Form::text('chronic_health_problem', null, ['class' => 'hidden']) !!}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -608,7 +614,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('map_or_vaso', 'Mean Arterial Pressure or Vasopressor :') !!}
-                            <div class="btn-group-vertical btn-block map_or_vaso" data-toggle="buttons">
+                            <div class="btn-group-vertical btn-block" data-toggle="buttons">
                                 {!! Form::text('map_or_vaso', null, ['class' => 'hidden']) !!}
                             </div>
                         </div>
@@ -621,7 +627,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('creatinine_or_urine', 'Creatinine or Urine output :') !!}
-                            <div class="btn-group-vertical btn-block creatinine_or_urine" data-toggle="buttons">
+                            <div class="btn-group-vertical btn-block" data-toggle="buttons">
                                 {!! Form::text('creatinine_or_urine', null, ['class' => 'hidden']) !!}
                             </div>
                         </div>

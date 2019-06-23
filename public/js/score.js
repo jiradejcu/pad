@@ -169,16 +169,16 @@ const input_lists = {
     },
     {
       name: 'creatinine',
-      range: {
-        include_equal: false,
-        initial_value: 4,
-        map: [
-          {key: 0.6, value: 2},
-          {key: 1.5, value: 0},
-          {key: 2, value: 2},
-          {key: 3.5, value: 3},
-        ]
-      }
+      choices: [
+        {description: '>= 3.5', value: '+4'},
+        {description: '> 3.5 in ARF', value: '+8'},
+        {description: '2-3.4', value: '+3'},
+        {description: '2-3.4 in ARF', value: '+6'},
+        {description: '1.5-1.9', value: '+2'},
+        {description: '1.5-1.9 in ARF', value: '+4'},
+        {description: '0.6-1.4', value: '0'},
+        {description: '< 0.6', value: '+2'},
+      ]
     },
     {
       name: 'hematocrit',
@@ -230,6 +230,15 @@ const input_lists = {
           return NaN
       }
     },
+    {
+      name: 'chronic_health_problem',
+      choices: [
+        {description: 'None', value: '0'},
+        {description: 'Non-Surgical', value: '+5'},
+        {description: 'Emergent operation', value: '+5'},
+        {description: 'Elective operation', value: '+2'},
+      ]
+    }
   ],
   'sofa_score': [
     {
@@ -378,7 +387,7 @@ const recalculateAllScore = function() {
         var choice;
 
         if (Array.isArray(item.choices)) {
-          score = $("#" + score_name + "_tab [name='" + item.name + "']:checked").val()
+          score = $("#" + score_name + "_tab [name='" + item.name + "']:checked").attr('point')
         } else {
           if (item.threshold) {
             choice = getChoiceFromThreshold($("#" + score_name + "_tab [name='" + item.name + "']").val(), item.threshold)
@@ -442,14 +451,15 @@ $(function() {
         if (Array.isArray(item.choices)) {
           var select = ''
           var value = $("#" + score_name + "_tab [name='" + item.name + "']").val()
+          var i = 0;
           item.choices.forEach(function(choice) {
             select += '<label class="btn btn-default form-control">'
-            select += '<input type="radio" name="' + item.name + '" value="' + Number(choice.value) + '">'
+            select += '<input type="radio" name="' + item.name + '" value="' + i++ + '" point="' + Number(choice.value) + '">'
             select += '<span style="float:left">' + choice.description + '</span>'
             select += '<span style="float:right">' + choice.value + '</span>'
             select += '</label>'
           })
-          $("#" + score_name + "_tab ." + item.name).html(select)
+          $("#" + score_name + "_tab [name='" + item.name + "']").parent().html(select)
           $("#" + score_name + "_tab [name='" + item.name + "'][value='" + value + "']").prop('checked', true)
         }
 
