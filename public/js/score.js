@@ -411,6 +411,16 @@ const recalculateAllScore = function() {
     })
 
     $("#" + score_name + "_tab [name='" + score_name + "']").val(total_score)
+    const score_labels = $("#" + score_name + "_tab #" + score_name + "_text label")
+    var found = false
+    score_labels.each(function() {
+      if (total_score < $(this).attr('max-score') && !found) {
+        $(this).addClass('active')
+        found = true
+      } else {
+        $(this).removeClass('active')
+      }
+    })
   })
 }
 

@@ -463,6 +463,35 @@
 
                 <div class="row">
                     <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('apache_ii_score_text', '&nbsp;') !!}
+                            <div id="apache_ii_score_text" class="btn-group-vertical btn-block">
+                                <label class="btn btn-default form-control" max-score="5">
+                                    <span style="float:left">0-4: 4% non-op, 1% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="10">
+                                    <span style="float:left">5-9: 8% non-op, 3% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="15">
+                                    <span style="float:left">10-14: 15% non-op, 7% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="20">
+                                    <span style="float:left">15-19: 24% non-op, 12% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="25">
+                                    <span style="float:left">20-24: 40% non-op, 30% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="30">
+                                    <span style="float:left">25-29: 55% non-op, 35% post-op</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="35">
+                                    <span style="float:left">30-34: Approx 73% both</span>
+                                </label>
+                                <label class="btn btn-default form-control" max-score="100">
+                                    <span style="float:left">35-100: 85% non-op, 88% post-op</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
