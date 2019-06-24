@@ -472,6 +472,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4"><br>
+                        1) Cirrhosis of the liver confirmed by biopsy<br>
+                        2) New York Heart Association Class IV<br>
+                        3) Severe COPD -- Hypercapnia, home O2 use, or pulmonary hypertension<br>
+                        4) On regular dialysis<br>
+                        5) Immunocompromised
+                    </div>
                 </div>
 
                 <div class="row">
