@@ -7,7 +7,7 @@
         <div class="tab-content">
             <div id="basic_tab" class="tab-pane fade in active">
                 <div class="form-group">
-                    {!! Form::label('HN', 'HN :') !!}
+                    {!! Form::label('HN', 'Code :') !!}
                     <?php
                         $pkFieldAttr = ['class' => 'form-control'];
                         if(!empty($disableKey)) $pkFieldAttr[] = 'readonly';
