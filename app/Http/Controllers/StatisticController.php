@@ -107,7 +107,7 @@ class StatisticController extends Controller
 
     private function patientPivotList($group)
     {
-        $sql = "SELECT DISTINCT($group) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A ORDER BY $group";
+        $sql = "SELECT DISTINCT($group) FROM (SELECT *, YEAR(icu_admission_date_from) AS year FROM patient_admission) A WHERE $group != '' ORDER BY $group";
         return DB::select($sql);
     }
 
