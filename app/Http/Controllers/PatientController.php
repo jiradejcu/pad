@@ -12,6 +12,7 @@ class PatientController extends Controller {
 	private $rules, $patientField, $patientAdmissionField;
 	
 	public function __construct() {
+		$this->middleware('auth');
 		$this->rules = ['firstname' => 'required', 'lastname' => 'required', 'sex' => 'required'];
 		
 		$this->patientField = ['HN', 'firstname', 'lastname', 'sex', 'height', 'apache_ii', 'privilege'];

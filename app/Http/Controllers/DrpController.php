@@ -17,6 +17,7 @@ class DrpController extends Controller
 
     public function __construct()
     {
+	    $this->middleware('auth');
         $this->rules = ['hn' => 'required'];
         $this->med_rules = ['med_from' => 'required', 'med_to' => 'required', 'med_from_dose' => 'required', 'med_to_dose' => 'required'];
     }
