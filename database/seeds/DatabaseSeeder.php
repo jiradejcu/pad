@@ -8,6 +8,7 @@ use App\PatientAdmission;
 use App\PadRecord;
 use App\PadMedRecord;
 use App\Medicine;
+use App\User;
 
 class DatabaseSeeder extends Seeder {
 
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 
 		ini_set("memory_limit", -1);
 
+		$init_admin_user = true;
 		$import_patient = true;
 		$import_apache = true;
 		$import_diagnosis = true;
@@ -28,6 +30,15 @@ class DatabaseSeeder extends Seeder {
 		$import_lab = true;
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+		if ($init_admin_user) {
+			DB::table('users')->delete();
+			User::create([
+				'name'     => 'Admin',
+				'email'    => 'admin@prs.com',
+				'password' => Hash::make('P@ssw0rd'),
+			]);
+		}
 
 		if ($import_drug) {
 			DB::table('patient_pad_med_records')->truncate();
