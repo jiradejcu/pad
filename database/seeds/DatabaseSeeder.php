@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder {
 			DB::table('users')->delete();
 			User::create([
 				'name'     => 'Admin',
-				'email'    => 'admin@prs.com',
+				'email'    => 'admin',
 				'password' => Hash::make('P@ssw0rd'),
 			]);
 		}
