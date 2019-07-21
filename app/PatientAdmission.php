@@ -147,4 +147,12 @@ class PatientAdmission extends Model {
 	public function setBilirubinAttribute($value){
 		$this->attributes['bilirubin'] = convertEmptyToNull($value);
 	}
+
+	public function setApacheIiScoreAttribute($value){
+		$this->attributes['apache_ii_score'] = convertEmptyToNull($value);
+	}
+
+	public function setSofaScoreAttribute($value){
+		$this->attributes['sofa_score'] = convertEmptyToNull($value);
+	}
 }
