@@ -7,7 +7,7 @@ function convertNullToEmpty($value){
 }
 
 function convertEmptyToNull($value){
-	return (is_null($value) || is_nan((float)$value) || trim($value) == "" || trim($value) == "-") ? null : $value;
+	return (is_null($value) || is_nan((float)$value) || strtoupper($value) === 'NAN' || trim($value) == "" || trim($value) == "-") ? null : $value;
 }
 
 function convertFormDateToDBFormat($value){
