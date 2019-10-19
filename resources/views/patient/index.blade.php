@@ -10,7 +10,7 @@
     <a href="{{ url('/?view=table') }}">Table View</a>
 	@forelse ($patientList as $patient)
 		<h2><a class="btn btn-large btn-danger" data-toggle="confirmation" id="{{ $patient->HN }}">x</a>
-		Code : <a href="{{ url('/patient/'.$patient->HN.'/edit') }}">{{ $patient->HN }}</a> <!--<a href="{{ url('/patient/'.$patient->HN) }}">PAD</a>--></h2>
+		Code : <a href="{{ url('/patient/'.$patient->HN.'/edit') }}">{{ $patient->HN }}</a> <a href="{{ url('/patient/'.$patient->HN) }}">PAD</a></h2>
 		{{ $patient->firstname }} {{ $patient->lastname }}
 	@empty
 	    <p>No patient</p>
