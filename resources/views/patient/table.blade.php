@@ -16,7 +16,7 @@
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['platelet', 'bilirubin', 'map_or_vaso', 'creatinine_or_urine']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['apache_ii_score', 'sofa_score']);
 	?>
-    @if (!empty($patientList))
+    @if ($patientList->first())
     <table id="patient_table" width="100%" border="1px black" style="margin-top: 10px">
     	<thead>
             <tr>
