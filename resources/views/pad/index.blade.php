@@ -30,11 +30,15 @@
 			<td>Urine</td>
 			<td>Drug Interaction</td>
 			<td>Drug Interaction Detail</td>
-			<td>Hepatocellular Disease</td>
+			<td>Acute Liver Failure</td>
+			<td>Acute Liver Failure Cause</td>
 			<td>Cholestasis Jaundice</td>
 			<td>Mixed Pattern of Liver Disease</td>
 			<td>HD</td>
 			<td>Renal Impairment</td>
+			<td>Mechanical Ventilator</td>
+			<td>Mode of Ventilator</td>
+			<td>Non Pharmaco</td>
 			<td>Medication List</td>
 		</tr>
 		@foreach ($padRecords['padRecord'] as $padRecord)
@@ -60,10 +64,14 @@
 			<td>{{ convertTriState($padRecord->drug_interact) }}</td>
 			<td>{{ $padRecord->drug_interact_detail }}</td>
 			<td>{{ convertTriState($padRecord->hepato) }}</td>
+			<td>{{ $padRecord->hepato_detail }}</td>
 			<td>{{ convertTriState($padRecord->cholestasis) }}</td>
 			<td>{{ convertTriState($padRecord->liver_disease) }}</td>
 			<td>{{ convertTriState($padRecord->hd) }}</td>
 			<td>{{ $padRecord->renal_impairment }}</td>
+			<td>{{ convertTriState($padRecord->mechanical_ventilator) }}</td>
+			<td>{{ $padRecord->mechanical_ventilator_detail }}</td>
+			<td>{{ convertCheckboxArray($padRecord, $non_pharmaco_fields) }}</td>
 			<td>
 				<table id="padMedTable" class="table table-striped table-bordered">
 					<tbody>

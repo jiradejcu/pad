@@ -2,58 +2,74 @@
 define('DISPLAY_DATE_FORMAT', 'd-m-Y g:i A');
 define('DISPLAY_TIME_FORMAT', 'g:i A');
 
-function convertNullToEmpty($value){
+function convertNullToEmpty($value) {
 	return is_null($value) ? "" : $value;
 }
 
-function convertEmptyToNull($value){
-	return (is_null($value) || is_nan((float)$value) || strtoupper($value) === 'NAN' || trim($value) == "" || trim($value) == "-") ? null : $value;
+function convertEmptyToNull($value) {
+	return (is_null($value) || is_nan((float) $value) || strtoupper($value) === 'NAN' || trim($value) == "" || trim($value) == "-") ? null : $value;
 }
 
-function convertFormDateToDBFormat($value){
+function convertFormDateToDBFormat($value) {
 	return !empty($value) ? convertDateFormat($value, 'Y-m-d H:i:s') : null;
 }
 
-function convertFormTimeToDBFormat($value){
+function convertFormTimeToDBFormat($value) {
 	return !empty($value) ? convertDateFormat($value, 'H:i:s') : null;
 }
 
-function displayNullNumber($value){
+function displayNullNumber($value) {
 	return is_null($value) ? "-" : $value;
 }
 
-function displayDate($value){
+function displayDate($value) {
 	return convertDateFormat($value, 'd-m-Y');
 }
 
-function displayDateTime($value){
+function displayDateTime($value) {
 	return !empty($value) ? convertDateFormat($value, DISPLAY_DATE_FORMAT) : null;
 }
 
-function displayTime($value){
+function displayTime($value) {
 	return !empty($value) ? convertDateFormat($value, DISPLAY_TIME_FORMAT) : null;
 }
 
-function convertDateFormat($value, $format){
+function convertDateFormat($value, $format) {
 	$date = date_create($value);
+
 	return date_format($date, $format);
 }
 
-function convertTriState($value){
-	if(!isset($value))
+function convertTriState($value) {
+	if (!isset($value)) {
 		return 'N/A';
-	else
+	} else {
 		return !empty($value) ? 'Yes' : 'No';
+	}
 }
 
-function convertTetraState($value){
-	if(!isset($value))
-		return 'N/A';
-	else if(!empty($value)){
-		if($value == 1)
-			return 'Positive';
-		else if($value == -1)
-			return 'Negative';
+function convertCheckboxArray($obj, $list) {
+	$result = [];
+
+	foreach ($list as $key => $value) {
+		if ($obj->$key) {
+			$result[] = $value;
+		}
 	}
+
+	return join(", ", $result);
+}
+
+function convertTetraState($value) {
+	if (!isset($value)) {
+		return 'N/A';
+	} else if (!empty($value)) {
+		if ($value == 1) {
+			return 'Positive';
+		} else if ($value == -1) {
+			return 'Negative';
+		}
+	}
+
 	return 'Not Eval';
 }

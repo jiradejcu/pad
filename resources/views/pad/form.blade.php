@@ -91,16 +91,9 @@
 			{!! Form::label('non_pharmaco', 'Non Pharmaco :') !!}
 		</div>
 		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'sufficient_light', 'label_text' => 'แสงสว่างเพียงพอ'])
-			@include('form_control.checkbox', ['checkbox_name' => 'night_light_off', 'label_text' => 'กลางคืนปิดไฟ'])
-			@include('form_control.checkbox', ['checkbox_name' => 'blindfold', 'label_text' => 'ใช้ผ้าปิดตา'])
-			@include('form_control.checkbox', ['checkbox_name' => 'earplug', 'label_text' => 'ใช้ที่อุดหู'])
-			@include('form_control.checkbox', ['checkbox_name' => 'reorentation', 'label_text' => 'Reorentation'])
-			@include('form_control.checkbox', ['checkbox_name' => 'family_participation', 'label_text' => 'ญาติร่วมดูแล'])
-			@include('form_control.checkbox', ['checkbox_name' => 'early_ambulate', 'label_text' => 'Early Ambulate'])
-			@include('form_control.checkbox', ['checkbox_name' => 'rom', 'label_text' => 'ROM'])
-			@include('form_control.checkbox', ['checkbox_name' => 'stand_assist', 'label_text' => 'พายืน'])
-			@include('form_control.checkbox', ['checkbox_name' => 'bed_side_chair', 'label_text' => 'นั่งเก้าอี้ข้างเตียง'])
+            @foreach($non_pharmaco_fields as $key => $value)
+			    @include('form_control.checkbox', ['checkbox_name' => $key, 'label_text' => $value])
+            @endforeach
 		</div>
 		<hr>
 		<div class="form-group">
