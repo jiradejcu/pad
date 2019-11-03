@@ -1,4 +1,4 @@
-<? $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
+<?php $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
 @if(!empty($detail_text))
 <div class="form-group">
 @endif

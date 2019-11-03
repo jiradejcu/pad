@@ -1,5 +1,5 @@
-<? $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
-<? $group_class = !empty($group_class) ? $group_class : ''; ?>
+<?php $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
+<?php $group_class = !empty($group_class) ? $group_class : ''; ?>
 <div class="form-group">
 	<div class="form-group {!! $time_name !!}_from">
 		{!! Form::label($time_name . '_from', 'From :') !!}

@@ -1,4 +1,4 @@
-<? $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
+<?php $form_class = !empty($form_class) ? ' ' . $form_class : ''; ?>
 <div class="form-group">
 	{!! Form::label($datetime_name, $label_text) !!}<br>
 	{!! Form::label($datetime_name . '_from', 'From :') !!}
