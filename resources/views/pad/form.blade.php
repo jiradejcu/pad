@@ -85,7 +85,27 @@
 			<label class="radio-inline">{!! Form::radio('renal_impairment', 'esrd') !!}ESRD</label>
 		</div>
 		<div class="form-group">
-			{!! Form::label('padMedRecords', 'Medication Lists') !!}
+			@include('form_control.checkbox', ['checkbox_name' => 'mechanical_ventilator', 'label_text' => 'Mechanical Ventilator (Mode of Ventilator) : ', 'detail_text' => 1])
+		</div>
+		<div class="form-group">
+			{!! Form::label('non_pharmaco', 'Non Pharmaco :') !!}
+		</div>
+		<div class="form-group">
+			@include('form_control.checkbox', ['checkbox_name' => 'sufficient_light', 'label_text' => 'แสงสว่างเพียงพอ'])
+			@include('form_control.checkbox', ['checkbox_name' => 'night_light_off', 'label_text' => 'กลางคืนปิดไฟ'])
+			@include('form_control.checkbox', ['checkbox_name' => 'blindfold', 'label_text' => 'ใช้ผ้าปิดตา'])
+			@include('form_control.checkbox', ['checkbox_name' => 'earplug', 'label_text' => 'ใช้ที่อุดหู'])
+			@include('form_control.checkbox', ['checkbox_name' => 'reorentation', 'label_text' => 'Reorentation'])
+			@include('form_control.checkbox', ['checkbox_name' => 'family_participation', 'label_text' => 'ญาติร่วมดูแล'])
+			@include('form_control.checkbox', ['checkbox_name' => 'early_ambulate', 'label_text' => 'Early Ambulate'])
+			@include('form_control.checkbox', ['checkbox_name' => 'rom', 'label_text' => 'ROM'])
+			@include('form_control.checkbox', ['checkbox_name' => 'stand_assist', 'label_text' => 'พายืน'])
+			@include('form_control.checkbox', ['checkbox_name' => 'bed_side_chair', 'label_text' => 'นั่งเก้าอี้ข้างเตียง'])
+		</div>
+		<hr>
+		<div class="form-group">
+		    <h2>Medication Lists</h2>
+			<hr>
 			@include('pad.med', ['isHidden' => 1, 'medicines' => $medicines])
 			
 			@if(!empty($padRecord))
