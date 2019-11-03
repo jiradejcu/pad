@@ -65,7 +65,7 @@
 			@include('form_control.checkbox', ['checkbox_name' => 'drug_interact', 'label_text' => 'Drug Interactions', 'detail_text' => 1])
 		</div>
 		<div class="form-group">
-			@include('form_control.checkbox', ['checkbox_name' => 'hepato', 'label_text' => 'Hepatocellular Disease'])
+			@include('form_control.checkbox', ['checkbox_name' => 'hepato', 'label_text' => 'Acute Liver Failure (Cause)', 'detail_text' => 1])
 		</div>
 		<div class="form-group">
 			@include('form_control.checkbox', ['checkbox_name' => 'cholestasis', 'label_text' => 'Cholestasis Jaundice'])
