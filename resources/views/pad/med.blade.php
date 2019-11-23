@@ -39,11 +39,11 @@
 				<span class="space-vertical"></span>
 				<div class="form-group med_dose_hr">
 				{!! Form::label('med_dose_hr', 'Dose/Hr :') !!}
-				{!! Form::text('med_dose_hr', null, ['class' => 'form-control med-record-field']) !!}
+				{!! Form::text('med_dose_hr', null, ['class' => 'form-control med-record-field', 'style' => 'width: 100px']) !!}
 				</div>
 				<div class="form-group med_dose">
 				{!! Form::label('med_dose', 'Dose :') !!}
-				{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field']) !!}
+				{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field', 'style' => 'width: 100px']) !!}
 				</div>
 				<span class="space-vertical"></span>
 				{!! Form::label('indication', 'Indication :') !!}
