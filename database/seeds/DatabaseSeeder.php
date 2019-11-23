@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder {
 
 		ini_set("memory_limit", -1);
 
-		$init_admin_user = true;
-		$import_patient = true;
-		$import_apache = true;
-		$import_diagnosis = true;
-		$import_drug = true;
-		$import_lab = true;
+		$init_admin_user = false;
+		$import_patient = false;
+		$import_apache = false;
+		$import_diagnosis = false;
+		$import_drug = false;
+		$import_lab = false;
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
@@ -147,7 +147,6 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		if ($import_apache) {
-
 			$files = [
 				'Patients_7NW',
 				'Patients_9IC'
@@ -172,7 +171,6 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		if ($import_diagnosis) {
-
 			$diagnosis_list = Excel::load(public_path() . '/data/Diagnosis.xlsx')->get();
 
 			foreach ($diagnosis_list as $row) {
@@ -200,7 +198,6 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		if ($import_drug) {
-
 			$drugs = Excel::load(public_path() . '/data/DrugMaster.xlsx')->get();
 
 			foreach ($drugs as $row) {
@@ -210,9 +207,9 @@ class DatabaseSeeder extends Seeder {
 					];
 
 					$medicine = Medicine::firstOrNew($medicine_data);
-					$medicine->trade_name = $row['name'];
-					$medicine->format = $row['format'];
-					$medicine->unit = $row['unit'];
+					$medicine->trade_name = $row['name'] ? $row['name'] : '';
+					$medicine->format = $row['format'] ? $row['format'] : '';
+					$medicine->unit = $row['unit'] ? $row['unit'] : '';
 					$medicine->save();
 				}
 			}
