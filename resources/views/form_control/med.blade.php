@@ -45,6 +45,9 @@
 	        medForm.find('.med-select').each(function () {
 		        $(this).select2();
 	        });
+	        medForm.find('.indication-select').each(function () {
+		        $(this).select2({ minimumResultsForSearch: Infinity });
+	        });
 	        setDateTimePicker(medForm);
 		}
 

@@ -25,6 +25,13 @@ class PadController extends Controller {
 		'bed_side_chair'       => 'นั่งเก้าอี้ข้างเตียง',
 	];
 
+	private $indications = [
+		'Pain',
+		'Sedation/Agitation',
+		'Delirium',
+		'Sleep Deprivation'
+	];
+
 	private function getPadRecord($admission_id = null) {
 		$result = [];
 		if (!empty($admission_id)) {
@@ -49,6 +56,7 @@ class PadController extends Controller {
 	public function index() {
 		$padRecordList = $this->getPadRecord();
 
+		View::share('indications', $this->indications);
 		View::share('non_pharmaco_fields', $this->non_pharmaco_fields);
 
 		return view('pad.index', compact('padRecordList'));
@@ -73,6 +81,7 @@ class PadController extends Controller {
 			$padRecord->date_assessed = Carbon::createFromFormat(DISPLAY_DATE_FORMAT, $previousPadRecord->date_assessed)->addDay();
 		}
 
+		View::share('indications', $this->indications);
 		View::share('non_pharmaco_fields', $this->non_pharmaco_fields);
 
 		return view('pad.create', compact('id', 'medicines', 'padRecord'));
@@ -108,6 +117,7 @@ class PadController extends Controller {
 	public function show($id) {
 		$padRecordList = $this->getPadRecord($id);
 
+		View::share('indications', $this->indications);
 		View::share('non_pharmaco_fields', $this->non_pharmaco_fields);
 
 		return view('pad.index', compact('padRecordList'));
@@ -124,6 +134,7 @@ class PadController extends Controller {
 		$padRecord = PadRecord::findOrFail($id);
 		$medicines = Medicine::lists('name', 'name');
 
+		View::share('indications', $this->indications);
 		View::share('non_pharmaco_fields', $this->non_pharmaco_fields);
 
 		return view('pad.edit', compact('padRecord', 'medicines'));

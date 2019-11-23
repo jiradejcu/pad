@@ -45,6 +45,9 @@
 				{!! Form::label('med_dose', 'Dose :') !!}
 				{!! Form::text('med_dose', null, ['class' => 'form-control med-record-field']) !!}
 				</div>
+				<span class="space-vertical"></span>
+				{!! Form::label('indication', 'Indication :') !!}
+				{!! Form::select('indication', $indications, null, ['class' => 'form-control indication-select med-record-field', 'style' => 'width: 15%']) !!}
 				<div class="pull-right">
 		  			{!! Form::button('--', ['class' => 'btn btn-danger remove-record']) !!}
 		  			{!! Form::button('+', ['class' => 'btn add-record']) !!}

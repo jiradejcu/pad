@@ -83,6 +83,7 @@
 						<td>Slow HR</td>
 						<td>Constipation</td>
 						<td>Prolong Sedation</td>
+						<td>Indication</td>
 						<td>Remark</td>
 					</tr>
 					@foreach ($padRecord->padMedRecords->all() as $padMedRecord)
@@ -94,6 +95,7 @@
 						<td>{{ convertTriState($padMedRecord->slow_hr) }}</td>
 						<td>{{ convertTriState($padMedRecord->constipation) }}</td>
 						<td>{{ convertTriState($padMedRecord->prolong_sedation) }}</td>
+						<td>{{ $indications[$padMedRecord->indication] }}</td>
 						<td>{{ $padMedRecord->remark }}</td>
 					</tr>
 					@endforeach
