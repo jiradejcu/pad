@@ -10,25 +10,23 @@
 			$('.med-record-field').each(function () {
 				$(this).data("defaultName", medRecordName + '[%id%][' + $(this).attr("name") + ']');
 			});
-			if($('.med-record').length == 0)
-				addMedRecordForm();
-			else{
-                var index = 0;
-                $('.med-record').each(function(i){
-	                setMedRecordIndex($(this), ++index);
-                });
-                next = index;
 
-                $(".med-record-field[type='radio']").each(function(i){
-                    if($(this).attr("checked") == "checked")
-	                	$(this).prop("checked",true);
-                });
-                
-                $('.med-record').each(function(i){
-	                bindButtonEvent($(this));
-                });
-			}
-            setAddRemoveButton();
+            var index = 0;
+            $('.med-record').each(function(i){
+                setMedRecordIndex($(this), ++index);
+                bindButtonEvent($(this));
+            });
+            next = index;
+
+            $(".med-record-field[type='radio']").each(function(i){
+                if($(this).attr("checked") == "checked")
+                    $(this).prop("checked",true);
+            });
+
+	        $('.add-record').click(function(e){
+		        e.preventDefault();
+		        addMedRecordForm();
+		    });
 		});
 
 		function setMedRecordIndex(medForm, index){
@@ -64,12 +62,6 @@
 		}
 
 		function bindButtonEvent(medForm){
-	        medForm.find(".add-record").click(function(e){
-		        e.preventDefault();
-		        addMedRecordForm();
-		        setAddRemoveButton();
-		    });
-		    
 	        medForm.find('.remove-record').click(function(e){
                 e.preventDefault();
                 var record_id = $(this).data('recordId');
@@ -80,25 +72,11 @@
 	                setMedRecordIndex($(this), ++index);
                 });
                 next = index;
-                setAddRemoveButton();
             });
             
 	        if (typeof(bindOptionalEvent) == "function"){
 	        	bindOptionalEvent(medForm);
 	        }
-		}
-
-		function setAddRemoveButton(){
-            $('.med-record').each(function(i){
-                var medForm = $(this);
-    			var index = medForm.find('.remove-record').data('recordId');
-                
-    	        if(index == $('.med-record').length){
-	   	        	 medForm.find(".add-record").show();
-	   	        } else {
-	   	        	 medForm.find(".add-record").hide();
-	   	        }
-            });
 		}
 		//-->
 		</script>

@@ -97,7 +97,7 @@
 		</div>
 		<hr>
 		<div class="form-group">
-		    <h2>Medication Lists</h2>
+		    <h2>Medication Lists {!! Form::button('+', ['class' => 'btn btn-primary add-record']) !!}</h2>
 			<hr>
 			@include('pad.med', ['isHidden' => 1, 'medicines' => $medicines])
 			
@@ -106,7 +106,7 @@
 					@include('pad.med', ['isHidden' => 0, 'medicines' => $medicines])
 				@endforeach
 			@endif
-			
+
 			@include('form_control.med', ['medRecordName' => 'padMedRecords'])
 		</div>
 		<div class="form-group">
