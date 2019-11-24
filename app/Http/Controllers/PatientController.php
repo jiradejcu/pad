@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Patient;
@@ -15,23 +16,102 @@ class PatientController extends Controller {
 		$this->middleware('auth');
 		$this->rules = ['firstname' => 'required', 'lastname' => 'required', 'sex' => 'required'];
 
-		$this->patientField = ['HN', 'firstname', 'lastname', 'sex', 'height', 'apache_ii', 'privilege'];
-		$this->patientField = array_merge($this->patientField, ['allergy', 'allergy_detail', 'cancer_solid', 'cancer_solid_detail']);
-		$this->patientField = array_merge($this->patientField, ['cancer_hemato', 'cancer_hemato_detail', 'dm', 'htm', 'dlp', 'ckd', 'ckd_detail', 'cad', 'cad_detail']);
-		$this->patientField = array_merge($this->patientField, ['af', 'valvular', 'cva', 'seizure', 'neuro', 'neuro_detail', 'sle', 'ra', 'immune', 'immune_detail', 'osteoporosis']);
-		$this->patientField = array_merge($this->patientField, ['alzeimer', 'psychi', 'hypothyroid', 'hyperthyroid', 'asthma', 'copd', 'cirrhosis', 'others', 'others_detail']);
+		$this->patientField = [
+			'HN',
+			'firstname',
+			'lastname',
+			'sex',
+			'height',
+			'apache_ii',
+			'privilege',
+			'allergy',
+			'allergy_detail',
+			'cancer_solid',
+			'cancer_solid_detail',
+			'cancer_hemato',
+			'cancer_hemato_detail',
+			'dm',
+			'htm',
+			'dlp',
+			'ckd',
+			'ckd_detail',
+			'cad',
+			'cad_detail',
+			'af',
+			'valvular',
+			'cva',
+			'seizure',
+			'neuro',
+			'neuro_detail',
+			'sle',
+			'ra',
+			'immune',
+			'immune_detail',
+			'osteoporosis',
+			'alzeimer',
+			'psychi',
+			'hypothyroid',
+			'hyperthyroid',
+			'asthma',
+			'copd',
+			'cirrhosis',
+			'others',
+			'others_detail'
+		];
 
-		$this->patientAdmissionField = ['HN', 'age', 'type', 'hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from'];
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from', 'death']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['ett_date_from', 'ett_date_to', 'reason', 'previous_meds']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['septic_shock', 'adrenal_shock', 'hypovolemic_shock', 'cardiogenic_shock', 'asthma_exacerbation']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['copd_exacerbation', 'aki', 'liver_shock', 'seizure_shock', 'others_active', 'others_active_detail']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['ugib', 'coagulopathy', 'anemia']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['temperature', 'mean_arterial_pressure', 'heart_rate', 'respiratory_rate']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['fio2', 'aapo2', 'pao2', 'ph_choice', 'ph', 'hco3', 'serum_na', 'serum_k']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['creatinine', 'hematocrit', 'wbc', 'glasgow_coma', 'chronic_health_problem']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['platelet', 'bilirubin', 'map_or_vaso', 'creatinine_or_urine']);
-		$this->patientAdmissionField = array_merge($this->patientAdmissionField, ['apache_ii_score', 'sofa_score']);
+		$this->patientAdmissionField = [
+			'HN',
+			'age',
+			'type',
+			'hospital_admission_date_from',
+			'hospital_admission_date_to',
+			'hospital_admission_from',
+			'icu_admission_date_from',
+			'icu_admission_date_to',
+			'icu_admission_from',
+			'death',
+			'ett_date_from',
+			'ett_date_to',
+			'reason',
+			'previous_meds',
+			'septic_shock',
+			'adrenal_shock',
+			'hypovolemic_shock',
+			'cardiogenic_shock',
+			'asthma_exacerbation',
+			'copd_exacerbation',
+			'aki',
+			'liver_shock',
+			'seizure_shock',
+			'others_active',
+			'others_active_detail',
+			'ugib',
+			'coagulopathy',
+			'anemia',
+			'temperature',
+			'mean_arterial_pressure',
+			'heart_rate',
+			'respiratory_rate',
+			'fio2',
+			'aapo2',
+			'pao2',
+			'ph_choice',
+			'ph',
+			'hco3',
+			'serum_na',
+			'serum_k',
+			'creatinine',
+			'hematocrit',
+			'wbc',
+			'glasgow_coma',
+			'chronic_health_problem',
+			'platelet',
+			'bilirubin',
+			'map_or_vaso',
+			'creatinine_or_urine',
+			'apache_ii_score',
+			'sofa_score'
+		];
 	}
 
 	/**
@@ -40,10 +120,25 @@ class PatientController extends Controller {
 	 * @return Response
 	 */
 	public function index(Request $request) {
-		$patientList = Patient::all();
+		$patients = DB::table('patient');
+		$detail = [];
+		if ($request->get('detail')) {
+			$detail = explode(',', $request->get('detail'));
+			if (in_array('admission', $detail) || in_array('pad', $detail) || in_array('pad_med', $detail)) {
+				$patients = $patients->leftJoin('patient_admission', 'patient.HN', '=', 'patient_admission.HN');
+				if (in_array('pad', $detail) || in_array('pad_med', $detail)) {
+					$patients = $patients->leftJoin('patient_pad_record', 'patient_pad_record.admission_id', '=', 'patient_admission.admission_id');
+					if (in_array('pad_med', $detail)) {
+						$patients = $patients->leftJoin('patient_pad_med_records', 'patient_pad_record.record_id', '=', 'patient_pad_med_records.pad_record_id');
+					}
+				}
+			}
+		}
+		$patientList = $patients->get();
+
 		if ($request->get('view')) {
 			if ($request->get('view') == 'table') {
-				return view('patient.table', compact('patientList'));
+				return view('patient.table', compact('patientList', 'detail'));
 			}
 		}
 

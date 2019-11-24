@@ -15,18 +15,22 @@
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['creatinine', 'hematocrit', 'wbc', 'glasgow_coma', 'chronic_health_problem']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['platelet', 'bilirubin', 'map_or_vaso', 'creatinine_or_urine']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['apache_ii_score', 'sofa_score']);
+		$patientPadDisplayColumn = ['record_id','date_assessed','bw','nr','bps','rass','bis','anxiety','delirium','fio2','peep','rr','bp_h','bp_l','o2sat','ast','alt','alp','ggt','tb','db'];
+		$patientPadDisplayColumn = array_merge($patientPadDisplayColumn, ['albumin','bun','scr','i','o','urine','stool','hd','hd_mode','drug_interact','drug_interact_detail','hepato','hepato_detail']);
+		$patientPadDisplayColumn = array_merge($patientPadDisplayColumn, ['cholestasis','liver_disease','renal_impairment','ph','pco2','po2','hco3','po2_fi','ca','mg','mechanical_ventilator','mechanical_ventilator_detail']);
+		$patientPadDisplayColumn = array_merge($patientPadDisplayColumn, ['sufficient_light','night_light_off','blindfold','earplug','reorentation','family_participation','early_ambulate','rom','stand_assist','bed_side_chair']);
+		$patientPadMedDisplayColumn = ['med_record_id','med_name','med_channel','med_dose','med_dose_hr','med_time_from','med_time_to','bp_drop','slow_hr','constipation','prolong_sedation','indication','remark'];
+		$displayColumn = array_merge([], $patientDisplayColumn);
+		if(in_array('admission', $detail))$displayColumn = array_merge($displayColumn, $patientAdmissionDisplayColumn);
+		if(in_array('pad', $detail))$displayColumn = array_merge($displayColumn, $patientPadDisplayColumn);
+		if(in_array('pad_med', $detail))$displayColumn = array_merge($displayColumn, $patientPadMedDisplayColumn);
 	?>
-    @if ($patientList->first())
+    @if (count($patientList) > 0)
     <table id="patient_table" width="100%" border="1px black" style="margin-top: 10px">
     	<thead>
             <tr>
-                @foreach ($patientList[0]->toArray() as $key => $value)
-                    @if(in_array($key, $patientDisplayColumn))
-                    <td>{{ $key }}</td>
-                    @endif
-                @endforeach
-                @foreach ($patientList[0]->admissions()->first()->toArray() as $key => $value)
-                    @if(in_array($key, $patientAdmissionDisplayColumn))
+                @foreach ($patientList[0] as $key => $value)
+                    @if(in_array($key, $displayColumn))
                     <td>{{ $key }}</td>
                     @endif
                 @endforeach
@@ -35,13 +39,8 @@
     	<tbody>
             @foreach ($patientList as $patient)
             <tr>
-                @foreach ($patient->toArray() as $key => $value)
-                    @if(in_array($key, $patientDisplayColumn))
-                    <td>{{ $value }}</td>
-                    @endif
-                @endforeach
-                @foreach ($patient->admissions()->first()->toArray() as $key => $value)
-                    @if(in_array($key, $patientAdmissionDisplayColumn))
+                @foreach ($patient as $key => $value)
+                    @if(in_array($key, $displayColumn))
                     <td>{{ $value }}</td>
                     @endif
                 @endforeach
