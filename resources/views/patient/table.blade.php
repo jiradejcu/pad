@@ -9,7 +9,7 @@
     </h1>
     <a href="{{ url('/') }}">List View</a>
     <?php
-        $patientDisplayColumn = ['HN', 'firstname', 'lastname', 'sex'];
+        $patientDisplayColumn = ['HN', 'sex'];
         $patientAdmissionDisplayColumn = ['hospital_admission_date_from', 'hospital_admission_date_to', 'hospital_admission_from', 'icu_admission_date_from', 'icu_admission_date_to', 'icu_admission_from', 'ett_date_from', 'ett_date_to'];
         $patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['age', 'temperature', 'mean_arterial_pressure', 'heart_rate', 'respiratory_rate']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['fio2', 'aapo2', 'pao2', 'ph_choice', 'ph', 'hco3', 'serum_na', 'serum_k']);
