@@ -20,7 +20,7 @@
 
             $(".med-record-field[type='radio']").each(function(i){
                 if($(this).attr("checked") == "checked")
-                    $(this).prop("checked",true);
+                    $(this).prop("checked", true);
             });
 
 	        $('.add-record').click(function(e){

@@ -132,7 +132,7 @@
 		}
 
 		function setMedChannel(medForm) {
-			var medChannel = medForm.find("#med_channel:checked").get(0);
+			var medChannel = medForm.find("#med_channel:checked").get(0) || medForm.find("#med_channel[checked]").get(0);
 			var allDay = medForm.find(".all_day :checkbox");
 			if(medChannel.value == 'bolus'){
 				allDay.prop('checked', false);
