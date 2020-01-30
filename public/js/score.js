@@ -332,6 +332,14 @@ const input_lists = {
   ]
 }
 
+const post_process = {
+  'apache_ii_score': function(score) {
+    var x = -3.517 + score * 0.146
+    var result = Math.exp(x) / (1 + Math.exp(x))
+    $("[name='predicted_mortality_rate']").val((result * 100).toFixed(2) + '%')
+  }
+}
+
 const getScoreFromRange = function(input, range) {
   if (input == "" || isNaN(input))
     return NaN
@@ -421,6 +429,10 @@ const recalculateAllScore = function() {
         $(this).removeClass('active')
       }
     })
+
+    if (post_process[score_name]) {
+      post_process[score_name](total_score)
+    }
   })
 }
 

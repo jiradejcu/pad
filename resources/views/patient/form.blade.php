@@ -167,6 +167,10 @@
 
                 <div class="row">
                     <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('predicted_mortality_rate', 'Predicted Mortality Rate :') !!}
+                            {!! Form::text('predicted_mortality_rate', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -530,6 +534,15 @@
                         <div class="form-group">
                             {!! Form::label('glasgow_coma_score', 'Glasgow Coma Score :') !!}
                             {!! Form::text('glasgow_coma_score', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('predicted_mortality_rate', 'Predicted Mortality Rate :') !!}
+                            {!! Form::text('predicted_mortality_rate', null, ['class' => 'form-control', 'tabindex' => -1, 'readonly']) !!}
                         </div>
                     </div>
                 </div>
