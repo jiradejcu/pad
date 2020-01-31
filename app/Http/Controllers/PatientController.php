@@ -122,19 +122,23 @@ class PatientController extends Controller {
 	 */
 	public function index(Request $request) {
 		$patients = DB::table('patient');
+		$default_detail = env('PATIENT_TABLE_DETAIL', '');
 		$detail = [];
 		if ($request->get('detail')) {
 			$detail = explode(',', $request->get('detail'));
-			if (in_array('admission', $detail) || in_array('pad', $detail) || in_array('pad_med', $detail)) {
-				$patients = $patients->leftJoin('patient_admission', 'patient.HN', '=', 'patient_admission.HN');
-				if (in_array('pad', $detail) || in_array('pad_med', $detail)) {
-					$patients = $patients->leftJoin('patient_pad_record', 'patient_pad_record.admission_id', '=', 'patient_admission.admission_id');
-					if (in_array('pad_med', $detail)) {
-						$patients = $patients->leftJoin('patient_pad_med_records', 'patient_pad_record.record_id', '=', 'patient_pad_med_records.pad_record_id');
-					}
+		} else if(!empty($default_detail)) {
+			$detail = explode(',', $default_detail);
+		}
+		if (in_array('admission', $detail) || in_array('pad', $detail) || in_array('pad_med', $detail)) {
+			$patients = $patients->leftJoin('patient_admission', 'patient.HN', '=', 'patient_admission.HN');
+			if (in_array('pad', $detail) || in_array('pad_med', $detail)) {
+				$patients = $patients->leftJoin('patient_pad_record', 'patient_pad_record.admission_id', '=', 'patient_admission.admission_id');
+				if (in_array('pad_med', $detail)) {
+					$patients = $patients->leftJoin('patient_pad_med_records', 'patient_pad_record.record_id', '=', 'patient_pad_med_records.pad_record_id');
 				}
 			}
 		}
+
 		$patientList = $patients->get();
 
 		if ($request->get('view')) {
