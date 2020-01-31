@@ -15,7 +15,7 @@
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['fio2', 'aapo2', 'pao2', 'ph_choice', 'ph', 'hco3', 'serum_na', 'serum_k']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['creatinine', 'hematocrit', 'wbc', 'glasgow_coma', 'chronic_health_problem']);
 		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['platelet', 'bilirubin', 'map_or_vaso', 'creatinine_or_urine']);
-		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['apache_ii_score', 'sofa_score']);
+		$patientAdmissionDisplayColumn = array_merge($patientAdmissionDisplayColumn, ['apache_ii_score', 'sofa_score', 'predicted_mortality_rate']);
 		$patientPadDisplayColumn = ['record_id','date_assessed','bw','nr','bps','rass','bis','anxiety','delirium','fio2','peep','rr','bp_h','bp_l','o2sat','ast','alt','alp','ggt','tb','db'];
 		$patientPadDisplayColumn = array_merge($patientPadDisplayColumn, ['albumin','bun','scr','i','o','urine','stool','hd','hd_mode','drug_interact','drug_interact_detail','hepato','hepato_detail']);
 		$patientPadDisplayColumn = array_merge($patientPadDisplayColumn, ['cholestasis','liver_disease','renal_impairment','ph','pco2','po2','hco3','po2_fi','ca','mg','mechanical_ventilator','mechanical_ventilator_detail']);

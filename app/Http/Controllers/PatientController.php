@@ -110,7 +110,8 @@ class PatientController extends Controller {
 			'map_or_vaso',
 			'creatinine_or_urine',
 			'apache_ii_score',
-			'sofa_score'
+			'sofa_score',
+			'predicted_mortality_rate'
 		];
 	}
 
