@@ -1,13 +1,13 @@
 docker network create prs || true
 
-docker rm -f mariadb
+docker rm -f mysql
 docker run -d \
-    --name mariadb \
+    --name mysql \
     -v `pwd`/data:/var/lib/mysql \
     -p 3306:3306 \
     --network prs \
-    -e MARIADB_ALLOW_EMPTY_PASSWORD=1 \
-    mariadb/server:10.3
+    -e MYSQL_ALLOW_EMPTY_PASSWORD=1 \
+    mysql:5.6
 
 docker build -t prs ./docker
 docker rm -f prs
