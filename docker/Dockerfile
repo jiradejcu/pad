@@ -24,6 +24,17 @@ RUN yum install -y \
     php-mysql \
     php-fpm
 
+RUN yum install -y \
+    php-cli \
+    php-zip \
+    unzip
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN HASH="$(wget -q -O - https://composer.github.io/installer.sig)" \
+    && php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN composer
+
 RUN yum remove -y \
     php-cli \
     mod_php \
@@ -40,9 +51,5 @@ RUN yum update -y && yum install -y \
     php70w-xml
 
 RUN yum clean all
+RUN sed -i '/<Directory \"\/var\/www\/html\">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
 RUN systemctl enable httpd.service
-
-COPY install.sh /tmp
-WORKDIR /tmp
-RUN chmod +x install.sh && ./install.sh
-WORKDIR /
