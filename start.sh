@@ -9,6 +9,14 @@ docker run -d \
     -e MYSQL_ALLOW_EMPTY_PASSWORD=1 \
     mysql:5.6
 
+docker rm -f phpmyadmin
+docker run -d \
+    --name phpmyadmin \
+    --link mysql:db \
+    --network prs \
+    -p 8888:80 \
+    phpmyadmin/phpmyadmin
+
 docker build -t prs ./docker
 docker rm -f prs
 docker run -it -d \
