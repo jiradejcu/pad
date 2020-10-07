@@ -52,4 +52,5 @@ RUN yum update -y && yum install -y \
 
 RUN yum clean all
 RUN sed -i '/<Directory \"\/var\/www\/html\">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf
+RUN sed -i '/memory_limit/ s/128/1024/' /etc/php.ini
 RUN systemctl enable httpd.service
