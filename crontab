@@ -1,2 +1,2 @@
-00 18 * * * (date && echo 'mysqldump '$(date +'\%Y\%m\%d')'-prs.sql.gz' && mysqldump -u prs_admin -pP@ssw0rd prs | gzip > ~/backup/$(date +'\%Y\%m\%d')-prs.sql.gz 2>&1) >> ~/cron.log
-00 19 * * * (date && /usr/local/bin/aws2 s3 cp ~/backup/$(date +'\%Y\%m\%d')-prs.sql.gz s3://prs-db-backup 2>&1) >> ~/cron.log
+00 18 * * * (date && echo 'mysqldump '$(date +'\%Y\%m\%d')'-prs.sql.gz' && mysqldump --no-tablespaces --protocol=tcp -u prs_admin -pP@ssw0rd prs | gzip > ~/backup/$(date +'\%Y\%m\%d')-prs.sql.gz 2>&1) >> ~/cron.log
+00 19 * * * (date && docker run --rm -v ~/.aws:/root/.aws -v ~/backup:/backup amazon/aws-cli s3 cp /backup/$(date +'\%Y\%m\%d')-prs.sql.gz s3://prs-db-backup 2>&1) >> ~/cron.log
