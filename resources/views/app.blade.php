@@ -39,9 +39,10 @@
 					<li class="dropdown">
                         <a href="#" tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">Statistic <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/statistic') }}" tabindex="-1">Apache II (By Type)</a></li>
-                            <li><a href="{{ url('/statistic/year') }}" tabindex="-1">Apache II (By Year)</a></li>
-                            <li><a href="{{ url('/outliner') }}" tabindex="-1">Apache II (Outliner)</a></li>
+                            <li><a href="{{ url('/statistic/apache_ii') }}" tabindex="-1">Apache II (By Type)</a></li>
+                            <li><a href="{{ url('/statistic/apache_ii/year') }}" tabindex="-1">Apache II (By Year)</a></li>
+                            <li><a href="{{ url('/statistic/apache_ii/outliner') }}" tabindex="-1">Apache II (Outliner)</a></li>
+                            <li><a href="{{ url('/statistic/pad') }}" tabindex="-1">PAD</a></li>
                         </ul>
                     </li>
 				</ul>

@@ -308,4 +308,17 @@ class StatisticController extends Controller
         echo '<br>' . $sql . '<br>';
     }
 
+    private function padSQL()
+    {
+        $sql = "SELECT p.* FROM patient p";
+
+        return DB::select($sql);
+    }
+
+    public function pad()
+    {
+        $pads = $this->padSQL();
+        return view('statistic.pad', compact('pads'));
+    }
+
 }
