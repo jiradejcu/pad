@@ -126,7 +126,7 @@ class PatientController extends Controller {
 		$detail = [];
 		if ($request->get('detail')) {
 			$detail = explode(',', $request->get('detail'));
-		} else if(!empty($default_detail)) {
+		} else if(!empty($default_detail) && $request->get('view') == 'table') {
 			$detail = explode(',', $default_detail);
 		}
 		if (in_array('admission', $detail) || in_array('pad', $detail) || in_array('pad_med', $detail)) {
