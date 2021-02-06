@@ -315,12 +315,27 @@ class StatisticController extends Controller
         return $sql;
     }
 
+    private function padRecordSQL($field, $logic)
+    {
+        $sql = "SELECT SUM($field) FROM (SELECT admission_id, record_id, $logic AS $field FROM patient_pad_record) A";
+        $sql .= " WHERE pa.admission_id = A.admission_id GROUP BY admission_id";
+        return $sql;
+    }
+
     private function padSQL()
     {
-        $sql = "SELECT p.HN, p.firstname, p.lastname, TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to) / 24 AS icu_stay";
+        $sql = "SELECT HN, firstname, lastname, icu_stay, delirium_day, coma_day, rass_intarget_1, rass_intarget_2, rass_cnt";
+        $sql .= ", ROUND(rass_intarget_1 / rass_cnt * 100, 2) AS percent_rass_intarget_1";
+        $sql .= ", ROUND(rass_intarget_2 / rass_cnt * 100, 2) AS percent_rass_intarget_2";
+        $sql .= ", mechanical_day";
+        $sql .= " FROM (SELECT p.*, TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to) / 24 AS icu_stay";
         $sql .= ", (" . $this->assessDateSQL('delirium', 'IF(MAX(delirium) = 1, 1, 0)') . ") AS delirium_day";
-        $sql .= ", (" . $this->assessDateSQL('rass', 'IF(rass>=-5 AND rass<=-3, 1, 0)') . ") AS coma_day";
-        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id) GROUP BY pa.admission_id ORDER BY p.HN";
+        $sql .= ", (" . $this->assessDateSQL('rass', 'MAX(IF(rass>=-5 AND rass<=-3, 1, 0))') . ") AS coma_day";
+        $sql .= ", (" . $this->padRecordSQL('rass', 'IF(rass>=-1 AND rass<=0, 1, 0)') . ") AS rass_intarget_1";
+        $sql .= ", (" . $this->padRecordSQL('rass', 'IF(rass>=-2 AND rass<=0, 1, 0)') . ") AS rass_intarget_2";
+        $sql .= ", (" . $this->padRecordSQL('rass', 'IF(rass IS NOT NULL, 1, 0)') . ") AS rass_cnt";
+        $sql .= ", (" . $this->assessDateSQL('mechanical_ventilator', 'IF(MAX(mechanical_ventilator) = 1, 1, 0)') . ") AS mechanical_day";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id) GROUP BY pa.admission_id) B ORDER BY HN";
         return DB::select($sql);
     }
 
