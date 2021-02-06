@@ -308,13 +308,19 @@ class StatisticController extends Controller
         echo '<br>' . $sql . '<br>';
     }
 
+    private function assessDateSQL($field, $logic)
+    {
+        $sql = "SELECT SUM($field) FROM (SELECT admission_id, date_assessed, $logic AS $field FROM patient_pad_record GROUP BY admission_id , DATE(date_assessed)) A";
+        $sql .= " WHERE pa.admission_id = A.admission_id GROUP BY admission_id";
+        return $sql;
+    }
+
     private function padSQL()
     {
         $sql = "SELECT p.HN, p.firstname, p.lastname, TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to) / 24 AS icu_stay";
-        $sql .= ", (SELECT SUM(delirium) FROM (SELECT admission_id, date_assessed, IF(MAX(delirium) = 1, 1, 0) AS delirium FROM patient_pad_record GROUP BY admission_id , DATE(date_assessed)) A";
-        $sql .= " WHERE pa.admission_id = A.admission_id GROUP BY admission_id) AS delirium_day";
+        $sql .= ", (" . $this->assessDateSQL('delirium', 'IF(MAX(delirium) = 1, 1, 0)') . ") AS delirium_day";
+        $sql .= ", (" . $this->assessDateSQL('rass', 'IF(rass>=-5 AND rass<=-3, 1, 0)') . ") AS coma_day";
         $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id) GROUP BY pa.admission_id ORDER BY p.HN";
-        // dd($sql);
         return DB::select($sql);
     }
 
