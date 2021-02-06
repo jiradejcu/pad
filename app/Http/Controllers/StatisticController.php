@@ -310,7 +310,8 @@ class StatisticController extends Controller
 
     private function padSQL()
     {
-        $sql = "SELECT p.* FROM patient p";
+        $sql = "SELECT p.HN, p.firstname, p.lastname, TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to) / 24 AS icu_stay";
+        $sql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id) GROUP BY p.HN";
 
         return DB::select($sql);
     }
