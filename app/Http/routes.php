@@ -29,6 +29,8 @@ Route::resource('med', 'MedController');
 
 Route::get('statistic/pad', 'StatisticController@pad');
 
+Route::get('statistic/pad/med', 'StatisticController@padMed');
+
 Route::get('statistic/apache_ii/outliner', 'StatisticController@outliner');
 
 Route::get('statistic/apache_ii/{group?}', 'StatisticController@index');
