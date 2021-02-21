@@ -352,24 +352,25 @@ class StatisticController extends Controller
     private function padMedSQL($medName)
     {
         function getMainSql($medName, $HN = null){
-            $mainSql = "SELECT *, ROUND(SUM(COALESCE(med_dose_drip, med_dose)), 2) AS final_med_dose FROM (";
+            $mainSql = "SELECT *, ROUND(SUM(temp_med_dose), 2) AS final_med_dose FROM (";
+            $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS temp_med_dose FROM (";
             $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
-            $mainSql .= "SELECT *, COALESCE(IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration), 24) AS med_duration FROM (";
+            $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
             $mainSql .= "SELECT p.HN, pa.admission_id";
             $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
-            $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
+            $mainSql .= ", IF(ppmr.med_time_from IS NULL AND ppmr.med_time_to IS NULL, 24, TIME_TO_SEC(TIMEDIFF(COALESCE(ppmr.med_time_to, '23:59:59'), COALESCE(ppmr.med_time_from, '00:00:00'))) / 3600) AS temp_med_duration";
             $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
             $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
             $mainSql .= " WHERE med_name = '$medName'";
             if(!empty($HN)) $mainSql .= " AND HN = '" . $HN . "'";
-            $mainSql .= ") A) B) C";
+            $mainSql .= ") A) B) C) D";
             $mainSql .= " GROUP BY admission_id, DATE(date_assessed)";
             return $mainSql;
         }
         $sql = "SELECT HN, med_name, SUM(final_med_dose) AS sum_med_dose, COUNT(date_assessed_dp) AS med_day";
         $sql .= ", ROUND(SUM(final_med_dose)/COUNT(date_assessed_dp), 2) AS med_dose_day FROM (";
         $mainSql = getMainSql($medName);
-        $sql .= $mainSql . ") D GROUP BY HN ORDER BY HN";
+        $sql .= $mainSql . ") E GROUP BY HN ORDER BY HN";
 
         $data = DB::select($sql);
         $maxDay = 0;
