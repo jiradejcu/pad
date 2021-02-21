@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Medicine;
 
 use Illuminate\Http\Request;
 use DB;
@@ -396,10 +397,11 @@ class StatisticController extends Controller
         return $data;
     }
 
-    public function padMed($medName)
+    public function padMed($med_name = null)
     {
-        $data = $this->padMedSQL($medName);
-        return view('statistic.pad', compact('data'));
+        $medicines = Medicine::lists('name', 'name');
+        $data = empty($med_name) ? [] : $this->padMedSQL($med_name);
+        return view('statistic.pad', compact('data', 'medicines', 'med_name'));
     }
 
 }
