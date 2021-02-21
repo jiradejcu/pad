@@ -345,26 +345,53 @@ class StatisticController extends Controller
         return view('statistic.pad', compact('data'));
     }
 
-    private function padMedSQL()
+    private function padMedSQL($medName)
     {
-        $sql = "SELECT HN, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
-        $mainSql = "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
-        $mainSql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
+        $sql = "SELECT HN, med_name, SUM(final_med_dose) AS sum_med_dose, COUNT(date_assessed_dp) AS med_day";
+        $sql .= ", ROUND(SUM(final_med_dose)/COUNT(date_assessed_dp), 2) AS med_dose_day FROM (";
+        $mainSql = "SELECT *, ROUND(SUM(COALESCE(med_dose_drip, med_dose)), 2) AS final_med_dose FROM (";
+        $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
         $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
-        $mainSql .= "SELECT p.HN";
-        $mainSql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
-        $mainSql .= ", ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+        $mainSql .= "SELECT p.HN, pa.admission_id";
+        $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
         $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
         $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
         $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id) A) B) C";
-        $sql .= $mainSql . ") D GROUP BY HN, med_name ORDER BY med_name, HN";
+        $mainSql .= " WHERE med_name = '$medName' GROUP BY admission_id, DATE(date_assessed)";
+        $sql .= $mainSql . ") D GROUP BY HN ORDER BY HN";
 
-        return DB::select($sql);
+        $data = DB::select($sql);
+        $maxDay = 0;
+
+        function getDayField($i){
+            return 'day_' . ($i + 1);
+        }
+
+        foreach($data as $row){
+            $sql = "SELECT final_med_dose FROM (" . $mainSql . ") A WHERE A.HN = " . $row->HN . " AND A.med_name = '" . $row->med_name . "'";
+            $sql .= " ORDER BY date_assessed_dp";
+            $medData = DB::select($sql);
+            for($i = 0; $i < count($medData); $i++){
+                $day = getDayField($i);
+                $row->$day = $medData[$i]->final_med_dose;
+                $maxDay = $maxDay > $i ? $maxDay : $i;
+            }
+        }
+
+        foreach($data as $row){
+            for($i = 0; $i <= $maxDay; $i++){
+                $day = getDayField($i);
+                if(is_null($row->$day)){
+                    $row->$day = "";
+                }
+            }
+        }
+        return $data;
     }
 
     public function padMed()
     {
-        $data = $this->padMedSQL();
+        $data = $this->padMedSQL('Fentanyl');
         return view('statistic.pad', compact('data'));
     }
 
