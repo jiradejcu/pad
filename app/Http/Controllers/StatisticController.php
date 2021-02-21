@@ -350,13 +350,14 @@ class StatisticController extends Controller
         $sql = "SELECT HN, med_name, SUM(final_med_dose) AS sum_med_dose, icu_stay, SUM(final_med_dose)/icu_stay AS med_dose_day FROM (";
         $mainSql = "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
         $mainSql .= "SELECT *, med_duration * med_dose_hr AS med_dose_drip FROM (";
+        $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
         $mainSql .= "SELECT p.HN";
         $mainSql .= ", TIMESTAMPDIFF(HOUR, pa.icu_admission_date_from, pa.icu_admission_date_to)/24 AS icu_stay";
         $mainSql .= ", ppr.date_assessed, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
-        $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS med_duration";
+        $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
         $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
-        $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id) A) B";
-        $sql .= $mainSql . ") C GROUP BY HN, med_name ORDER BY med_name, HN";
+        $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id) A) B) C";
+        $sql .= $mainSql . ") D GROUP BY HN, med_name ORDER BY med_name, HN";
 
         return DB::select($sql);
     }
