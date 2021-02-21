@@ -347,17 +347,24 @@ class StatisticController extends Controller
 
     private function padMedSQL($medName)
     {
+        function getMainSql($medName, $HN = null){
+            $mainSql = "SELECT *, ROUND(SUM(COALESCE(med_dose_drip, med_dose)), 2) AS final_med_dose FROM (";
+            $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
+            $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
+            $mainSql .= "SELECT p.HN, pa.admission_id";
+            $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+            $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
+            $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
+            $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
+            $mainSql .= " WHERE med_name = '$medName'";
+            if(!empty($HN)) $mainSql .= " AND HN = '" . $HN . "'";
+            $mainSql .= ") A) B) C";
+            $mainSql .= " GROUP BY admission_id, DATE(date_assessed)";
+            return $mainSql;
+        }
         $sql = "SELECT HN, med_name, SUM(final_med_dose) AS sum_med_dose, COUNT(date_assessed_dp) AS med_day";
         $sql .= ", ROUND(SUM(final_med_dose)/COUNT(date_assessed_dp), 2) AS med_dose_day FROM (";
-        $mainSql = "SELECT *, ROUND(SUM(COALESCE(med_dose_drip, med_dose)), 2) AS final_med_dose FROM (";
-        $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
-        $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
-        $mainSql .= "SELECT p.HN, pa.admission_id";
-        $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
-        $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
-        $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
-        $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id) A) B) C";
-        $mainSql .= " WHERE med_name = '$medName' GROUP BY admission_id, DATE(date_assessed)";
+        $mainSql = getMainSql($medName);
         $sql .= $mainSql . ") D GROUP BY HN ORDER BY HN";
 
         $data = DB::select($sql);
@@ -368,7 +375,7 @@ class StatisticController extends Controller
         }
 
         foreach($data as $row){
-            $sql = "SELECT final_med_dose FROM (" . $mainSql . ") A WHERE A.HN = " . $row->HN . " AND A.med_name = '" . $row->med_name . "'";
+            $sql = "SELECT final_med_dose FROM (" . getMainSql($medName, $row->HN) . ") A";
             $sql .= " ORDER BY date_assessed_dp";
             $medData = DB::select($sql);
             for($i = 0; $i < count($medData); $i++){
