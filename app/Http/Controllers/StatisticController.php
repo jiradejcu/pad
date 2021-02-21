@@ -396,9 +396,9 @@ class StatisticController extends Controller
         return $data;
     }
 
-    public function padMed()
+    public function padMed($medName)
     {
-        $data = $this->padMedSQL('Fentanyl');
+        $data = $this->padMedSQL($medName);
         return view('statistic.pad', compact('data'));
     }
 
