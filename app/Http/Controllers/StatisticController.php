@@ -9,6 +9,9 @@ use DB;
 
 class StatisticController extends Controller
 {
+	public function __construct() {
+		$this->middleware('auth');
+	}
 
     public function index($group = 'type')
     {
