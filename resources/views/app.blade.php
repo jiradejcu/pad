@@ -41,6 +41,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/statistic/pad') }}" tabindex="-1">PAD</a></li>
                             <li><a href="{{ url('/statistic/pad/med') }}" tabindex="-1">PAD Med</a></li>
+                            <li><a href="{{ url('/statistic/pad/med_hr') }}" tabindex="-1">PAD Med Hr</a></li>
                             <li><a href="{{ url('/statistic/apache_ii') }}" tabindex="-1">Apache II (By Type)</a></li>
                             <li><a href="{{ url('/statistic/apache_ii/year') }}" tabindex="-1">Apache II (By Year)</a></li>
                             <li><a href="{{ url('/statistic/apache_ii/outliner') }}" tabindex="-1">Apache II (Outliner)</a></li>

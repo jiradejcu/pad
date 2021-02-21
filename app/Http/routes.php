@@ -31,6 +31,8 @@ Route::get('statistic/pad', 'StatisticController@pad');
 
 Route::get('statistic/pad/med/{med_name?}', 'StatisticController@padMed');
 
+Route::get('statistic/pad/med_hr/{med_name?}', 'StatisticController@padMedHr');
+
 Route::get('statistic/apache_ii/outliner', 'StatisticController@outliner');
 
 Route::get('statistic/apache_ii/{group?}', 'StatisticController@index');

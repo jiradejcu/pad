@@ -16,7 +16,7 @@
     $('.med-select').each(function () {
         $(this).select2();
         $(this).change(function(event) {
-            window.location='{{ url('/statistic/pad/med') }}/' + $(this).val();
+            window.location='{{ url('/statistic/pad') . ($hr ? '/med_hr' : '/med') }}/' + $(this).val();
         })
     });
     </script>

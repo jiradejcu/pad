@@ -349,15 +349,15 @@ class StatisticController extends Controller
         return view('statistic.pad', compact('data'));
     }
 
-    private function padMedSQL($medName)
+    private function padMedSQL($medName, $hr=false)
     {
         function getMainSql($medName, $HN = null){
-            $mainSql = "SELECT *, ROUND(SUM(final_med_dose), 2) AS day_med_dose FROM (";
+            $mainSql = "SELECT *, ROUND(SUM(med_duration), 2) AS day_med_duration, ROUND(SUM(final_med_dose), 2) AS day_med_dose FROM (";
             $mainSql .= "SELECT *, COALESCE(med_dose_drip, med_dose) AS final_med_dose FROM (";
             $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
-            $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
+            $mainSql .= "SELECT *, IF(med_channel='drip', IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration), NULL) AS med_duration FROM (";
             $mainSql .= "SELECT p.HN, pa.admission_id";
-            $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
+            $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_channel, ppmr.med_dose, ppmr.med_dose_hr";
             $mainSql .= ", IF(ppmr.med_time_from IS NULL AND ppmr.med_time_to IS NULL, 24, TIME_TO_SEC(TIMEDIFF(COALESCE(ppmr.med_time_to, '23:59:59'), COALESCE(ppmr.med_time_from, '00:00:00'))) / 3600) AS temp_med_duration";
             $mainSql .= " FROM patient p JOIN patient_admission pa USING(HN) JOIN patient_pad_record ppr USING(admission_id)";
             $mainSql .= " JOIN patient_pad_med_records ppmr ON ppr.record_id = ppmr.pad_record_id";
@@ -375,16 +375,16 @@ class StatisticController extends Controller
         $data = DB::select($sql);
         $maxDay = 0;
 
-        function getDayField($i){
-            return 'day_' . ($i + 1);
+        function getDayField($i, $hr){
+            return 'day_' . ($hr ? 'hr_' : '') . ($i + 1);
         }
 
         foreach($data as $row){
-            $sql = "SELECT day_med_dose FROM (" . getMainSql($medName, $row->HN) . ") A";
+            $sql = "SELECT " . ($hr ? "ROUND(day_med_dose/day_med_duration, 2) AS day_med_dose" : "day_med_dose") . " FROM (" . getMainSql($medName, $row->HN) . ") A";
             $sql .= " ORDER BY date_assessed_dp";
             $medData = DB::select($sql);
             for($i = 0; $i < count($medData); $i++){
-                $day = getDayField($i);
+                $day = getDayField($i, $hr);
                 $row->$day = $medData[$i]->day_med_dose;
                 $maxDay = $maxDay > $i ? $maxDay : $i;
             }
@@ -392,7 +392,7 @@ class StatisticController extends Controller
 
         foreach($data as $row){
             for($i = 0; $i <= $maxDay; $i++){
-                $day = getDayField($i);
+                $day = getDayField($i, $hr);
                 if(is_null($row->$day)){
                     $row->$day = "";
                 }
@@ -406,6 +406,14 @@ class StatisticController extends Controller
         $medicines = Medicine::lists('name', 'name');
         $data = empty($med_name) ? [] : $this->padMedSQL($med_name);
         return view('statistic.pad', compact('data', 'medicines', 'med_name'));
+    }
+
+    public function padMedHr($med_name = null)
+    {
+        $hr = true;
+        $medicines = Medicine::lists('name', 'name');
+        $data = empty($med_name) ? [] : $this->padMedSQL($med_name, $hr);
+        return view('statistic.pad', compact('data', 'medicines', 'med_name', 'hr'));
     }
 
 }
