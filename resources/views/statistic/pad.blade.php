@@ -4,13 +4,13 @@
 <table width="100%" border="1px black">
     <thead>
         <tr>
-        @foreach ($pads[0] as $key => $value)
+        @foreach ($data[0] as $key => $value)
             <th>{{ $key }}</th>
         @endforeach
         </tr>
     </thead>
     <tbody>
-        @foreach ($pads as $row)
+        @foreach ($data as $row)
         <tr>
             @foreach ($row as $value)
             <td>{{ $value }}</td>

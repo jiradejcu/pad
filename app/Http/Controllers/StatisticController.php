@@ -341,8 +341,8 @@ class StatisticController extends Controller
 
     public function pad()
     {
-        $pads = $this->padSQL();
-        return view('statistic.pad', compact('pads'));
+        $data = $this->padSQL();
+        return view('statistic.pad', compact('data'));
     }
 
     private function padMedSQL()
@@ -364,8 +364,8 @@ class StatisticController extends Controller
 
     public function padMed()
     {
-        $pads = $this->padMedSQL();
-        return view('statistic.pad', compact('pads'));
+        $data = $this->padMedSQL();
+        return view('statistic.pad', compact('data'));
     }
 
 }
