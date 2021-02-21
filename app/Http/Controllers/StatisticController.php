@@ -354,7 +354,7 @@ class StatisticController extends Controller
         function getMainSql($medName, $HN = null){
             $mainSql = "SELECT *, ROUND(SUM(COALESCE(med_dose_drip, med_dose)), 2) AS final_med_dose FROM (";
             $mainSql .= "SELECT *, DATE(date_assessed) AS date_assessed_dp, med_duration * med_dose_hr AS med_dose_drip FROM (";
-            $mainSql .= "SELECT *, IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration) AS med_duration FROM (";
+            $mainSql .= "SELECT *, COALESCE(IF(temp_med_duration < 0, temp_med_duration + 24, temp_med_duration), 24) AS med_duration FROM (";
             $mainSql .= "SELECT p.HN, pa.admission_id";
             $mainSql .= ", ppr.date_assessed, ppmr.med_time_from, ppmr.med_time_to, ppmr.med_name, ppmr.med_dose, ppmr.med_dose_hr";
             $mainSql .= ", TIME_TO_SEC(TIMEDIFF(ppmr.med_time_to, ppmr.med_time_from))/3600 AS temp_med_duration";
