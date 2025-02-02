@@ -7,7 +7,7 @@ docker run -d \
     -p 3306:3306 \
     --network prs \
     -e MYSQL_ALLOW_EMPTY_PASSWORD=1 \
-    mysql:5.6
+    mysql:8.0
 
 docker rm -f phpmyadmin
 docker run -d \
