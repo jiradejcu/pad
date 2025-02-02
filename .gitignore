@@ -62,3 +62,6 @@ data/*
 
 backup/*
 !backup/.gitkeep
+
+bootstrap/cache/*
+!bootstrap/cache/.gitkeep
