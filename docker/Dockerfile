@@ -13,3 +13,4 @@ RUN HASH="$(wget -q -O - https://composer.github.io/installer.sig)" \
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN composer
 RUN docker-php-ext-install pdo pdo_mysql
+RUN a2enmod rewrite
